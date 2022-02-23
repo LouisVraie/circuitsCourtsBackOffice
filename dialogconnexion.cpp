@@ -50,7 +50,6 @@ void DialogConnexion::on_pushButtonConnexion_clicked()
     QSqlQuery resultUserExists(reqUserExists);
     resultUserExists.next();
     int nbEmploye = resultUserExists.value(0).toInt();
-    qDebug()<<nbEmploye;
     if (nbEmploye){
         QString reqNumeroTypeEmploye = "SELECT numeroTypeEmploye FROM Employe "
                                "WHERE loginEmploye = '"+login+"' "
@@ -60,7 +59,6 @@ void DialogConnexion::on_pushButtonConnexion_clicked()
 
         resultNumeroTypeEmploye.next();
         numeroTypeEmploye = resultNumeroTypeEmploye.value(0).toInt();
-        qDebug()<<numeroTypeEmploye;
         accept();
     } else {
         ui->labelConnexionError->setText("Le login ou le mot de passe est incorrect !");
