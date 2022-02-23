@@ -20,13 +20,13 @@ public:
     explicit DialogConnexion(QWidget *parent = nullptr);
     ~DialogConnexion();
 
-    bool getVerifConnexion();
+    int getNumeroTypeEmploye();
 private slots:
     void on_pushButtonConnexion_clicked();
 
 private:
     Ui::DialogConnexion *ui;
-    bool verifConnexion;
+    int numeroTypeEmploye;
 };
 
 #endif // DIALOGCONNEXION_H

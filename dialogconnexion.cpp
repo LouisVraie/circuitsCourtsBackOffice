@@ -11,7 +11,7 @@ DialogConnexion::DialogConnexion(QWidget *parent) :
     ui(new Ui::DialogConnexion)
 {
     ui->setupUi(this);
-    verifConnexion = false;
+    numeroTypeEmploye = 0;
 }
 
 /**
@@ -26,32 +26,43 @@ DialogConnexion::~DialogConnexion()
 /**
  * @brief DialogConnexion::getVerifConnexion
  * Méthode publique de la classe DialogConnexion
- * @return bool Booléen qui renvoie si la connexion est bonne
+ * @return int Entier qui renvoie le numeroTypeEmploye
  */
-bool DialogConnexion::getVerifConnexion()
+int DialogConnexion::getNumeroTypeEmploye()
 {
-    return verifConnexion;
+    return numeroTypeEmploye;
 }
 
 /**
  * @brief DialogConnexion::on_pushButtonConnexion_clicked
+ * Méthode privée
  */
 void DialogConnexion::on_pushButtonConnexion_clicked()
 {
     qDebug()<<"void DialogConnexion::on_pushButtonConnexion_clicked()";
     QString login = ui->lineEditLogin->text();
     QString mdp = ui->lineEditMotDePasse->text();
-    QString reqConnexion = "SELECT COUNT(*) FROM Employe "
+    //on vérifie si l'utilisateur existe
+    QString reqUserExists = "SELECT COUNT(*) FROM Employe "
                            "WHERE loginEmploye = '"+login+"' "
                            "AND motDePasseEmploye = PASSWORD('"+mdp+"')";
-    qDebug()<<reqConnexion;
-    QSqlQuery resultConnexion(reqConnexion);
+    qDebug()<<reqUserExists;
+    QSqlQuery resultUserExists(reqUserExists);
+    resultUserExists.next();
+    int nbEmploye = resultUserExists.value(0).toInt();
+    qDebug()<<nbEmploye;
+    if (nbEmploye){
+        QString reqNumeroTypeEmploye = "SELECT numeroTypeEmploye FROM Employe "
+                               "WHERE loginEmploye = '"+login+"' "
+                               "AND motDePasseEmploye = PASSWORD('"+mdp+"')";
+        qDebug()<<reqNumeroTypeEmploye;
+        QSqlQuery resultNumeroTypeEmploye(reqNumeroTypeEmploye);
 
-    resultConnexion.next();
-    int nbEmploye = resultConnexion.value(0).toInt();
-
-    //si l'employé existe
-    if(nbEmploye){
-        verifConnexion = true;
+        resultNumeroTypeEmploye.next();
+        numeroTypeEmploye = resultNumeroTypeEmploye.value(0).toInt();
+        qDebug()<<numeroTypeEmploye;
+        accept();
+    } else {
+        ui->labelConnexionError->setText("Le login ou le mot de passe est incorrect !");
     }
 }

@@ -6,15 +6,29 @@
  * Constructeur de la classe MainWindow qui crée la fenêtre de notre application
  * @param parent: QWidget
  */
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(int numeroTypeEmploye,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    //on affiche la fenêtre de connexion
-    DialogConnexion fenetreConnexion(this);
-    fenetreConnexion.exec();
-
     ui->setupUi(this);
+
+    setWindowTitle("CircuitsCourtsBackOffice - Tableau de Bord : ");
+
+    //selon le numeroTypeEmploye on affiche le bon libelle dans le titre de la mainwindow
+    switch(numeroTypeEmploye){
+        case 1:
+            setWindowTitle(windowTitle()+"SuperAdmin");
+            ui->stackedWidget->setCurrentIndex(0);
+            break;
+        case 2:
+            setWindowTitle(windowTitle()+"Administrateur");
+            ui->stackedWidget->setCurrentIndex(1);
+            break;
+        case 3:
+            setWindowTitle(windowTitle()+"Modérateur");
+            ui->stackedWidget->setCurrentIndex(2);
+            break;
+    }
 }
 
 /**

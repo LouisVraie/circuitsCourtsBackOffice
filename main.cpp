@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "dialogconnexion.h"
 #include <QApplication>
 #include <QSqlDatabase>
 #include <QDebug>
@@ -19,8 +20,12 @@ int main(int argc, char *argv[])
     }
 
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    DialogConnexion connexion;
+    if(connexion.exec() == QDialog::Accepted){
+        MainWindow w(connexion.getNumeroTypeEmploye());
+        w.show();
 
-    return a.exec();
+        return a.exec();
+    }
+
 }

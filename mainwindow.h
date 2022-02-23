@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "dialogconnexion.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(int numeroTypeEmploye, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
