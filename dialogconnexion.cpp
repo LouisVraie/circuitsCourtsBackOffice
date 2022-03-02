@@ -11,6 +11,8 @@ DialogConnexion::DialogConnexion(QWidget *parent) :
     ui(new Ui::DialogConnexion)
 {
     ui->setupUi(this);
+    ui->lineEditLogin->setText("ADMIN");
+    ui->lineEditMotDePasse->setText("XITgfUibs1456");
     numeroEmploye = "";
 }
 
@@ -63,4 +65,45 @@ void DialogConnexion::on_pushButtonConnexion_clicked()
     } else {
         ui->labelConnexionError->setText("Le login ou le mot de passe est incorrect !");
     }
+}
+
+/**
+ * @brief DialogConnexion::quitConfirm()
+ * Méthode publique de la classe DialogConnexion qui sert à afficher un message de confirmation pour quitter
+ * @return Retourne un booléen vrai si l'utilisateur confirme, sinon renvoie faux
+ */
+bool DialogConnexion::quitConfirm()
+{
+    if(QMessageBox::warning(this,this->windowTitle(),"Voulez-vous vraiment quitter l'application ?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+    {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+/**
+ * @brief DialogConnexion::closeEvent
+ * Méthode publique de la classe DialogConnexion qui execute la méthode quitConfirm() quand l'utilisateur cherche à fermer la fenêtre
+ * @param event Événement de fermeture
+ */
+void DialogConnexion::closeEvent(QCloseEvent *event)
+{
+    if(quitConfirm())
+    {
+        event->accept();
+    }
+    else {
+        event->ignore();
+    }
+}
+
+/**
+ * @brief DialogConnexion::on_pushButtonQuitter_clicked
+ * Méthode private slots de la classe DialogConnexion qui créer un événement de fermeture de fenêtre
+ */
+void DialogConnexion::on_pushButtonQuitter_clicked()
+{
+    close();
 }

@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QDebug>
 #include <QSqlQuery>
+#include <QMessageBox>
+#include <QCloseEvent>
 
 namespace Ui {
 class DialogConnexion;
@@ -21,8 +23,13 @@ public:
     ~DialogConnexion();
 
     QString getNumeroEmploye();
+
+    bool quitConfirm();
+    void closeEvent(QCloseEvent *event);
 private slots:
     void on_pushButtonConnexion_clicked();
+
+    void on_pushButtonQuitter_clicked();
 
 private:
     Ui::DialogConnexion *ui;
