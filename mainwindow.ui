@@ -14,21 +14,43 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QStackedWidget" name="stackedWidget">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>70</y>
-      <width>731</width>
-      <height>571</height>
+      <x>30</x>
+      <y>10</y>
+      <width>681</width>
+      <height>621</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
-    <widget class="QWidget" name="superAdmin"/>
-    <widget class="QWidget" name="administrateur"/>
-    <widget class="QWidget" name="moderateur"/>
+    <widget class="QWidget" name="tab_tableauDeBord">
+     <attribute name="title">
+      <string>Tableau de bord</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_employes">
+     <attribute name="title">
+      <string>Employés</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_producteurs">
+     <attribute name="title">
+      <string>Producteurs</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_rayonsProduits">
+     <attribute name="title">
+      <string>Rayons / Produits</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_profil">
+     <attribute name="title">
+      <string>Profil</string>
+     </attribute>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
