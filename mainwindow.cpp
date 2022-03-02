@@ -11,10 +11,12 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->numeroEmploye = numeroEmploye;
 
     setWindowTitle("CircuitsCourtsBackOffice - Tableau de Bord : ");
 
     getInfosEmploye();
+    setTab_profil();
 }
 
 /**
@@ -35,8 +37,8 @@ void MainWindow::getInfosEmploye()
     qDebug()<<"void MainWindow::getInfosEmploye()";
     //selon le numeroEmploye on exécute une requête SQL qui nous récupère toutes les informations
     QString reqInfosEmploye = "SELECT loginEmploye, nomEmploye, prenomEmploye, adresseEmploye, codePostalEmploye, villeEmploye, "
-                              "mailEmploye, telEmploye, libelleTypeEmploye FROM Employe e"
-                              "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye"
+                              "mailEmploye, telEmploye, libelleTypeEmploye FROM Employe e "
+                              "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye "
                               "WHERE numeroEmploye = "+numeroEmploye;
     qDebug()<<reqInfosEmploye;
     QSqlQuery resultInfosEmploye(reqInfosEmploye);
@@ -51,4 +53,23 @@ void MainWindow::getInfosEmploye()
     mail = resultInfosEmploye.value("mailEmploye").toString();
     tel = resultInfosEmploye.value("telEmploye").toString();
     libelleTypeEmploye = resultInfosEmploye.value("libelleTypeEmploye").toString();
+}
+
+/**
+ * @brief MainWindow::setTab_profil
+ * Méthode publique de la classe MainWindow qui remplit les informations du tab Profil
+ */
+void MainWindow::setTab_profil()
+{
+    qDebug()<<"void MainWindow::setTab_profil()";
+    ui->lineEdit_nomEmploye->setText(nom);
+    ui->lineEdit_prenomEmploye->setText(prenom);
+    ui->lineEdit_typeEmploye->setText(libelleTypeEmploye);
+    ui->lineEdit_loginEmploye->setText(login);
+    ui->lineEdit_adresseEmploye->setText(adresse);
+    ui->lineEdit_codePostalEmploye->setText(codePostal);
+    ui->lineEdit_villeEmploye->setText(ville);
+    ui->lineEdit_mailEmploye->setText(mail);
+    ui->lineEdit_telEmploye->setText(tel);
+
 }

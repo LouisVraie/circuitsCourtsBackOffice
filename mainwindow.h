@@ -21,6 +21,8 @@ public:
     ~MainWindow();
 
     void getInfosEmploye();
+
+    void setTab_profil();
 private:
     Ui::MainWindow *ui;
 
