@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/connexion.png</file>
+        <file>images/power.png</file>
+        <file>images/login-variant.png</file>
+        <file>images/content-save.png</file>
+        <file>images/cancel.png</file>
+        <file>images/tractor.png</file>
+        <file>images/table.png</file>
+        <file>images/format-list-text.png</file>
+        <file>images/account-tie.png</file>
+        <file>images/account-supervisor.png</file>
+        <file>images/account-details.png</file>
+        <file>images/account.png</file>
+    </qresource>
+</RCC>
