@@ -32,12 +32,23 @@ MainWindow::~MainWindow()
  */
 void MainWindow::getInfosEmploye()
 {
+    qDebug()<<"void MainWindow::getInfosEmploye()";
     //selon le numeroEmploye on exécute une requête SQL qui nous récupère toutes les informations
-    QString reqInfosEmploye = "SELECT numeroTypeEmploye FROM Employe "
-                           "WHERE numeroEmploye = "+numeroEmploye;
+    QString reqInfosEmploye = "SELECT loginEmploye, nomEmploye, prenomEmploye, adresseEmploye, codePostalEmploye, villeEmploye, "
+                              "mailEmploye, telEmploye, libelleTypeEmploye FROM Employe e"
+                              "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye"
+                              "WHERE numeroEmploye = "+numeroEmploye;
     qDebug()<<reqInfosEmploye;
     QSqlQuery resultInfosEmploye(reqInfosEmploye);
 
     resultInfosEmploye.next();
-    QString numeroTypeEmploye = resultInfosEmploye.value(0).toString();
+    login = resultInfosEmploye.value("loginEmploye").toString();
+    nom = resultInfosEmploye.value("nomEmploye").toString();
+    prenom = resultInfosEmploye.value("prenomEmploye").toString();
+    adresse = resultInfosEmploye.value("adresseEmploye").toString();
+    codePostal = resultInfosEmploye.value("codePostalEmploye").toString();
+    ville = resultInfosEmploye.value("villeEmploye").toString();
+    mail = resultInfosEmploye.value("mailEmploye").toString();
+    tel = resultInfosEmploye.value("telEmploye").toString();
+    libelleTypeEmploye = resultInfosEmploye.value("libelleTypeEmploye").toString();
 }

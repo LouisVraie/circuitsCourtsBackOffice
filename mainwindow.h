@@ -24,7 +24,10 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    QString numeroEmploye;
+    QString numeroEmploye, libelleTypeEmploye;
+    QString login, nom, prenom;
+    QString adresse, codePostal, ville;
+    QString mail, tel;
 };
 
 #endif // MAINWINDOW_H
