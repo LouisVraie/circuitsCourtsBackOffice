@@ -13,7 +13,7 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     ui->setupUi(this);
     this->numeroEmploye = numeroEmploye;
 
-    setWindowTitle("CircuitsCourtsBackOffice - Tableau de Bord : ");
+    setWindowTitle("CircuitsCourts - BackOffice");
 
     getInfosEmploye();
     setTab_profil();
@@ -72,4 +72,45 @@ void MainWindow::setTab_profil()
     ui->lineEdit_mailEmploye->setText(mail);
     ui->lineEdit_telEmploye->setText(tel);
 
+}
+
+/**
+ * @brief MainWindow::quitConfirm()
+ * Méthode publique de la classe MainWindow qui sert à afficher un message de confirmation pour quitter
+ * @return Retourne un booléen vrai si l'utilisateur confirme, sinon renvoie faux
+ */
+bool MainWindow::quitConfirm()
+{
+    if(QMessageBox::warning(this,this->windowTitle(),"Voulez-vous vraiment quitter l'application ?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+    {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+/**
+ * @brief MainWindow::closeEvent
+ * Méthode publique de la classe MainWindow qui execute la méthode quitConfirm() quand l'utilisateur cherche à fermer la fenêtre
+ * @param event Événement de fermeture
+ */
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if(quitConfirm())
+    {
+        event->accept();
+    }
+    else {
+        event->ignore();
+    }
+}
+
+/**
+ * @brief MainWindow::on_action_Quitter_triggered
+ * Méthode private slots de la classe MainWindow qui créer un événement de fermeture de fenêtre
+ */
+void MainWindow::on_action_Quitter_triggered()
+{
+    close();
 }

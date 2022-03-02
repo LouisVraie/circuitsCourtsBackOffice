@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QSqlQuery>
+#include <QMessageBox>
+#include <QCloseEvent>
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +25,13 @@ public:
     void getInfosEmploye();
 
     void setTab_profil();
+
+    bool quitConfirm();
+    void closeEvent(QCloseEvent *event);
+
+private slots:
+    void on_action_Quitter_triggered();
+
 private:
     Ui::MainWindow *ui;
 
