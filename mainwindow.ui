@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width>
-    <height>778</height>
+    <width>712</width>
+    <height>846</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_tableauDeBord">
        <attribute name="icon">
@@ -64,7 +64,7 @@
        <attribute name="title">
         <string>Profil</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <spacer name="horizontalSpacer_5">
           <property name="orientation">
@@ -72,7 +72,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>86</width>
+            <width>155</width>
             <height>20</height>
            </size>
           </property>
@@ -119,70 +119,10 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_loginEmploye">
-                <property name="text">
-                 <string>Login :</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QLineEdit" name="lineEdit_loginEmploye"/>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_adresseEmploye">
-                <property name="text">
-                 <string>Adresse :</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QLineEdit" name="lineEdit_adresseEmploye"/>
-              </item>
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_codePostalEmploye">
-                <property name="text">
-                 <string>Code Postal :</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="QLineEdit" name="lineEdit_codePostalEmploye"/>
-              </item>
-              <item row="6" column="0">
-               <widget class="QLabel" name="label_villeEmploye">
-                <property name="text">
-                 <string>Ville :</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="1">
-               <widget class="QLineEdit" name="lineEdit_villeEmploye"/>
-              </item>
-              <item row="7" column="0">
-               <widget class="QLabel" name="label_mailEmploye">
-                <property name="text">
-                 <string>Mail :</string>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="1">
-               <widget class="QLineEdit" name="lineEdit_mailEmploye"/>
-              </item>
-              <item row="8" column="0">
-               <widget class="QLabel" name="label_telEmploye">
-                <property name="text">
-                 <string>Tél :</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="1">
-               <widget class="QLineEdit" name="lineEdit_telEmploye"/>
-              </item>
               <item row="2" column="0">
                <widget class="QLabel" name="label_typeEmploye">
                 <property name="text">
-                 <string>Type Employe :</string>
+                 <string>Type Employé :</string>
                 </property>
                </widget>
               </item>
@@ -192,6 +132,155 @@
                  <bool>false</bool>
                 </property>
                </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_loginEmploye">
+                <property name="text">
+                 <string>Login :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="lineEdit_loginEmploye">
+                <property name="maxLength">
+                 <number>25</number>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_adresseEmploye">
+                <property name="text">
+                 <string>Adresse :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="lineEdit_adresseEmploye">
+                <property name="maxLength">
+                 <number>50</number>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_codePostalEmploye">
+                <property name="text">
+                 <string>Code Postal :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QLineEdit" name="lineEdit_codePostalEmploye">
+                <property name="maxLength">
+                 <number>5</number>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_villeEmploye">
+                <property name="text">
+                 <string>Ville :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QLineEdit" name="lineEdit_villeEmploye">
+                <property name="maxLength">
+                 <number>30</number>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="0">
+               <widget class="QLabel" name="label_mailEmploye">
+                <property name="text">
+                 <string>Mail :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="1">
+               <widget class="QLineEdit" name="lineEdit_mailEmploye">
+                <property name="maxLength">
+                 <number>50</number>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="0">
+               <widget class="QLabel" name="label_telEmploye">
+                <property name="text">
+                 <string>Tél :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="1">
+               <widget class="QLineEdit" name="lineEdit_telEmploye">
+                <property name="maxLength">
+                 <number>17</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_sauvegarderInfosEmploye">
+                <property name="text">
+                 <string>Sauvegarder</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/content-save.png</normaloff>:/images/images/content-save.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_annulerInfosEmploye">
+                <property name="text">
+                 <string>Annuler</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/cancel.png</normaloff>:/images/images/cancel.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </item>
@@ -230,6 +319,9 @@
               </item>
               <item row="0" column="1">
                <widget class="QLineEdit" name="lineEdit_newMotDePasseEmploye">
+                <property name="maxLength">
+                 <number>64</number>
+                </property>
                 <property name="echoMode">
                  <enum>QLineEdit::Password</enum>
                 </property>
@@ -244,10 +336,78 @@
               </item>
               <item row="1" column="1">
                <widget class="QLineEdit" name="lineEdit_confirmMotDePasseEmploye">
+                <property name="maxLength">
+                 <number>64</number>
+                </property>
                 <property name="echoMode">
                  <enum>QLineEdit::Password</enum>
                 </property>
                </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <spacer name="horizontalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_sauvegarderNewMotDePasseEmploye">
+                <property name="text">
+                 <string>Sauvegarder</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/content-save.png</normaloff>:/images/images/content-save.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_annulerNewMotDePasseEmploye">
+                <property name="text">
+                 <string>Annuler</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/cancel.png</normaloff>:/images/images/cancel.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </item>
@@ -266,71 +426,6 @@
             </property>
            </spacer>
           </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_sauvegarderInfosEmploye">
-              <property name="text">
-               <string>Sauvegarder</string>
-              </property>
-              <property name="icon">
-               <iconset resource="resources.qrc">
-                <normaloff>:/images/images/content-save.png</normaloff>:/images/images/content-save.png</iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_annulerInfosEmploye">
-              <property name="text">
-               <string>Annuler</string>
-              </property>
-              <property name="icon">
-               <iconset resource="resources.qrc">
-                <normaloff>:/images/images/cancel.png</normaloff>:/images/images/cancel.png</iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
          </layout>
         </item>
         <item>
@@ -340,7 +435,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>86</width>
+            <width>155</width>
             <height>20</height>
            </size>
           </property>
@@ -357,7 +452,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>572</width>
+     <width>712</width>
      <height>24</height>
     </rect>
    </property>

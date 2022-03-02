@@ -114,3 +114,54 @@ void MainWindow::on_action_Quitter_triggered()
 {
     close();
 }
+
+/**
+ * @brief MainWindow::on_pushButton_sauvegarderInfosEmploye_clicked
+ * Méthode private slots de la classe MainWindow qui enregistre les informations de l'utilisateur
+ */
+void MainWindow::on_pushButton_sauvegarderInfosEmploye_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_sauvegarderInfosEmploye_clicked()";
+    //on récupère le texte des lineEdits des informations personnelles
+    QString newLogin, newAdresse, newCodePostal, newVille, newMail, newTel;
+    newLogin = ui->lineEdit_loginEmploye->text();
+    newAdresse = ui->lineEdit_adresseEmploye->text();
+    newCodePostal = ui->lineEdit_codePostalEmploye->text();
+    newVille = ui->lineEdit_villeEmploye->text();
+    newMail = ui->lineEdit_mailEmploye->text();
+    newTel = ui->lineEdit_telEmploye->text();
+}
+
+/**
+ * @brief MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked
+ * Méthode private slots de la classe MainWindow qui enregistre le nouveau mot de passe
+ * @return QString Chaîne de caractère du nouveau mot de passe
+ */
+void MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked()
+{
+    qDebug()<<"QString MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked()";
+    QString newMdp, newConfirmMdp;
+    newMdp = ui->lineEdit_newMotDePasseEmploye->text();
+    newConfirmMdp = ui->lineEdit_confirmMotDePasseEmploye->text();
+
+    //si les deux mots de passe sont les mêmes
+    if (newMdp == newConfirmMdp){
+        //si le mot de passe est supérieur ou égal à 8 caractères
+        if (newMdp.length() >= 8) {
+            //requête qui met à jour le mot de passe
+            QString reqUpdateMdp = "UPDATE Employe SET motDePasseEmploye = PASSWORD('"+newMdp+"') WHERE numeroEmploye ="+numeroEmploye;
+            qDebug()<<reqUpdateMdp;
+            QSqlQuery resultUpdateMdp(reqUpdateMdp);
+            //si la requête a fonctionné
+            if (resultUpdateMdp.numRowsAffected() != -1){
+                ui->statusBar->showMessage("Votre mot de passe a été mis à jour !",5000);
+            } else {
+                ui->statusBar->showMessage("Une erreur est survenue lors du changement de votre mot de passe !",5000);
+            }
+        } else {
+            ui->statusBar->showMessage("Votre mot de passe doit faire au minimum 8 caractères !",5000);
+        }
+    } else {
+        ui->statusBar->showMessage("Les mots de passe saisis ne correspondent pas !",5000);
+    }
+}
