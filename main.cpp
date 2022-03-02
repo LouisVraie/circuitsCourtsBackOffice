@@ -22,10 +22,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     DialogConnexion connexion;
     if(connexion.exec() == QDialog::Accepted){
-        MainWindow w(connexion.getNumeroTypeEmploye());
+        MainWindow w(connexion.getNumeroEmploye());
         w.show();
-
         return a.exec();
     }
-
 }

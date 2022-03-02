@@ -6,7 +6,7 @@
  * Constructeur de la classe MainWindow qui crée la fenêtre de notre application
  * @param parent: QWidget
  */
-MainWindow::MainWindow(int numeroTypeEmploye,QWidget *parent) :
+MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -14,21 +14,7 @@ MainWindow::MainWindow(int numeroTypeEmploye,QWidget *parent) :
 
     setWindowTitle("CircuitsCourtsBackOffice - Tableau de Bord : ");
 
-    //selon le numeroTypeEmploye on affiche le bon libelle dans le titre de la mainwindow
-    switch(numeroTypeEmploye){
-        case 1:
-            setWindowTitle(windowTitle()+"SuperAdmin");
-            ui->stackedWidget->setCurrentIndex(0);
-            break;
-        case 2:
-            setWindowTitle(windowTitle()+"Administrateur");
-            ui->stackedWidget->setCurrentIndex(1);
-            break;
-        case 3:
-            setWindowTitle(windowTitle()+"Modérateur");
-            ui->stackedWidget->setCurrentIndex(2);
-            break;
-    }
+    getInfosEmploye();
 }
 
 /**
@@ -38,4 +24,20 @@ MainWindow::MainWindow(int numeroTypeEmploye,QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+/**
+ * @brief MainWindow::getInfosEmploye
+ * Méthode publique de la classe MainWindow qui récupère les informations de l'employé
+ */
+void MainWindow::getInfosEmploye()
+{
+    //selon le numeroEmploye on exécute une requête SQL qui nous récupère toutes les informations
+    QString reqInfosEmploye = "SELECT numeroTypeEmploye FROM Employe "
+                           "WHERE numeroEmploye = "+numeroEmploye;
+    qDebug()<<reqInfosEmploye;
+    QSqlQuery resultInfosEmploye(reqInfosEmploye);
+
+    resultInfosEmploye.next();
+    QString numeroTypeEmploye = resultInfosEmploye.value(0).toString();
 }

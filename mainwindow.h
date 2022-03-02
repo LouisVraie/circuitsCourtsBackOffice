@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
+#include <QSqlQuery>
 
 namespace Ui {
 class MainWindow;
@@ -15,11 +17,14 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(int numeroTypeEmploye, QWidget *parent = nullptr);
+    explicit MainWindow(QString numeroEmploye, QWidget *parent = nullptr);
     ~MainWindow();
 
+    void getInfosEmploye();
 private:
     Ui::MainWindow *ui;
+
+    QString numeroEmploye;
 };
 
 #endif // MAINWINDOW_H

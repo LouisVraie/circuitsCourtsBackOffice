@@ -11,7 +11,7 @@ DialogConnexion::DialogConnexion(QWidget *parent) :
     ui(new Ui::DialogConnexion)
 {
     ui->setupUi(this);
-    numeroTypeEmploye = 0;
+    numeroEmploye = "";
 }
 
 /**
@@ -24,13 +24,13 @@ DialogConnexion::~DialogConnexion()
 }
 
 /**
- * @brief DialogConnexion::getVerifConnexion
+ * @brief DialogConnexion::getNumeroEmploye
  * Méthode publique de la classe DialogConnexion
- * @return int Entier qui renvoie le numeroTypeEmploye
+ * @return QString Chaîne de caractère qui renvoie le numeroEmploye
  */
-int DialogConnexion::getNumeroTypeEmploye()
+QString DialogConnexion::getNumeroEmploye()
 {
-    return numeroTypeEmploye;
+    return numeroEmploye;
 }
 
 /**
@@ -51,14 +51,14 @@ void DialogConnexion::on_pushButtonConnexion_clicked()
     resultUserExists.next();
     int nbEmploye = resultUserExists.value(0).toInt();
     if (nbEmploye){
-        QString reqNumeroTypeEmploye = "SELECT numeroTypeEmploye FROM Employe "
+        QString reqNumeroEmploye = "SELECT numeroEmploye FROM Employe "
                                "WHERE loginEmploye = '"+login+"' "
                                "AND motDePasseEmploye = PASSWORD('"+mdp+"')";
-        qDebug()<<reqNumeroTypeEmploye;
-        QSqlQuery resultNumeroTypeEmploye(reqNumeroTypeEmploye);
+        qDebug()<<reqNumeroEmploye;
+        QSqlQuery resultNumeroEmploye(reqNumeroEmploye);
 
-        resultNumeroTypeEmploye.next();
-        numeroTypeEmploye = resultNumeroTypeEmploye.value(0).toInt();
+        resultNumeroEmploye.next();
+        numeroEmploye = resultNumeroEmploye.value(0).toString();
         accept();
     } else {
         ui->labelConnexionError->setText("Le login ou le mot de passe est incorrect !");
