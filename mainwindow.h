@@ -29,6 +29,8 @@ public:
     bool quitConfirm();
     void closeEvent(QCloseEvent *event);
 
+    QString escapeString(QString myQString);
+
 private slots:
     void on_action_Quitter_triggered();
 

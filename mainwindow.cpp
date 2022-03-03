@@ -107,6 +107,21 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 
 /**
+ * @brief MainWindow::escapeString
+ * Méthode publique de la classe MainWindow qui permet d'échapper à certain caractères
+ * @param myQString: QString Chaîne de caractère quelconque
+ * @return QString
+ */
+QString MainWindow::escapeString(QString myQString)
+{
+    //on enlève les caractères non voulus
+    myQString = myQString.replace(";","");
+    //on double les simples quotes
+    myQString = myQString.replace("'","''");
+    return myQString;
+}
+
+/**
  * @brief MainWindow::on_action_Quitter_triggered
  * Méthode private slots de la classe MainWindow qui créer un événement de fermeture de fenêtre
  */
@@ -124,25 +139,24 @@ void MainWindow::on_pushButton_sauvegarderInfosEmploye_clicked()
     qDebug()<<"void MainWindow::on_pushButton_sauvegarderInfosEmploye_clicked()";
     //on récupère le texte des lineEdits des informations personnelles
     QString newLogin, newAdresse, newCodePostal, newVille, newMail, newTel;
-    newLogin = ui->lineEdit_loginEmploye->text();
-    newAdresse = ui->lineEdit_adresseEmploye->text();
-    newCodePostal = ui->lineEdit_codePostalEmploye->text();
-    newVille = ui->lineEdit_villeEmploye->text();
-    newMail = ui->lineEdit_mailEmploye->text();
-    newTel = ui->lineEdit_telEmploye->text();
+    newLogin = escapeString(ui->lineEdit_loginEmploye->text());
+    newAdresse = escapeString(ui->lineEdit_adresseEmploye->text());
+    newCodePostal = escapeString(ui->lineEdit_codePostalEmploye->text());
+    newVille = escapeString(ui->lineEdit_villeEmploye->text());
+    newMail = escapeString(ui->lineEdit_mailEmploye->text());
+    newTel = escapeString(ui->lineEdit_telEmploye->text());
 }
 
 /**
  * @brief MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked
  * Méthode private slots de la classe MainWindow qui enregistre le nouveau mot de passe
- * @return QString Chaîne de caractère du nouveau mot de passe
  */
 void MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked()
 {
     qDebug()<<"QString MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked()";
     QString newMdp, newConfirmMdp;
-    newMdp = ui->lineEdit_newMotDePasseEmploye->text();
-    newConfirmMdp = ui->lineEdit_confirmMotDePasseEmploye->text();
+    newMdp = escapeString(ui->lineEdit_newMotDePasseEmploye->text());
+    newConfirmMdp = escapeString(ui->lineEdit_confirmMotDePasseEmploye->text());
 
     //si les deux mots de passe sont les mêmes
     if (newMdp == newConfirmMdp){
