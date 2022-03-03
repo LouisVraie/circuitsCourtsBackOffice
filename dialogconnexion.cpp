@@ -42,8 +42,8 @@ QString DialogConnexion::getNumeroEmploye()
 void DialogConnexion::on_pushButtonConnexion_clicked()
 {
     qDebug()<<"void DialogConnexion::on_pushButtonConnexion_clicked()";
-    QString login = ui->lineEditLogin->text();
-    QString mdp = ui->lineEditMotDePasse->text();
+    QString login = ui->lineEditLogin->text().replace(";","").replace("'","''");
+    QString mdp = ui->lineEditMotDePasse->text().replace(";","").replace("'","''");
     //on vérifie si l'utilisateur existe
     QString reqUserExists = "SELECT COUNT(*) FROM Employe "
                            "WHERE loginEmploye = '"+login+"' "
