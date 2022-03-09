@@ -14,7 +14,7 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     this->numeroEmploye = numeroEmploye;
 
     setWindowTitle("CircuitsCourts - BackOffice");
-
+    ui->tabWidget->setCurrentIndex(0);
     getInfosEmploye();
     setTab_profil();
 }
@@ -108,7 +108,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 /**
  * @brief MainWindow::escapeString
- * Méthode publique de la classe MainWindow qui permet d'échapper à certain caractères
+ * Méthode statique publique de la classe MainWindow qui permet d'échapper à certain caractères
  * @param myQString: QString Chaîne de caractère quelconque
  * @return QString
  */
@@ -145,6 +145,16 @@ void MainWindow::on_pushButton_sauvegarderInfosEmploye_clicked()
     newVille = escapeString(ui->lineEdit_villeEmploye->text());
     newMail = escapeString(ui->lineEdit_mailEmploye->text());
     newTel = escapeString(ui->lineEdit_telEmploye->text());
+    QString reqUpdateEmployeInfos = "UPDATE Employe SET "
+                                    "loginEmploye = '"+newLogin+"', "
+                                    "adresseEmploye = '"+newAdresse+"', "
+                                    "codePostalEmploye = '"+newCodePostal+"', "
+                                    "villeEmploye = '"+newVille+"', "
+                                    "mailEmploye = '"+newMail+"', "
+                                    "telEmploye = '"+newTel+"' "
+                                    "WHERE numeroEmploye = "+numeroEmploye;
+    qDebug()<<reqUpdateEmployeInfos;
+    QSqlQuery resultUpdateEmployeInfos(reqUpdateEmployeInfos);
 }
 
 /**
