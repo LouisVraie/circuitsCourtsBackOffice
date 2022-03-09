@@ -187,32 +187,62 @@ void MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked()
 }
 
 /**
+ * @brief MainWindow::verifEmployeInfos
+ * Méthode private de la classe MainWindow qui permet de vérifier qu'un des arguments n'est pas déjà renseigné ailleur
+ * @param leLogin: QString Login de l'employé
+ * @param leMail: QString Mail de l'employé
+ * @param leTel: QString Numéro de téléphone de l'employé
+ * @return bool Retourne true si aucune donnée est déjà existante
+ */
+bool MainWindow::verifEmployeInfos(QString leLogin, QString leMail, QString leTel)
+{
+    qDebug()<<"bool MainWindow::verifEmployeInfos()";
+    //Vérification pour savoir que certaines données enregistrées n'existes pas déjà
+    QString reqVerifEmployeInfos = "SELECT COUNT(*) FROM Employe "
+                                   "WHERE numeroEmploye <> "+numeroEmploye+" "
+                                   "AND numeroEmploye IN (SELECT numeroEmploye FROM Employe "
+                                   "WHERE loginEmploye = '"+leLogin+"' "
+                                   "OR mailEmploye = '"+leMail+"' "
+                                   "OR telEmploye = '"+leTel+"')";
+    qDebug()<<reqVerifEmployeInfos;
+    QSqlQuery resultVerifEmployeInfos(reqVerifEmployeInfos);
+    resultVerifEmployeInfos.next();
+    qDebug()<<resultVerifEmployeInfos.value(0).toInt();
+    return resultVerifEmployeInfos.value(0).toInt() == 0;
+}
+
+/**
  * @brief MainWindow::updateEmployeInfos
- * Méthode private de la classe MainWindow qui permet de mettre à jour les informations personnelles du profil de l'employe
- * @param leLogin
- * @param lAdresse
- * @param leCodePostal
- * @param laVille
- * @param leMail
- * @param leTel
- * @return
+ * Méthode private de la classe MainWindow qui permet de mettre à jour les informations personnelles du profil de l'employé
+ * @param leLogin: QString Login de l'employé
+ * @param lAdresse: QString Adresse de l'employé
+ * @param leCodePostal: QString Code postal de l'employé
+ * @param laVille: QString Ville de l'employé
+ * @param leMail: QString Mail de l'employé
+ * @param leTel: QString Numéro de téléphone de l'employé
+ * @return bool État de l'exécution de la requête de mise à jour des informations personnelles
  */
 bool MainWindow::updateEmployeInfos(QString leLogin, QString lAdresse, QString leCodePostal,
                                     QString laVille, QString leMail, QString leTel)
 {
     qDebug()<<"bool MainWindow::updateEmployeInfos()";
-    QString reqUpdateEmployeInfos = "UPDATE Employe SET "
-                                    "loginEmploye = '"+leLogin+"', "
-                                    "adresseEmploye = '"+lAdresse+"', "
-                                    "codePostalEmploye = '"+leCodePostal+"', "
-                                    "villeEmploye = '"+laVille+"', "
-                                    "mailEmploye = '"+leMail+"', "
-                                    "telEmploye = '"+leTel+"' "
-                                    "WHERE numeroEmploye = "+numeroEmploye;
-    qDebug()<<reqUpdateEmployeInfos;
-    QSqlQuery resultUpdateEmployeInfos(reqUpdateEmployeInfos);
-    //on retourne si la requête a fonctionné
-    return resultUpdateEmployeInfos.numRowsAffected() != -1;
+    if(verifEmployeInfos(leLogin,leMail,leTel)){
+        //Mise à jour des inforamtions personnelles
+        QString reqUpdateEmployeInfos = "UPDATE Employe SET "
+                                        "loginEmploye = '"+leLogin+"', "
+                                        "adresseEmploye = '"+lAdresse+"', "
+                                        "codePostalEmploye = '"+leCodePostal+"', "
+                                        "villeEmploye = '"+laVille+"', "
+                                        "mailEmploye = '"+leMail+"', "
+                                        "telEmploye = '"+leTel+"' "
+                                        "WHERE numeroEmploye = "+numeroEmploye;
+        qDebug()<<reqUpdateEmployeInfos;
+        QSqlQuery resultUpdateEmployeInfos(reqUpdateEmployeInfos);
+        //on retourne si la requête a fonctionné
+        return resultUpdateEmployeInfos.numRowsAffected() != -1;
+    } else {
+        return false;
+    }
 }
 
 /**

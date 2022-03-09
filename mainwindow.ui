@@ -30,7 +30,7 @@
          <normaloff>:/images/images/table.png</normaloff>:/images/images/table.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Tableau de bord</string>
+        <string>&amp;Tableau de bord</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="tab_employes">
@@ -39,7 +39,7 @@
          <normaloff>:/images/images/account-supervisor.png</normaloff>:/images/images/account-supervisor.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Employés</string>
+        <string>&amp;Employés</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="tab_producteurs">
@@ -48,7 +48,7 @@
          <normaloff>:/images/images/tractor.png</normaloff>:/images/images/tractor.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Producteurs</string>
+        <string>&amp;Producteurs</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="tab_rayonsProduits">
@@ -57,7 +57,7 @@
          <normaloff>:/images/images/format-list-text.png</normaloff>:/images/images/format-list-text.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Rayons / Produits</string>
+        <string>&amp;Rayons / Produits</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="tab_profil">
@@ -66,7 +66,7 @@
          <normaloff>:/images/images/account-details.png</normaloff>:/images/images/account-details.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Profil</string>
+        <string>&amp;Profil</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
@@ -241,7 +241,7 @@
               <item>
                <widget class="QPushButton" name="pushButton_sauvegarderInfosEmploye">
                 <property name="text">
-                 <string>Sauvegarder</string>
+                 <string>&amp;Sauvegarder</string>
                 </property>
                 <property name="icon">
                  <iconset resource="resources.qrc">
@@ -265,7 +265,7 @@
               <item>
                <widget class="QPushButton" name="pushButton_annulerInfosEmploye">
                 <property name="text">
-                 <string>Annuler</string>
+                 <string>&amp;Annuler</string>
                 </property>
                 <property name="icon">
                  <iconset resource="resources.qrc">
@@ -368,7 +368,7 @@
               <item>
                <widget class="QPushButton" name="pushButton_sauvegarderNewMotDePasseEmploye">
                 <property name="text">
-                 <string>Sauvegarder</string>
+                 <string>&amp;Sauvegarder</string>
                 </property>
                 <property name="icon">
                  <iconset resource="resources.qrc">
