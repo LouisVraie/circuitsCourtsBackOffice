@@ -272,6 +272,7 @@ void MainWindow::on_pushButton_annulerInfosEmploye_clicked()
 
 /**
  * @brief MainWindow::on_pushButton_effacerNewMotDePasseEmploye_clicked
+ * Méthode private slots de la classe MainWindow qui efface les champs des mots de passes dans le tab Profil
  */
 void MainWindow::on_pushButton_effacerNewMotDePasseEmploye_clicked()
 {
@@ -280,7 +281,11 @@ void MainWindow::on_pushButton_effacerNewMotDePasseEmploye_clicked()
     ui->lineEdit_confirmMotDePasseEmploye->clear();
 }
 
-
+/**
+ * @brief MainWindow::on_lineEdit_loginEmploye_textChanged
+ * Méthode private slots de la classe MainWindow qui met à jour dans le tab Profil, l'état du bouton Sauvegarder des informations personnelles
+ * @param arg1: QString Texte du lineEdit
+ */
 void MainWindow::on_lineEdit_loginEmploye_textChanged(const QString &arg1)
 {
     qDebug()<<"void MainWindow::on_lineEdit_loginEmploye_textChanged()";

@@ -174,6 +174,9 @@
               </item>
               <item row="5" column="1">
                <widget class="QLineEdit" name="lineEdit_codePostalEmploye">
+                <property name="inputMask">
+                 <string>#####</string>
+                </property>
                 <property name="maxLength">
                  <number>5</number>
                 </property>
@@ -188,6 +191,9 @@
               </item>
               <item row="6" column="1">
                <widget class="QLineEdit" name="lineEdit_villeEmploye">
+                <property name="inputMask">
+                 <string>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</string>
+                </property>
                 <property name="maxLength">
                  <number>30</number>
                 </property>
