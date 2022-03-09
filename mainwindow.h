@@ -42,6 +42,8 @@ private slots:
 
     void on_pushButton_effacerNewMotDePasseEmploye_clicked();
 
+    void on_lineEdit_loginEmploye_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
@@ -50,6 +52,7 @@ private:
     QString login, nom, prenom;
     QString adresse, codePostal, ville;
     QString mail, tel;
+    int loginMinimumSize;
 
     //Méthodes
     QString verifChangePassword();

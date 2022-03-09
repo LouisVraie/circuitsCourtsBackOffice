@@ -11,10 +11,14 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //initialisation des propriétés
     this->numeroEmploye = numeroEmploye;
+    this->loginMinimumSize = 3;
 
+    //initialisation des éléments de l'UI
     setWindowTitle("CircuitsCourts - BackOffice");
     ui->tabWidget->setCurrentIndex(0);
+
     getInfosEmploye();
     setTab_profil();
 }
@@ -274,5 +278,16 @@ void MainWindow::on_pushButton_effacerNewMotDePasseEmploye_clicked()
     qDebug()<<"void MainWindow::on_pushButton_effacerNewMotDePasseEmploye_clicked()";
     ui->lineEdit_newMotDePasseEmploye->clear();
     ui->lineEdit_confirmMotDePasseEmploye->clear();
+}
+
+
+void MainWindow::on_lineEdit_loginEmploye_textChanged(const QString &arg1)
+{
+    qDebug()<<"void MainWindow::on_lineEdit_loginEmploye_textChanged()";
+    if(arg1.length() >= loginMinimumSize){
+        ui->pushButton_sauvegarderInfosEmploye->setDisabled(false);
+    } else {
+        ui->pushButton_sauvegarderInfosEmploye->setDisabled(true);
+    }
 }
 
