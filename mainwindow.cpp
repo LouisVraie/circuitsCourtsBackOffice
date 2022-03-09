@@ -145,18 +145,8 @@ void MainWindow::on_pushButton_sauvegarderInfosEmploye_clicked()
     newVille = escapeString(ui->lineEdit_villeEmploye->text());
     newMail = escapeString(ui->lineEdit_mailEmploye->text());
     newTel = escapeString(ui->lineEdit_telEmploye->text());
-    QString reqUpdateEmployeInfos = "UPDATE Employe SET "
-                                    "loginEmploye = '"+newLogin+"', "
-                                    "adresseEmploye = '"+newAdresse+"', "
-                                    "codePostalEmploye = '"+newCodePostal+"', "
-                                    "villeEmploye = '"+newVille+"', "
-                                    "mailEmploye = '"+newMail+"', "
-                                    "telEmploye = '"+newTel+"' "
-                                    "WHERE numeroEmploye = "+numeroEmploye;
-    qDebug()<<reqUpdateEmployeInfos;
-    QSqlQuery resultUpdateEmployeInfos(reqUpdateEmployeInfos);
     //si la requête a fonctionné
-    if (resultUpdateEmployeInfos.numRowsAffected() != -1){
+    if (updateEmployeInfos(newLogin,newAdresse,newCodePostal,newVille,newMail,newTel)){
         ui->statusBar->showMessage("Votre profil a été mis à jour !",5000);
     } else {
         ui->statusBar->showMessage("Une erreur est survenue lors du changement de vos informations personnelles !",5000);
@@ -195,3 +185,64 @@ void MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked()
         ui->statusBar->showMessage("Les mots de passe saisis ne correspondent pas !",5000);
     }
 }
+
+/**
+ * @brief MainWindow::updateEmployeInfos
+ * Méthode private de la classe MainWindow qui permet de mettre à jour les informations personnelles du profil de l'employe
+ * @param leLogin
+ * @param lAdresse
+ * @param leCodePostal
+ * @param laVille
+ * @param leMail
+ * @param leTel
+ * @return
+ */
+bool MainWindow::updateEmployeInfos(QString leLogin, QString lAdresse, QString leCodePostal,
+                                    QString laVille, QString leMail, QString leTel)
+{
+    qDebug()<<"bool MainWindow::updateEmployeInfos()";
+    QString reqUpdateEmployeInfos = "UPDATE Employe SET "
+                                    "loginEmploye = '"+leLogin+"', "
+                                    "adresseEmploye = '"+lAdresse+"', "
+                                    "codePostalEmploye = '"+leCodePostal+"', "
+                                    "villeEmploye = '"+laVille+"', "
+                                    "mailEmploye = '"+leMail+"', "
+                                    "telEmploye = '"+leTel+"' "
+                                    "WHERE numeroEmploye = "+numeroEmploye;
+    qDebug()<<reqUpdateEmployeInfos;
+    QSqlQuery resultUpdateEmployeInfos(reqUpdateEmployeInfos);
+    //on retourne si la requête a fonctionné
+    return resultUpdateEmployeInfos.numRowsAffected() != -1;
+}
+
+/**
+ * @brief MainWindow::on_pushButton_annulerInfosEmploye_clicked
+ * Méthode private slots de la classe MainWindow qui restaure le contenu des champs d'informations personnelles du profil
+ */
+void MainWindow::on_pushButton_annulerInfosEmploye_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_annulerInfosEmploye_clicked()";
+    //si la restauration a fonctionné
+    if(updateEmployeInfos(login,adresse,codePostal,ville,mail,tel)){
+        ui->lineEdit_loginEmploye->setText(login);
+        ui->lineEdit_adresseEmploye->setText(adresse);
+        ui->lineEdit_codePostalEmploye->setText(codePostal);
+        ui->lineEdit_villeEmploye->setText(ville);
+        ui->lineEdit_mailEmploye->setText(mail);
+        ui->lineEdit_telEmploye->setText(tel);
+        ui->statusBar->showMessage("Vos informations personnelles ont été restaurés !",5000);
+    } else {
+        ui->statusBar->showMessage("Une erreur est survenue lors de la restauration vos informations personnelles !",5000);
+    }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_effacerNewMotDePasseEmploye_clicked
+ */
+void MainWindow::on_pushButton_effacerNewMotDePasseEmploye_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_effacerNewMotDePasseEmploye_clicked()";
+    ui->lineEdit_newMotDePasseEmploye->clear();
+    ui->lineEdit_confirmMotDePasseEmploye->clear();
+}
+

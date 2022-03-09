@@ -13,5 +13,6 @@
         <file>images/account-details.png</file>
         <file>images/account.png</file>
         <file>images/logoCircuitsCourts.png</file>
+        <file>images/backspace.png</file>
     </qresource>
 </RCC>

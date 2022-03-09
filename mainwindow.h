@@ -38,6 +38,10 @@ private slots:
 
     void on_pushButton_sauvegarderNewMotDePasseEmploye_clicked();
 
+    void on_pushButton_annulerInfosEmploye_clicked();
+
+    void on_pushButton_effacerNewMotDePasseEmploye_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -49,6 +53,7 @@ private:
 
     //Méthodes
     QString verifChangePassword();
+    bool updateEmployeInfos(QString leLogin, QString lAdresse, QString leCodePostal, QString laVille, QString leMail, QString leTel);
 };
 
 #endif // MAINWINDOW_H
