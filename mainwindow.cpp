@@ -19,6 +19,13 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     setWindowTitle("CircuitsCourts - BackOffice");
     ui->tabWidget->setCurrentIndex(0);
 
+    //on stretch les colonnes des QTableWidget
+    ui->tableWidget_employes->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    /* Méthodes d'initialisation */
+    //Employés
+    afficherTableEmployes();
+    //Profil
     getInfosEmploye();
     setTab_profil();
 }
@@ -30,6 +37,48 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+/**
+ * @brief MainWindow::afficherTableEmployes
+ * Méthode publique de la classe MainWindow qui permet d'afficher la liste des employéss
+ */
+void MainWindow::afficherTableEmployes()
+{
+    qDebug()<<"void MainWindow::afficherTableEmployes()";
+    //requête qui récupère les données des employés
+    QString reqTableEmployes = "SELECT e.numeroEmploye, e.loginEmploye, e.nomEmploye, e.prenomEmploye, "
+                               "e.adresseEmploye, e.codePostalEmploye, e.villeEmploye, e.mailEmploye, "
+                               "e.telEmploye, te.libelleTypeEmploye, e.estActif FROM Employe e "
+                               "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye";
+    qDebug()<<reqTableEmployes;
+    QSqlQuery resultTableEmployes(reqTableEmployes);
+    //si la requête a fontionné
+    if(resultTableEmployes.numRowsAffected() != -1){
+        //on affiche chaque ligne
+        while(resultTableEmployes.next()){
+            //si l'employé est visible on l'affiche
+            if(resultTableEmployes.value("estActif").toInt()){
+                //on ajoute une ligne au tableau
+                int row = ui->tableWidget_employes->rowCount();
+                ui->tableWidget_employes->setRowCount(row+1);
+                //on insère le contenu de chaque cellule
+                ui->tableWidget_employes->setCellWidget(row,0,new QCheckBox());
+                ui->tableWidget_employes->setItem(row,1,new QTableWidgetItem(resultTableEmployes.value("numeroEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,2,new QTableWidgetItem(resultTableEmployes.value("libelleTypeEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,3,new QTableWidgetItem(resultTableEmployes.value("loginEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,4,new QTableWidgetItem(resultTableEmployes.value("nomEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,5,new QTableWidgetItem(resultTableEmployes.value("prenomEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,6,new QTableWidgetItem(resultTableEmployes.value("adresseEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,7,new QTableWidgetItem(resultTableEmployes.value("codePostalEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,8,new QTableWidgetItem(resultTableEmployes.value("villeEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,9,new QTableWidgetItem(resultTableEmployes.value("mailEmploye").toString()));
+                ui->tableWidget_employes->setItem(row,10,new QTableWidgetItem(resultTableEmployes.value("telEmploye").toString()));
+            }
+        }
+    }else {
+        ui->statusBar->showMessage("Erreur lors de l'affichage des employés !",2000);
+    }
 }
 
 /**

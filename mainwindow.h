@@ -6,6 +6,7 @@
 #include <QSqlQuery>
 #include <QMessageBox>
 #include <QCloseEvent>
+#include <QCheckBox>
 
 namespace Ui {
 class MainWindow;
@@ -22,8 +23,11 @@ public:
     explicit MainWindow(QString numeroEmploye, QWidget *parent = nullptr);
     ~MainWindow();
 
-    void getInfosEmploye();
+    //Employés
+    void afficherTableEmployes();
 
+    //Profil
+    void getInfosEmploye();
     void setTab_profil();
 
     bool quitConfirm();
