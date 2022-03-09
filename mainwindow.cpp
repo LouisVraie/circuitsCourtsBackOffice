@@ -155,6 +155,12 @@ void MainWindow::on_pushButton_sauvegarderInfosEmploye_clicked()
                                     "WHERE numeroEmploye = "+numeroEmploye;
     qDebug()<<reqUpdateEmployeInfos;
     QSqlQuery resultUpdateEmployeInfos(reqUpdateEmployeInfos);
+    //si la requête a fonctionné
+    if (resultUpdateEmployeInfos.numRowsAffected() != -1){
+        ui->statusBar->showMessage("Votre profil a été mis à jour !",5000);
+    } else {
+        ui->statusBar->showMessage("Une erreur est survenue lors du changement de vos informations personnelles !",5000);
+    }
 }
 
 /**
