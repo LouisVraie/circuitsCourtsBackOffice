@@ -148,3 +148,36 @@ void MainWindow::on_pushButton_ajouterEmploye_clicked()
     }
 
 }
+/**
+ * @brief MainWindow::on_allLineEditEmploye_textChanged
+ * Méthode private slots qui active ou non le bouton pour ajouter un employé
+ * @return bool
+ */
+bool MainWindow::on_allLineEditEmploye_textChanged()
+{
+    qDebug()<<"bool MainWindow::on_allLineEditEmploye_textChanged()";
+    //on récupère le texte des lineEdits des informations personnelles
+    bool newTypeEmploye, newNom, newPrenom, newLogin, newMdp, newCMdp, newAdresse, newCodePostal, newVille, newMail, newTel;
+    newTypeEmploye = ui->comboBox_employesTypeEmploye->currentData().toInt() != 0;
+    newNom = escapeString(ui->lineEdit_employesNom->text()).size()>2;
+    newPrenom = escapeString(ui->lineEdit_employesPrenom->text()).size()>2;
+    newLogin = escapeString(ui->lineEdit_employesLogin->text())>loginMinimumSize;
+    newMdp = escapeString(ui->lineEdit_employesMdp->text()).size()>0;
+    newCMdp = escapeString(ui->lineEdit_employesConfirmMdp->text()).size()>0;
+    newAdresse = escapeString(ui->lineEdit_employesAdresse->text()).size()>10;
+    newCodePostal = escapeString(ui->lineEdit_employesCodePostal->text()).size()==5;
+    newVille = escapeString(ui->lineEdit_employesVille->text()).size()>2;
+    newMail = escapeString(ui->lineEdit_employesMail->text()).size()>5;
+    newTel = escapeString(ui->lineEdit_employesTel->text()).size()>=10;
+    //si les champs sont remplis et que le type employé est sélectionné
+    if(newTypeEmploye && newNom && newPrenom && newLogin && newMdp && newCMdp &&
+            newAdresse && newCodePostal && newVille && newMail && newTel){
+        //on active le bouton
+        ui->pushButton_ajouterEmploye->setEnabled(true);
+        return true;
+    }else {
+        //on désactive le bouton
+        ui->pushButton_ajouterEmploye->setEnabled(false);
+        return false;
+    }
+}

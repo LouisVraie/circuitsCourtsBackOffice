@@ -45,16 +45,15 @@ public:
 private slots:
     void on_action_Quitter_triggered();
 
+    /* profil.cpp */
     void on_pushButton_sauvegarderInfosEmploye_clicked();
-
     void on_pushButton_sauvegarderNewMotDePasseEmploye_clicked();
-
     void on_pushButton_annulerInfosEmploye_clicked();
-
     void on_pushButton_effacerNewMotDePasseEmploye_clicked();
-
     void on_lineEdit_loginEmploye_textChanged(const QString &arg1);
 
+    /* employes.cpp */
+    bool on_allLineEditEmploye_textChanged();
     void on_pushButton_ajouterEmploye_clicked();
 
 private:
@@ -68,11 +67,12 @@ private:
     int loginMinimumSize;
 
     //Méthodes
+
+
     /* profil.cpp */
     QString verifChangePassword();
     bool verifEmployeInfos(QString leLogin, QString leMail, QString leTel);
     bool updateEmployeInfos(QString leLogin, QString lAdresse, QString leCodePostal, QString laVille, QString leMail, QString leTel);
-
 };
 
 #endif // MAINWINDOW_H
