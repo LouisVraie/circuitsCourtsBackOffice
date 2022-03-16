@@ -23,11 +23,13 @@ public:
     explicit MainWindow(QString numeroEmploye, QWidget *parent = nullptr);
     ~MainWindow();
 
+    void getInfosEmploye();
+    void hideTabs();
+
     //Employés
     void afficherTableEmployes();
 
     //Profil
-    void getInfosEmploye();
     void setTab_profil();
 
     bool quitConfirm();
@@ -52,7 +54,7 @@ private:
     Ui::MainWindow *ui;
 
     //Propriétés
-    QString numeroEmploye, libelleTypeEmploye;
+    QString numeroEmploye, libelleTypeEmploye, numeroTypeEmploye;
     QString login, nom, prenom;
     QString adresse, codePostal, ville;
     QString mail, tel;

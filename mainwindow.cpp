@@ -23,10 +23,11 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     ui->tableWidget_employes->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     /* Méthodes d'initialisation */
+    getInfosEmploye();
+    hideTabs();
     //Employés
     afficherTableEmployes();
     //Profil
-    getInfosEmploye();
     setTab_profil();
 }
 
@@ -40,8 +41,57 @@ MainWindow::~MainWindow()
 }
 
 /**
+ * @brief MainWindow::getInfosEmploye
+ * Méthode publique de la classe MainWindow qui récupère les informations de l'employé
+ */
+void MainWindow::getInfosEmploye()
+{
+    qDebug()<<"void MainWindow::getInfosEmploye()";
+    //selon le numeroEmploye on exécute une requête SQL qui nous récupère toutes les informations
+    QString reqInfosEmploye = "SELECT loginEmploye, nomEmploye, prenomEmploye, adresseEmploye, codePostalEmploye, villeEmploye, "
+                              "mailEmploye, telEmploye, libelleTypeEmploye, e.numeroTypeEmploye FROM Employe e "
+                              "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye "
+                              "WHERE numeroEmploye = "+numeroEmploye;
+    qDebug()<<reqInfosEmploye;
+    QSqlQuery resultInfosEmploye(reqInfosEmploye);
+
+    resultInfosEmploye.next();
+    login = resultInfosEmploye.value("loginEmploye").toString();
+    nom = resultInfosEmploye.value("nomEmploye").toString();
+    prenom = resultInfosEmploye.value("prenomEmploye").toString();
+    adresse = resultInfosEmploye.value("adresseEmploye").toString();
+    codePostal = resultInfosEmploye.value("codePostalEmploye").toString();
+    ville = resultInfosEmploye.value("villeEmploye").toString();
+    mail = resultInfosEmploye.value("mailEmploye").toString();
+    tel = resultInfosEmploye.value("telEmploye").toString();
+    libelleTypeEmploye = resultInfosEmploye.value("libelleTypeEmploye").toString();
+    numeroTypeEmploye = resultInfosEmploye.value("numeroTypeEmploye").toString();
+}
+
+/**
+ * @brief MainWindow::hideTabs
+ * Méthode publique de la classe MainWindow qui cache les tabs que n'est pas censé voir l'employé connecté
+ */
+void MainWindow::hideTabs()
+{
+    qDebug()<<"void MainWindow::hideTabs()";
+    switch (numeroTypeEmploye.toInt()) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            //On retire le tab Employés
+            ui->tabWidget->removeTab(1);
+            //On retire le tab Tableau de bord
+            ui->tabWidget->removeTab(0);
+            break;
+    }
+}
+
+/**
  * @brief MainWindow::afficherTableEmployes
- * Méthode publique de la classe MainWindow qui permet d'afficher la liste des employéss
+ * Méthode publique de la classe MainWindow qui permet d'afficher la liste des employés
  */
 void MainWindow::afficherTableEmployes()
 {
@@ -49,14 +99,16 @@ void MainWindow::afficherTableEmployes()
     //requête qui récupère les données des employés
     QString reqTableEmployes = "SELECT e.numeroEmploye, e.loginEmploye, e.nomEmploye, e.prenomEmploye, "
                                "e.adresseEmploye, e.codePostalEmploye, e.villeEmploye, e.mailEmploye, "
-                               "e.telEmploye, te.libelleTypeEmploye, e.estActif FROM Employe e "
-                               "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye";
+                               "e.telEmploye, te.libelleTypeEmploye, e.estActif, e.numeroTypeEmploye FROM Employe e "
+                               "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye "
+                               "WHERE e.numeroTypeEmploye > "+numeroTypeEmploye;
     qDebug()<<reqTableEmployes;
     QSqlQuery resultTableEmployes(reqTableEmployes);
     //si la requête a fontionné
     if(resultTableEmployes.numRowsAffected() != -1){
         //on affiche chaque ligne
         while(resultTableEmployes.next()){
+            qDebug()<<resultTableEmployes.value("numeroTypeEmploye").toString()<<" > "<<numeroTypeEmploye;
             //si l'employé est visible on l'affiche
             if(resultTableEmployes.value("estActif").toInt()){
                 //on ajoute une ligne au tableau
@@ -79,33 +131,6 @@ void MainWindow::afficherTableEmployes()
     }else {
         ui->statusBar->showMessage("Erreur lors de l'affichage des employés !",2000);
     }
-}
-
-/**
- * @brief MainWindow::getInfosEmploye
- * Méthode publique de la classe MainWindow qui récupère les informations de l'employé
- */
-void MainWindow::getInfosEmploye()
-{
-    qDebug()<<"void MainWindow::getInfosEmploye()";
-    //selon le numeroEmploye on exécute une requête SQL qui nous récupère toutes les informations
-    QString reqInfosEmploye = "SELECT loginEmploye, nomEmploye, prenomEmploye, adresseEmploye, codePostalEmploye, villeEmploye, "
-                              "mailEmploye, telEmploye, libelleTypeEmploye FROM Employe e "
-                              "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye "
-                              "WHERE numeroEmploye = "+numeroEmploye;
-    qDebug()<<reqInfosEmploye;
-    QSqlQuery resultInfosEmploye(reqInfosEmploye);
-
-    resultInfosEmploye.next();
-    login = resultInfosEmploye.value("loginEmploye").toString();
-    nom = resultInfosEmploye.value("nomEmploye").toString();
-    prenom = resultInfosEmploye.value("prenomEmploye").toString();
-    adresse = resultInfosEmploye.value("adresseEmploye").toString();
-    codePostal = resultInfosEmploye.value("codePostalEmploye").toString();
-    ville = resultInfosEmploye.value("villeEmploye").toString();
-    mail = resultInfosEmploye.value("mailEmploye").toString();
-    tel = resultInfosEmploye.value("telEmploye").toString();
-    libelleTypeEmploye = resultInfosEmploye.value("libelleTypeEmploye").toString();
 }
 
 /**
