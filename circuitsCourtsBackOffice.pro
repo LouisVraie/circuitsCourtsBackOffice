@@ -25,9 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    employes.cpp \
         main.cpp \
         mainwindow.cpp \
-    dialogconnexion.cpp
+    dialogconnexion.cpp \
+    profil.cpp
 
 HEADERS += \
         mainwindow.h \

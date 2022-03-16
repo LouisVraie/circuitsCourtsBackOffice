@@ -23,19 +23,22 @@ public:
     explicit MainWindow(QString numeroEmploye, QWidget *parent = nullptr);
     ~MainWindow();
 
+    /* méthodes d'initialisations */
     void getInfosEmploye();
     void hideTabs();
 
-    //Employés
+    /* employes.cpp */
     void afficherTableEmployes();
     void fill_comboBox_employesTypeEmploye();
 
-    //Profil
+    /* profil.cpp */
     void setTab_profil();
 
+    /* méthodes de fermeture de l'application*/
     bool quitConfirm();
     void closeEvent(QCloseEvent *event);
 
+    /* méthode de vérification de caractères */
     static QString escapeString(QString myQString);
 
 private slots:
@@ -51,6 +54,8 @@ private slots:
 
     void on_lineEdit_loginEmploye_textChanged(const QString &arg1);
 
+    void on_pushButton_ajouterEmploye_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -62,6 +67,7 @@ private:
     int loginMinimumSize;
 
     //Méthodes
+    /* profil.cpp */
     QString verifChangePassword();
     bool verifEmployeInfos(QString leLogin, QString leMail, QString leTel);
     bool updateEmployeInfos(QString leLogin, QString lAdresse, QString leCodePostal, QString laVille, QString leMail, QString leTel);

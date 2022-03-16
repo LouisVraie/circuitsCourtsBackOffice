@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     DialogConnexion connexion;
     if(connexion.exec() == QDialog::Accepted){
         MainWindow w(connexion.getNumeroEmploye());
-        w.show();
+        w.showMaximized();
         return a.exec();
     }
 }
