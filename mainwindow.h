@@ -40,6 +40,7 @@ public:
 
     /* méthode de vérification de caractères */
     static QString escapeString(QString myQString);
+    bool verifMdp(QString newMdp, QString newCMdp);
 
 private slots:
     void on_action_Quitter_triggered();

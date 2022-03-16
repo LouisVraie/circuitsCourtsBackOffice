@@ -149,5 +149,28 @@ QString MainWindow::escapeString(QString myQString)
     return myQString;
 }
 
+/**
+ * @brief MainWindow::verifMdp
+ * Méthode publique de la classe MainWindow qui vérifie les champs de mots de passes
+ * @param newMdp: QString Mot de passe
+ * @param newCMdp: QString Confirmation de mot de passe
+ * @return bool Booléen qui détermine si un mot de passe répond aux critères ou non
+ */
+bool MainWindow::verifMdp(QString newMdp, QString newCMdp)
+{
+    qDebug()<<"bool MainWindow::verifMdp()";
+    //si les deux variables sont équivalentes
+    if(newMdp == newCMdp){
+        //si le mot de passe fait au minimum 8 caractères
+        if(newMdp.length() >= 8){
+            return true;
+        } else {
+            ui->statusBar->showMessage("Votre mot de passe doit faire au minimum 8 caractères !",5000);
+        }
+    } else {
+        ui->statusBar->showMessage("Les mots de passe saisis ne correspondent pas !",5000);
+    }
+    return false;
+}
 
 

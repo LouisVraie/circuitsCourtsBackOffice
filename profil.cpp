@@ -55,24 +55,17 @@ void MainWindow::on_pushButton_sauvegarderNewMotDePasseEmploye_clicked()
     newConfirmMdp = escapeString(ui->lineEdit_confirmMotDePasseEmploye->text());
 
     //si les deux mots de passe sont les mêmes
-    if (newMdp == newConfirmMdp){
-        //si le mot de passe est supérieur ou égal à 8 caractères
-        if (newMdp.length() >= 8) {
-            //requête qui met à jour le mot de passe
-            QString reqUpdateMdp = "UPDATE Employe SET motDePasseEmploye = PASSWORD('"+newMdp+"') WHERE numeroEmploye ="+numeroEmploye;
-            qDebug()<<reqUpdateMdp;
-            QSqlQuery resultUpdateMdp(reqUpdateMdp);
-            //si la requête a fonctionné
-            if (resultUpdateMdp.numRowsAffected() != -1){
-                ui->statusBar->showMessage("Votre mot de passe a été mis à jour !",5000);
-            } else {
-                ui->statusBar->showMessage("Une erreur est survenue lors du changement de votre mot de passe !",5000);
-            }
+    if (verifMdp(newMdp,newConfirmMdp)){
+        //requête qui met à jour le mot de passe
+        QString reqUpdateMdp = "UPDATE Employe SET motDePasseEmploye = PASSWORD('"+newMdp+"') WHERE numeroEmploye ="+numeroEmploye;
+        qDebug()<<reqUpdateMdp;
+        QSqlQuery resultUpdateMdp(reqUpdateMdp);
+        //si la requête a fonctionné
+        if (resultUpdateMdp.numRowsAffected() != -1){
+            ui->statusBar->showMessage("Votre mot de passe a été mis à jour !",5000);
         } else {
-            ui->statusBar->showMessage("Votre mot de passe doit faire au minimum 8 caractères !",5000);
+            ui->statusBar->showMessage("Une erreur est survenue lors du changement de votre mot de passe !",5000);
         }
-    } else {
-        ui->statusBar->showMessage("Les mots de passe saisis ne correspondent pas !",5000);
     }
 }
 
