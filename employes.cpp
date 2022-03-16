@@ -70,9 +70,9 @@ void MainWindow::fill_comboBox_employesTypeEmploye()
 
 /**
  * @brief MainWindow::on_pushButton_ajouterEmploye_clicked
- *
+ * Méthode private slots de la classe MainWindow qui ajoute un employé dans la base et rajoute une ligne dans le tableau
  */
 void MainWindow::on_pushButton_ajouterEmploye_clicked()
 {
-
+    qDebug()<<"void MainWindow::on_pushButton_ajouterEmploye_clicked()";
 }
