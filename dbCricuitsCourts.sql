@@ -154,7 +154,7 @@ CREATE TABLE `Employe` (
   `telEmploye` varchar(17) DEFAULT NULL,
   `motDePasseEmploye` varchar(41) DEFAULT NULL,
   `numeroTypeEmploye` int(11) NOT NULL,
-  `estActif` tinyint(1) DEFAULT NULL,
+  `estActif` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`numeroEmploye`),
   KEY `numeroTypeEmploye` (`numeroTypeEmploye`),
   CONSTRAINT `Employe_ibfk_1` FOREIGN KEY (`numeroTypeEmploye`) REFERENCES `TypeEmploye` (`numeroTypeEmploye`)
@@ -583,4 +583,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-16 16:00:51
+-- Dump completed on 2022-03-16 16:43:07
