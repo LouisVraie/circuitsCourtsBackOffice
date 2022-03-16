@@ -67,12 +67,14 @@ private:
     int loginMinimumSize;
 
     //Méthodes
-
+    /* employes.cpp */
+    void clearEmployesInputs();
 
     /* profil.cpp */
     QString verifChangePassword();
     bool verifEmployeInfos(QString leLogin, QString leMail, QString leTel);
     bool updateEmployeInfos(QString leLogin, QString lAdresse, QString leCodePostal, QString laVille, QString leMail, QString leTel);
+
 };
 
 #endif // MAINWINDOW_H

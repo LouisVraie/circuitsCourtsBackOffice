@@ -13,7 +13,8 @@ void MainWindow::afficherTableEmployes()
                                "e.adresseEmploye, e.codePostalEmploye, e.villeEmploye, e.mailEmploye, "
                                "e.telEmploye, te.libelleTypeEmploye, e.estActif, e.numeroTypeEmploye FROM Employe e "
                                "INNER JOIN TypeEmploye te ON te.numeroTypeEmploye = e.numeroTypeEmploye "
-                               "WHERE e.numeroTypeEmploye > "+numeroTypeEmploye;
+                               "WHERE e.numeroTypeEmploye > "+numeroTypeEmploye+" "
+                               "ORDER BY e.numeroTypeEmploye ASC";
     qDebug()<<reqTableEmployes;
     QSqlQuery resultTableEmployes(reqTableEmployes);
     //si la requête a fontionné
@@ -134,11 +135,8 @@ void MainWindow::on_pushButton_ajouterEmploye_clicked()
                 ui->tableWidget_employes->setItem(row,10,new QTableWidgetItem(newTel));
 
                 //on réinitialise tous les champs de saisies
-    //            ui->lineEditTitreLivre->clear();
-    //            ui->textEditResume->clear();
-    //            ui->lineEditDatePublicationLivre->clear();
-    //            ui->comboBoxAuteur->setCurrentIndex(0);
-    //            ui->comboBoxCategorie->setCurrentIndex(0);
+                clearEmployesInputs();
+
             } else {
                 QMessageBox::warning(this,windowTitle()+" - Ajout d'employé","Une erreur est survenue lors de l'insertion de l'employé !",QMessageBox::Ok);
             }
@@ -180,4 +178,24 @@ bool MainWindow::on_allLineEditEmploye_textChanged()
         ui->pushButton_ajouterEmploye->setEnabled(false);
         return false;
     }
+}
+
+/**
+ * @brief MainWindow::clearEmployesInputs
+ * Méthode private de la classe MainWindow qui permet d'effacer le contenu des champs de saisies
+ */
+void MainWindow::clearEmployesInputs()
+{
+    qDebug()<<"void MainWindow::clearEmployesInputs()";
+    ui->comboBox_employesTypeEmploye->setCurrentIndex(0);
+    ui->lineEdit_employesNom->clear();
+    ui->lineEdit_employesPrenom->clear();
+    ui->lineEdit_employesLogin->clear();
+    ui->lineEdit_employesMdp->clear();
+    ui->lineEdit_employesConfirmMdp->clear();
+    ui->lineEdit_employesAdresse->clear();
+    ui->lineEdit_employesCodePostal->clear();
+    ui->lineEdit_employesVille->clear();
+    ui->lineEdit_employesMail->clear();
+    ui->lineEdit_employesTel->clear();
 }
