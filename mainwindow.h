@@ -28,6 +28,7 @@ public:
 
     //Employés
     void afficherTableEmployes();
+    void fill_comboBox_employesTypeEmploye();
 
     //Profil
     void setTab_profil();

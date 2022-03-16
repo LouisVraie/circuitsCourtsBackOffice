@@ -27,6 +27,7 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     hideTabs();
     //Employés
     afficherTableEmployes();
+    fill_comboBox_employesTypeEmploye();
     //Profil
     setTab_profil();
 }
@@ -130,6 +131,29 @@ void MainWindow::afficherTableEmployes()
         }
     }else {
         ui->statusBar->showMessage("Erreur lors de l'affichage des employés !",2000);
+    }
+}
+
+/**
+ * @brief MainWindow::fill_comboBox_employesTypeEmploye
+ * Méthode publique de la classe MainWindow qui remplie la comboBox_employesTypeEmploye
+ */
+void MainWindow::fill_comboBox_employesTypeEmploye()
+{
+    qDebug()<<"void MainWindow::fill_comboBox_employesTypeEmploye()";
+    QString reqComboBoxTypeEmploye = "SELECT numeroTypeEmploye, libelleTypeEmploye FROM TypeEmploye "
+                                     "WHERE numeroTypeEmploye >"+numeroTypeEmploye;
+    qDebug()<<reqComboBoxTypeEmploye;
+    QSqlQuery resultComboBoxTypeEmploye(reqComboBoxTypeEmploye);
+    int index = 0;
+    ui->comboBox_employesTypeEmploye->insertItem(index,"Choisir un type","0");
+    //on affiche dans la comboBox tous les types Employé que peut choisir l'utilisateur
+    while(resultComboBoxTypeEmploye.next()){
+        index++;
+        QString libelle = resultComboBoxTypeEmploye.value("libelleTypeEmploye").toString();
+        QString numeroTypeEmp = resultComboBoxTypeEmploye.value("numeroTypeEmploye").toString();
+        ui->comboBox_employesTypeEmploye->insertItem(index,libelle,numeroTypeEmp);
+
     }
 }
 
