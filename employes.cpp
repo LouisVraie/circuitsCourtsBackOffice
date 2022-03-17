@@ -376,6 +376,27 @@ void MainWindow::on_pushButton_modifierEmploye_clicked()
  */
 void MainWindow::on_pushButton_supprimerEmploye_clicked()
 {
-
-    qDebug()<<((QCheckBox*)ui->tableWidget_employes->cellWidget(0,0))->isChecked();
+    qDebug()<<"void MainWindow::on_pushButton_supprimerEmploye_clicked()";
+    bool supprOk = false;
+    int nbLigneSuppr = 0;
+    for (int ligne = ui->tableWidget_employes->rowCount()-1;ligne>=0;ligne--) {
+        //si la QCheckBox est cochée
+        if(((QCheckBox*)ui->tableWidget_employes->cellWidget(ligne,0))->isChecked()){
+            QString reqUpdateDeleteEmploye = "UPDATE Employe SET estActif = FALSE "
+                                             "WHERE numeroEmploye = "+ui->tableWidget_employes->item(ligne,1)->text();
+            qDebug()<<reqUpdateDeleteEmploye;
+            QSqlQuery resultUpdateDeleteEmploye(reqUpdateDeleteEmploye);
+            if(resultUpdateDeleteEmploye.numRowsAffected() != -1){
+                ui->tableWidget_employes->removeRow(ligne);
+                nbLigneSuppr++;
+                supprOk = true;
+            } else {
+                ui->statusBar->showMessage("Erreur lors de la suppression !");
+                break;
+            }
+        }
+    }
+    if(supprOk){
+        ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" ligne(s) !");
+    }
 }
