@@ -44,7 +44,6 @@ public:
     static QString escapeString(QString myQString);
     bool verifMdp(QString newMdp, QString newCMdp);
 
-
 private slots:
     void on_action_Quitter_triggered();
 
@@ -59,6 +58,7 @@ private slots:
     bool on_allLineEditEmploye_textChanged();
     void on_pushButton_ajouterEmploye_clicked();
     void on_tableWidget_employes_itemSelectionChanged();
+    void on_pushButton_modifierEmploye_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -69,9 +69,12 @@ private:
     QString adresse, codePostal, ville;
     QString mail, tel;
     int loginMinimumSize;
+    /* employes.cpp */
+    QString newTypeEmploye, newNom, newPrenom, newLogin, newMdp, newCMdp, newAdresse, newCodePostal, newVille, newMail, newTel;
 
     //Méthodes
     /* employes.cpp */
+    void getEmployesInputs();
     void clearEmployesInputs();
 
     /* profil.cpp */

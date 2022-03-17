@@ -108,18 +108,7 @@ void MainWindow::on_pushButton_ajouterEmploye_clicked()
 {
     qDebug()<<"void MainWindow::on_pushButton_ajouterEmploye_clicked()";
     //on récupère le texte des lineEdits des informations personnelles
-    QString newTypeEmploye, newNom, newPrenom, newLogin, newMdp, newCMdp, newAdresse, newCodePostal, newVille, newMail, newTel;
-    newTypeEmploye = ui->comboBox_employesTypeEmploye->currentData().toString();
-    newNom = escapeString(ui->lineEdit_employesNom->text());
-    newPrenom = escapeString(ui->lineEdit_employesPrenom->text());
-    newLogin = escapeString(ui->lineEdit_employesLogin->text());
-    newMdp = escapeString(ui->lineEdit_employesMdp->text());
-    newCMdp = escapeString(ui->lineEdit_employesConfirmMdp->text());
-    newAdresse = escapeString(ui->lineEdit_employesAdresse->text());
-    newCodePostal = escapeString(ui->lineEdit_employesCodePostal->text());
-    newVille = escapeString(ui->lineEdit_employesVille->text());
-    newMail = escapeString(ui->lineEdit_employesMail->text());
-    newTel = escapeString(ui->lineEdit_employesTel->text());
+    getEmployesInputs();
 
     //si le login n'existe pas
     if(verifEmployeInfos(newLogin,newMail,newTel)){
@@ -186,18 +175,19 @@ bool MainWindow::on_allLineEditEmploye_textChanged()
 {
     qDebug()<<"bool MainWindow::on_allLineEditEmploye_textChanged()";
     //on récupère le texte des lineEdits des informations personnelles
+    getEmployesInputs();
     bool newTypeEmploye, newNom, newPrenom, newLogin, newMdp, newCMdp, newAdresse, newCodePostal, newVille, newMail, newTel;
-    newTypeEmploye = ui->comboBox_employesTypeEmploye->currentData().toInt() != 0;
-    newNom = escapeString(ui->lineEdit_employesNom->text()).size()>2;
-    newPrenom = escapeString(ui->lineEdit_employesPrenom->text()).size()>2;
-    newLogin = escapeString(ui->lineEdit_employesLogin->text())>loginMinimumSize;
-    newMdp = escapeString(ui->lineEdit_employesMdp->text()).size()>0;
-    newCMdp = escapeString(ui->lineEdit_employesConfirmMdp->text()).size()>0;
-    newAdresse = escapeString(ui->lineEdit_employesAdresse->text()).size()>10;
-    newCodePostal = escapeString(ui->lineEdit_employesCodePostal->text()).size()==5;
-    newVille = escapeString(ui->lineEdit_employesVille->text()).size()>2;
-    newMail = escapeString(ui->lineEdit_employesMail->text()).size()>5;
-    newTel = escapeString(ui->lineEdit_employesTel->text()).size()>=10;
+    newTypeEmploye = this->newTypeEmploye.toInt() != 0;
+    newNom = this->newNom.size()>2;
+    newPrenom = this->newPrenom.size()>2;
+    newLogin = this->newLogin.size()>loginMinimumSize;
+    newMdp = this->newMdp.size()>0;
+    newCMdp = this->newCMdp.size()>0;
+    newAdresse = this->newAdresse.size()>10;
+    newCodePostal = this->newCodePostal.size()==5;
+    newVille = this->newVille.size()>2;
+    newMail = this->newMail.size()>5;
+    newTel = this->newTel.size()>=10;
     //si les champs sont remplis et que le type employé est sélectionné
     if(newTypeEmploye && newNom && newPrenom && newLogin && newMdp && newCMdp &&
             newAdresse && newCodePostal && newVille && newMail && newTel){
@@ -209,6 +199,26 @@ bool MainWindow::on_allLineEditEmploye_textChanged()
         ui->pushButton_ajouterEmploye->setEnabled(false);
         return false;
     }
+}
+
+/**
+ * @brief MainWindow::getEmployesInputs
+ * Méthode private de la classe MainWindow qui récupère le contenu des lineEdits de l'onglet Employés
+ */
+void MainWindow::getEmployesInputs()
+{
+    qDebug()<<"void MainWindow::fillEmployesInputs()";
+    newTypeEmploye = ui->comboBox_employesTypeEmploye->currentData().toString();
+    newNom = escapeString(ui->lineEdit_employesNom->text());
+    newPrenom = escapeString(ui->lineEdit_employesPrenom->text());
+    newLogin = escapeString(ui->lineEdit_employesLogin->text());
+    newMdp = escapeString(ui->lineEdit_employesMdp->text());
+    newCMdp = escapeString(ui->lineEdit_employesConfirmMdp->text());
+    newAdresse = escapeString(ui->lineEdit_employesAdresse->text());
+    newCodePostal = escapeString(ui->lineEdit_employesCodePostal->text());
+    newVille = escapeString(ui->lineEdit_employesVille->text());
+    newMail = escapeString(ui->lineEdit_employesMail->text());
+    newTel = escapeString(ui->lineEdit_employesTel->text());
 }
 
 /**
@@ -229,6 +239,22 @@ void MainWindow::clearEmployesInputs()
     ui->lineEdit_employesVille->clear();
     ui->lineEdit_employesMail->clear();
     ui->lineEdit_employesTel->clear();
+
+    newTypeEmploye = "";
+    newNom = "";
+    newPrenom = "";
+    newLogin = "";
+    newMdp = "";
+    newCMdp = "";
+    newAdresse = "";
+    newCodePostal = "";
+    newVille = "";
+    newMail = "";
+    newTel = "";
+
+    //on désactive les boutons
+    ui->pushButton_ajouterEmploye->setDisabled(true);
+    ui->pushButton_modifierEmploye->setDisabled(true);
 }
 
 /**
@@ -266,5 +292,15 @@ void MainWindow::on_tableWidget_employes_itemSelectionChanged()
         //on désactive le bouton modifier
         ui->pushButton_modifierEmploye->setEnabled(false);
     }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_modifierEmploye_clicked
+ * Méthode private slots de la classe MainWindow qui met à jour les informations d'un employé sélectionné
+ */
+void MainWindow::on_pushButton_modifierEmploye_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_modifierEmploye_clicked()";
+
 
 }

@@ -169,3 +169,5 @@ bool MainWindow::verifMdp(QString newMdp, QString newCMdp)
     }
     return false;
 }
+
+
