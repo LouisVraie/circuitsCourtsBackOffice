@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QCheckBox>
+#include <QTableWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,7 @@ public:
     void hideTabs();
 
     /* employes.cpp */
+    void initEmployes();
     void afficherTableEmployes();
     void fill_comboBox_employesTypeEmploye();
 
@@ -42,6 +44,7 @@ public:
     static QString escapeString(QString myQString);
     bool verifMdp(QString newMdp, QString newCMdp);
 
+
 private slots:
     void on_action_Quitter_triggered();
 
@@ -55,6 +58,7 @@ private slots:
     /* employes.cpp */
     bool on_allLineEditEmploye_textChanged();
     void on_pushButton_ajouterEmploye_clicked();
+    void on_tableWidget_employes_itemSelectionChanged();
 
 private:
     Ui::MainWindow *ui;

@@ -2,6 +2,37 @@
 #include "ui_mainwindow.h"
 
 /**
+ * @brief MainWindow::initEmployes
+ * Méthode publique de la classe MainWindow qui initialise l'onglet Employés
+ */
+void MainWindow::initEmployes()
+{
+    qDebug()<<"void MainWindow::initEmployes()";
+
+    //on stretch les colonnes des QTableWidget
+    ui->tableWidget_employes->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    afficherTableEmployes();
+    fill_comboBox_employesTypeEmploye();
+
+    //on désactive le bouton Ajouter Employés et on connecte les lineEdit
+    ui->pushButton_ajouterEmploye->setEnabled(false);
+    connect(ui->comboBox_employesTypeEmploye,SIGNAL(currentIndexChanged(int)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesNom,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesPrenom,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesLogin,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesMdp,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesConfirmMdp,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesAdresse,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesCodePostal,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesVille,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesMail,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+    connect(ui->lineEdit_employesTel,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+
+    //on désactive le bouton modifier par défaut
+    ui->pushButton_modifierEmploye->setEnabled(false);
+}
+
+/**
  * @brief MainWindow::afficherTableEmployes
  * Méthode publique de la classe MainWindow qui permet d'afficher la liste des employés
  */
@@ -198,4 +229,42 @@ void MainWindow::clearEmployesInputs()
     ui->lineEdit_employesVille->clear();
     ui->lineEdit_employesMail->clear();
     ui->lineEdit_employesTel->clear();
+}
+
+/**
+ * @brief MainWindow::on_tableWidget_employes_itemSelectionChanged
+ * Méthode private slots de la classe MainWindow qui affiche les données d'un employé de la ligne sélectionnée
+ * dans les champs associés
+ */
+void MainWindow::on_tableWidget_employes_itemSelectionChanged()
+{
+    qDebug()<<"void MainWindow::on_tableWidget_employes_itemSelectionChanged()";
+    if(!ui->tableWidget_employes->selectedItems().empty()){
+        //on active le bouton modifier
+        ui->pushButton_modifierEmploye->setEnabled(true);
+        //on récupère les données de la ligne sélectionné
+        for (int i=0;i<ui->comboBox_employesTypeEmploye->count();i++) {
+            //si le type employé de la comboBox est le même que celui du tableau
+            if(ui->comboBox_employesTypeEmploye->itemText(i) == ui->tableWidget_employes->selectedItems()[1]->text()){
+                //on sélectionne l'item correspodant dans la comboBox
+                ui->comboBox_employesTypeEmploye->setCurrentIndex(i);
+            }
+        }
+        ui->lineEdit_employesNom->setText(ui->tableWidget_employes->selectedItems()[3]->text());
+        ui->lineEdit_employesPrenom->setText(ui->tableWidget_employes->selectedItems()[4]->text());
+        ui->lineEdit_employesLogin->setText(ui->tableWidget_employes->selectedItems()[2]->text());
+        ui->lineEdit_employesAdresse->setText(ui->tableWidget_employes->selectedItems()[5]->text());
+        ui->lineEdit_employesCodePostal->setText(ui->tableWidget_employes->selectedItems()[6]->text());
+        ui->lineEdit_employesVille->setText(ui->tableWidget_employes->selectedItems()[7]->text());
+        ui->lineEdit_employesMail->setText(ui->tableWidget_employes->selectedItems()[8]->text());
+        ui->lineEdit_employesTel->setText(ui->tableWidget_employes->selectedItems()[9]->text());
+
+        //on efface par précaution les champs de mot de passe
+        ui->lineEdit_employesMdp->clear();
+        ui->lineEdit_employesConfirmMdp->clear();
+    }else {
+        //on désactive le bouton modifier
+        ui->pushButton_modifierEmploye->setEnabled(false);
+    }
+
 }

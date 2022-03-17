@@ -23,25 +23,7 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     hideTabs();
 
     /* employes.cpp */
-
-    //on désactive le bouton Ajouter Employés et on connecte les lineEdit
-    ui->pushButton_ajouterEmploye->setEnabled(false);
-    connect(ui->comboBox_employesTypeEmploye,SIGNAL(currentIndexChanged(int)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesNom,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesPrenom,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesLogin,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesMdp,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesConfirmMdp,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesAdresse,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesCodePostal,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesVille,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesMail,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-    connect(ui->lineEdit_employesTel,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
-
-    //on stretch les colonnes des QTableWidget
-    ui->tableWidget_employes->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    afficherTableEmployes();
-    fill_comboBox_employesTypeEmploye();
+    initEmployes();
 
     /* profil.cpp */
     setTab_profil();
@@ -187,5 +169,3 @@ bool MainWindow::verifMdp(QString newMdp, QString newCMdp)
     }
     return false;
 }
-
-
