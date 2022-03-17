@@ -13,7 +13,14 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     ui->setupUi(this);
     //initialisation des propriétés
     this->numeroEmploye = numeroEmploye;
-    this->loginMinimumSize = 3;
+    this->loginMinimumSize = 4;
+    nomPrenomMinimumSize = 3;
+    mdpMinimumSize = 3;
+    adresseMinimumSize = 10;
+    codePostalMinimumSize = 5;
+    villeMinimumSize = 2;
+    mailMinimumSize = 5;
+    telMinimumSize = 10;
 
     //initialisation des éléments de l'UI
     setWindowTitle("CircuitsCourts - BackOffice");
@@ -169,5 +176,6 @@ bool MainWindow::verifMdp(QString newMdp, QString newCMdp)
     }
     return false;
 }
+
 
 

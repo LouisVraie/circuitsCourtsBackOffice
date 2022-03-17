@@ -55,10 +55,11 @@ private slots:
     void on_lineEdit_loginEmploye_textChanged(const QString &arg1);
 
     /* employes.cpp */
-    bool on_allLineEditEmploye_textChanged();
+    void on_allLineEditEmploye_textChanged();
     void on_pushButton_ajouterEmploye_clicked();
     void on_tableWidget_employes_itemSelectionChanged();
     void on_pushButton_modifierEmploye_clicked();
+    void on_pushButton_supprimerEmploye_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -68,8 +69,12 @@ private:
     QString login, nom, prenom;
     QString adresse, codePostal, ville;
     QString mail, tel;
-    int loginMinimumSize;
+
+    int loginMinimumSize, nomPrenomMinimumSize, mdpMinimumSize;
+    int adresseMinimumSize, codePostalMinimumSize, villeMinimumSize, mailMinimumSize, telMinimumSize;
+
     /* employes.cpp */
+    int rowEmploye;
     QString newTypeEmploye, newNom, newPrenom, newLogin, newMdp, newCMdp, newAdresse, newCodePostal, newVille, newMail, newTel;
 
     //Méthodes

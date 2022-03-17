@@ -164,41 +164,52 @@ void MainWindow::on_pushButton_ajouterEmploye_clicked()
     } else {
         QMessageBox::warning(this,windowTitle()+" - Ajout d'employé","Le login saisit existe déjà !",QMessageBox::Ok);
     }
-
 }
+
 /**
  * @brief MainWindow::on_allLineEditEmploye_textChanged
- * Méthode private slots qui active ou non le bouton pour ajouter un employé
- * @return bool
+ * Méthode private slots qui active ou non les boutons de l'onglet Employés
  */
-bool MainWindow::on_allLineEditEmploye_textChanged()
+void MainWindow::on_allLineEditEmploye_textChanged()
 {
     qDebug()<<"bool MainWindow::on_allLineEditEmploye_textChanged()";
     //on récupère le texte des lineEdits des informations personnelles
     getEmployesInputs();
     bool newTypeEmploye, newNom, newPrenom, newLogin, newMdp, newCMdp, newAdresse, newCodePostal, newVille, newMail, newTel;
     newTypeEmploye = this->newTypeEmploye.toInt() != 0;
-    newNom = this->newNom.size()>2;
-    newPrenom = this->newPrenom.size()>2;
-    newLogin = this->newLogin.size()>loginMinimumSize;
-    newMdp = this->newMdp.size()>0;
-    newCMdp = this->newCMdp.size()>0;
-    newAdresse = this->newAdresse.size()>10;
-    newCodePostal = this->newCodePostal.size()==5;
-    newVille = this->newVille.size()>2;
-    newMail = this->newMail.size()>5;
-    newTel = this->newTel.size()>=10;
+    newNom = this->newNom.size()>=nomPrenomMinimumSize;
+    newPrenom = this->newPrenom.size()>=nomPrenomMinimumSize;
+    newLogin = this->newLogin.size()>=loginMinimumSize;
+    newMdp = this->newMdp.size()>=mdpMinimumSize;
+    newCMdp = this->newCMdp.size()>=mdpMinimumSize;
+    newAdresse = this->newAdresse.size()>=adresseMinimumSize;
+    newCodePostal = this->newCodePostal.size()==codePostalMinimumSize;
+    newVille = this->newVille.size()>=villeMinimumSize;
+    newMail = this->newMail.size()>=mailMinimumSize;
+    newTel = this->newTel.size()>=telMinimumSize;
     //si les champs sont remplis et que le type employé est sélectionné
     if(newTypeEmploye && newNom && newPrenom && newLogin && newMdp && newCMdp &&
             newAdresse && newCodePostal && newVille && newMail && newTel){
         //on active le bouton
         ui->pushButton_ajouterEmploye->setEnabled(true);
-        return true;
     }else {
         //on désactive le bouton
         ui->pushButton_ajouterEmploye->setEnabled(false);
-        return false;
     }
+
+    //si une ligne est sélectionnée
+    if(!ui->tableWidget_employes->selectedItems().empty()){
+        //si les champs sont remplis et que le type employé est sélectionné
+        if(newTypeEmploye && newNom && newPrenom && newLogin &&
+                newAdresse && newCodePostal && newVille && newMail && newTel){
+            //on active le bouton
+            ui->pushButton_modifierEmploye->setEnabled(true);
+        }else {
+            //on désactive le bouton
+            ui->pushButton_modifierEmploye->setEnabled(false);
+        }
+    }
+
 }
 
 /**
@@ -266,6 +277,8 @@ void MainWindow::on_tableWidget_employes_itemSelectionChanged()
 {
     qDebug()<<"void MainWindow::on_tableWidget_employes_itemSelectionChanged()";
     if(!ui->tableWidget_employes->selectedItems().empty()){
+        //on récupère le numéro de ligne
+        rowEmploye = ui->tableWidget_employes->row(ui->tableWidget_employes->selectedItems()[0]);
         //on active le bouton modifier
         ui->pushButton_modifierEmploye->setEnabled(true);
         //on récupère les données de la ligne sélectionné
@@ -301,6 +314,68 @@ void MainWindow::on_tableWidget_employes_itemSelectionChanged()
 void MainWindow::on_pushButton_modifierEmploye_clicked()
 {
     qDebug()<<"void MainWindow::on_pushButton_modifierEmploye_clicked()";
+    //récupération des champs
+    getEmployesInputs();
 
+    //mise à jour dans la base de données
+    QString reqUpdateEmploye = "UPDATE Employe SET "
+                        "loginEmploye = '"+newLogin+"', "
+                        "nomEmploye = '"+newNom+"', "
+                        "prenomEmploye = '"+newPrenom+"', "
+                        "adresseEmploye = '"+newAdresse+"', "
+                        "codePostalEmploye = '"+newCodePostal+"', "
+                        "villeEmploye = '"+newVille+"', "
+                        "mailEmploye = '"+newMail+"', "
+                        "telEmploye = '"+newTel+"', "
+                        "numeroTypeEmploye = "+newTypeEmploye+" "
+                        "WHERE numeroEmploye = "+ui->tableWidget_employes->selectedItems()[0]->text();
+    qDebug()<<reqUpdateEmploye;
+    QSqlQuery resultUpdateEmploye(reqUpdateEmploye);
+    qDebug()<<resultUpdateEmploye.numRowsAffected();
+    //si l'update a fonctionné
+    if(resultUpdateEmploye.numRowsAffected() != -1){
+        //si un mdp est donné
+        if(newMdp != "" && newCMdp != ""){
+            //on vérifie les mots de passe
+            if(verifMdp(newMdp, newCMdp)){
+                QString reqUpdateMdpEmploye = "UPDATE Employe SET motDePasseEmploye = PASSWORD('"+newMdp+"') "
+                                              "WHERE numeroEmploye = "+ui->tableWidget_employes->item(rowEmploye,1)->text();
+                qDebug()<<reqUpdateMdpEmploye;
+                QSqlQuery resultUpdateMdpEmploye(reqUpdateEmploye);
+                //si l'update a fonctionné
+                if(resultUpdateMdpEmploye.numRowsAffected() != -1){
+                    ui->statusBar->showMessage("Le mot de passe de l'employé "+newLogin+" a bien été changé !");
+                } else {
+                    ui->statusBar->showMessage("Erreur lors de la modification du mot de passe de l'employé !");
+                }
+            }
+        } else {
+            ui->tableWidget_employes->setItem(rowEmploye,2,new QTableWidgetItem(ui->comboBox_employesTypeEmploye->currentText()));
+            ui->tableWidget_employes->setItem(rowEmploye,3,new QTableWidgetItem(newLogin));
+            ui->tableWidget_employes->setItem(rowEmploye,4,new QTableWidgetItem(newNom));
+            ui->tableWidget_employes->setItem(rowEmploye,5,new QTableWidgetItem(newPrenom));
+            ui->tableWidget_employes->setItem(rowEmploye,6,new QTableWidgetItem(newAdresse));
+            ui->tableWidget_employes->setItem(rowEmploye,7,new QTableWidgetItem(newCodePostal));
+            ui->tableWidget_employes->setItem(rowEmploye,8,new QTableWidgetItem(newVille));
+            ui->tableWidget_employes->setItem(rowEmploye,9,new QTableWidgetItem(newMail));
+            ui->tableWidget_employes->setItem(rowEmploye,10,new QTableWidgetItem(newTel));
 
+            ui->statusBar->showMessage("Les données de l'employé "+newLogin+" ont été modifié avec succès !");
+
+            //on clear les inputs
+            clearEmployesInputs();
+        }
+    } else {
+        ui->statusBar->showMessage("Erreur lors de la modification de l'employé !");
+    }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_supprimerEmploye_clicked
+ * Méthode private slots de la classe MainWindow qui supprime dans le tableau les lignes des employés sélectionnées
+ */
+void MainWindow::on_pushButton_supprimerEmploye_clicked()
+{
+
+    qDebug()<<((QCheckBox*)ui->tableWidget_employes->cellWidget(0,0))->isChecked();
 }
