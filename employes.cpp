@@ -53,11 +53,10 @@ void MainWindow::afficherTableEmployes()
                                "ORDER BY e.numeroTypeEmploye ASC";
     qDebug()<<reqTableEmployes;
     QSqlQuery resultTableEmployes(reqTableEmployes);
-    //si la requête a fontionné
+    //si la requête a fonctionné
     if(resultTableEmployes.numRowsAffected() != -1){
         //on affiche chaque ligne
         while(resultTableEmployes.next()){
-            qDebug()<<resultTableEmployes.value("numeroTypeEmploye").toString()<<" > "<<numeroTypeEmploye;
             //si l'employé est visible on l'affiche
             if(resultTableEmployes.value("estActif").toInt()){
                 //on ajoute une ligne au tableau

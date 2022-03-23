@@ -33,6 +33,10 @@ public:
     void afficherTableEmployes();
     void fill_comboBox_employesTypeEmploye();
 
+    /* producteurs.cpp */
+    void initProducteurs();
+    void afficherTableProducteurEnAttente();
+
     /* profil.cpp */
     void setTab_profil();
 
