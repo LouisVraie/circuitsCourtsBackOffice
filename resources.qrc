@@ -17,5 +17,8 @@
         <file>images/account-plus.png</file>
         <file>images/account-minus.png</file>
         <file>images/account-edit.png</file>
+        <file>images/timer-sand.png</file>
+        <file>images/minus-circle.png</file>
+        <file>images/check-circle.png</file>
     </qresource>
 </RCC>

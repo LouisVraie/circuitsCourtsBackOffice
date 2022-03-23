@@ -22,7 +22,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_tableauDeBord">
        <attribute name="icon">
@@ -374,6 +374,25 @@
        <attribute name="title">
         <string>&amp;Producteurs</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QTabWidget" name="tabWidget_producteurs">
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="tab_producteursEnAttente">
+           <attribute name="title">
+            <string>&amp;En attente</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tab_producteursValides">
+           <attribute name="title">
+            <string>&amp;Validés</string>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_rayonsProduits">
        <attribute name="icon">

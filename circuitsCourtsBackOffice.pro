@@ -29,6 +29,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     dialogconnexion.cpp \
+    producteurs.cpp \
     profil.cpp
 
 HEADERS += \
