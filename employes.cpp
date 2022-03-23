@@ -11,6 +11,7 @@ void MainWindow::initEmployes()
 
     //on stretch les colonnes des QTableWidget
     ui->tableWidget_employes->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     afficherTableEmployes();
     fill_comboBox_employesTypeEmploye();
 
@@ -27,6 +28,10 @@ void MainWindow::initEmployes()
     connect(ui->lineEdit_employesVille,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
     connect(ui->lineEdit_employesMail,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
     connect(ui->lineEdit_employesTel,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
+
+    //on définit les verifications de saisies
+    QRegExp regexVerifEmail("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}");
+    ui->lineEdit_employesMail->setValidator(new QRegExpValidator(regexVerifEmail));
 
     //on désactive le bouton modifier par défaut
     ui->pushButton_modifierEmploye->setEnabled(false);
@@ -107,62 +112,65 @@ void MainWindow::fill_comboBox_employesTypeEmploye()
 void MainWindow::on_pushButton_ajouterEmploye_clicked()
 {
     qDebug()<<"void MainWindow::on_pushButton_ajouterEmploye_clicked()";
-    //on récupère le texte des lineEdits des informations personnelles
-    getEmployesInputs();
+    //si le mail est correct
+    if(verifEmployesMail()){
+        //on récupère le texte des lineEdits des informations personnelles
+        getEmployesInputs();
 
-    //si le login n'existe pas
-    if(verifEmployeInfos(newLogin,newMail,newTel)){
-        //si les deux mots de passe sont les mêmes
-        if(verifMdp(newMdp, newCMdp)){
-            //requête pour obtenir un nouveau numéro d'employé
-            QSqlQuery resultNumEmploye("SELECT IFNULL((SELECT MAX(numeroEmploye)+1 FROM Employe),1)");
-            resultNumEmploye.next();
-            QString numEmploye = resultNumEmploye.value(0).toString();
-            qDebug()<<numEmploye;
-            //requête d'ajout de l'employé
-            QString reqInsertEmploye="INSERT INTO Employe (numeroEmploye, loginEmploye, nomEmploye, prenomEmploye, "
-                                     "adresseEmploye, codePostalEmploye, villeEmploye, mailEmploye, telEmploye, "
-                                     "motDePasseEmploye, numeroTypeEmploye) VALUES ("
-                                     ""+numEmploye+","
-                                     "'"+newLogin+"',"
-                                     "'"+newNom+"',"
-                                     "'"+newPrenom+"',"
-                                     "'"+newAdresse+"',"
-                                     "'"+newCodePostal+"',"
-                                     "'"+newVille+"',"
-                                     "'"+newMail+"',"
-                                     "'"+newTel+"',"
-                                     "PASSWORD('"+newMdp+"'),"
-                                     ""+newTypeEmploye+")";
-            qDebug()<<reqInsertEmploye;
-            QSqlQuery resultInsertEmploye(reqInsertEmploye);
-            //si l'insertion a fonctionné
-            if(resultInsertEmploye.numRowsAffected() != -1){
-                //on ajoute une ligne au tableau
-                int row = ui->tableWidget_employes->rowCount();
-                ui->tableWidget_employes->setRowCount(row+1);
-                //on insert le contenu de chaque cellule
-                ui->tableWidget_employes->setCellWidget(row,0,new QCheckBox());
-                ui->tableWidget_employes->setItem(row,1,new QTableWidgetItem(numEmploye));
-                ui->tableWidget_employes->setItem(row,2,new QTableWidgetItem(ui->comboBox_employesTypeEmploye->currentText()));
-                ui->tableWidget_employes->setItem(row,3,new QTableWidgetItem(newLogin));
-                ui->tableWidget_employes->setItem(row,4,new QTableWidgetItem(newNom));
-                ui->tableWidget_employes->setItem(row,5,new QTableWidgetItem(newPrenom));
-                ui->tableWidget_employes->setItem(row,6,new QTableWidgetItem(newAdresse));
-                ui->tableWidget_employes->setItem(row,7,new QTableWidgetItem(newCodePostal));
-                ui->tableWidget_employes->setItem(row,8,new QTableWidgetItem(newVille));
-                ui->tableWidget_employes->setItem(row,9,new QTableWidgetItem(newMail));
-                ui->tableWidget_employes->setItem(row,10,new QTableWidgetItem(newTel));
+        //si le login n'existe pas
+        if(verifEmployeInfos(newLogin,newMail,newTel)){
+            //si les deux mots de passe sont les mêmes
+            if(verifMdp(newMdp, newCMdp)){
+                //requête pour obtenir un nouveau numéro d'employé
+                QSqlQuery resultNumEmploye("SELECT IFNULL((SELECT MAX(numeroEmploye)+1 FROM Employe),1)");
+                resultNumEmploye.next();
+                QString numEmploye = resultNumEmploye.value(0).toString();
+                qDebug()<<numEmploye;
+                //requête d'ajout de l'employé
+                QString reqInsertEmploye="INSERT INTO Employe (numeroEmploye, loginEmploye, nomEmploye, prenomEmploye, "
+                                         "adresseEmploye, codePostalEmploye, villeEmploye, mailEmploye, telEmploye, "
+                                         "motDePasseEmploye, numeroTypeEmploye) VALUES ("
+                                         ""+numEmploye+","
+                                         "'"+newLogin+"',"
+                                         "'"+newNom+"',"
+                                         "'"+newPrenom+"',"
+                                         "'"+newAdresse+"',"
+                                         "'"+newCodePostal+"',"
+                                         "'"+newVille+"',"
+                                         "'"+newMail+"',"
+                                         "'"+newTel+"',"
+                                         "PASSWORD('"+newMdp+"'),"
+                                         ""+newTypeEmploye+")";
+                qDebug()<<reqInsertEmploye;
+                QSqlQuery resultInsertEmploye(reqInsertEmploye);
+                //si l'insertion a fonctionné
+                if(resultInsertEmploye.numRowsAffected() != -1){
+                    //on ajoute une ligne au tableau
+                    int row = ui->tableWidget_employes->rowCount();
+                    ui->tableWidget_employes->setRowCount(row+1);
+                    //on insert le contenu de chaque cellule
+                    ui->tableWidget_employes->setCellWidget(row,0,new QCheckBox());
+                    ui->tableWidget_employes->setItem(row,1,new QTableWidgetItem(numEmploye));
+                    ui->tableWidget_employes->setItem(row,2,new QTableWidgetItem(ui->comboBox_employesTypeEmploye->currentText()));
+                    ui->tableWidget_employes->setItem(row,3,new QTableWidgetItem(newLogin));
+                    ui->tableWidget_employes->setItem(row,4,new QTableWidgetItem(newNom));
+                    ui->tableWidget_employes->setItem(row,5,new QTableWidgetItem(newPrenom));
+                    ui->tableWidget_employes->setItem(row,6,new QTableWidgetItem(newAdresse));
+                    ui->tableWidget_employes->setItem(row,7,new QTableWidgetItem(newCodePostal));
+                    ui->tableWidget_employes->setItem(row,8,new QTableWidgetItem(newVille));
+                    ui->tableWidget_employes->setItem(row,9,new QTableWidgetItem(newMail));
+                    ui->tableWidget_employes->setItem(row,10,new QTableWidgetItem(newTel));
 
-                //on réinitialise tous les champs de saisies
-                clearEmployesInputs();
+                    //on réinitialise tous les champs de saisies
+                    clearEmployesInputs();
 
-            } else {
-                QMessageBox::warning(this,windowTitle()+" - Ajout d'employé","Une erreur est survenue lors de l'insertion de l'employé !",QMessageBox::Ok);
+                } else {
+                    ui->statusBar->showMessage("Une erreur est survenue lors de l'insertion de l'employé !",5000);
+                }
             }
+        } else {
+            ui->statusBar->showMessage("Le login saisit existe déjà !",5000);
         }
-    } else {
-        QMessageBox::warning(this,windowTitle()+" - Ajout d'employé","Le login saisit existe déjà !",QMessageBox::Ok);
     }
 }
 
@@ -314,59 +322,62 @@ void MainWindow::on_tableWidget_employes_itemSelectionChanged()
 void MainWindow::on_pushButton_modifierEmploye_clicked()
 {
     qDebug()<<"void MainWindow::on_pushButton_modifierEmploye_clicked()";
-    //récupération des champs
-    getEmployesInputs();
+    //si le mail est correct
+    if(verifEmployesMail()){
+        //récupération des champs
+        getEmployesInputs();
 
-    //mise à jour dans la base de données
-    QString reqUpdateEmploye = "UPDATE Employe SET "
-                        "loginEmploye = '"+newLogin+"', "
-                        "nomEmploye = '"+newNom+"', "
-                        "prenomEmploye = '"+newPrenom+"', "
-                        "adresseEmploye = '"+newAdresse+"', "
-                        "codePostalEmploye = '"+newCodePostal+"', "
-                        "villeEmploye = '"+newVille+"', "
-                        "mailEmploye = '"+newMail+"', "
-                        "telEmploye = '"+newTel+"', "
-                        "numeroTypeEmploye = "+newTypeEmploye+" "
-                        "WHERE numeroEmploye = "+ui->tableWidget_employes->selectedItems()[0]->text();
-    qDebug()<<reqUpdateEmploye;
-    QSqlQuery resultUpdateEmploye(reqUpdateEmploye);
-    qDebug()<<resultUpdateEmploye.numRowsAffected();
-    //si l'update a fonctionné
-    if(resultUpdateEmploye.numRowsAffected() != -1){
-        //si un mdp est donné
-        if(newMdp != "" && newCMdp != ""){
-            //on vérifie les mots de passe
-            if(verifMdp(newMdp, newCMdp)){
-                QString reqUpdateMdpEmploye = "UPDATE Employe SET motDePasseEmploye = PASSWORD('"+newMdp+"') "
-                                              "WHERE numeroEmploye = "+ui->tableWidget_employes->item(rowEmploye,1)->text();
-                qDebug()<<reqUpdateMdpEmploye;
-                QSqlQuery resultUpdateMdpEmploye(reqUpdateEmploye);
-                //si l'update a fonctionné
-                if(resultUpdateMdpEmploye.numRowsAffected() != -1){
-                    ui->statusBar->showMessage("Le mot de passe de l'employé "+newLogin+" a bien été changé !");
-                } else {
-                    ui->statusBar->showMessage("Erreur lors de la modification du mot de passe de l'employé !");
+        //mise à jour dans la base de données
+        QString reqUpdateEmploye = "UPDATE Employe SET "
+                            "loginEmploye = '"+newLogin+"', "
+                            "nomEmploye = '"+newNom+"', "
+                            "prenomEmploye = '"+newPrenom+"', "
+                            "adresseEmploye = '"+newAdresse+"', "
+                            "codePostalEmploye = '"+newCodePostal+"', "
+                            "villeEmploye = '"+newVille+"', "
+                            "mailEmploye = '"+newMail+"', "
+                            "telEmploye = '"+newTel+"', "
+                            "numeroTypeEmploye = "+newTypeEmploye+" "
+                            "WHERE numeroEmploye = "+ui->tableWidget_employes->selectedItems()[0]->text();
+        qDebug()<<reqUpdateEmploye;
+        QSqlQuery resultUpdateEmploye(reqUpdateEmploye);
+        qDebug()<<resultUpdateEmploye.numRowsAffected();
+        //si l'update a fonctionné
+        if(resultUpdateEmploye.numRowsAffected() != -1){
+            //si un mdp est donné
+            if(newMdp != "" && newCMdp != ""){
+                //on vérifie les mots de passe
+                if(verifMdp(newMdp, newCMdp)){
+                    QString reqUpdateMdpEmploye = "UPDATE Employe SET motDePasseEmploye = PASSWORD('"+newMdp+"') "
+                                                  "WHERE numeroEmploye = "+ui->tableWidget_employes->item(rowEmploye,1)->text();
+                    qDebug()<<reqUpdateMdpEmploye;
+                    QSqlQuery resultUpdateMdpEmploye(reqUpdateEmploye);
+                    //si l'update a fonctionné
+                    if(resultUpdateMdpEmploye.numRowsAffected() != -1){
+                        ui->statusBar->showMessage("Le mot de passe de l'employé "+newLogin+" a bien été changé !",5000);
+                    } else {
+                        ui->statusBar->showMessage("Erreur lors de la modification du mot de passe de l'employé !",5000);
+                    }
                 }
+            } else {
+                ui->tableWidget_employes->setItem(rowEmploye,2,new QTableWidgetItem(ui->comboBox_employesTypeEmploye->currentText()));
+                ui->tableWidget_employes->setItem(rowEmploye,3,new QTableWidgetItem(newLogin));
+                ui->tableWidget_employes->setItem(rowEmploye,4,new QTableWidgetItem(newNom));
+                ui->tableWidget_employes->setItem(rowEmploye,5,new QTableWidgetItem(newPrenom));
+                ui->tableWidget_employes->setItem(rowEmploye,6,new QTableWidgetItem(newAdresse));
+                ui->tableWidget_employes->setItem(rowEmploye,7,new QTableWidgetItem(newCodePostal));
+                ui->tableWidget_employes->setItem(rowEmploye,8,new QTableWidgetItem(newVille));
+                ui->tableWidget_employes->setItem(rowEmploye,9,new QTableWidgetItem(newMail));
+                ui->tableWidget_employes->setItem(rowEmploye,10,new QTableWidgetItem(newTel));
+
+                ui->statusBar->showMessage("Les données de l'employé "+newLogin+" ont été modifié avec succès !",5000);
+
+                //on clear les inputs
+                clearEmployesInputs();
             }
         } else {
-            ui->tableWidget_employes->setItem(rowEmploye,2,new QTableWidgetItem(ui->comboBox_employesTypeEmploye->currentText()));
-            ui->tableWidget_employes->setItem(rowEmploye,3,new QTableWidgetItem(newLogin));
-            ui->tableWidget_employes->setItem(rowEmploye,4,new QTableWidgetItem(newNom));
-            ui->tableWidget_employes->setItem(rowEmploye,5,new QTableWidgetItem(newPrenom));
-            ui->tableWidget_employes->setItem(rowEmploye,6,new QTableWidgetItem(newAdresse));
-            ui->tableWidget_employes->setItem(rowEmploye,7,new QTableWidgetItem(newCodePostal));
-            ui->tableWidget_employes->setItem(rowEmploye,8,new QTableWidgetItem(newVille));
-            ui->tableWidget_employes->setItem(rowEmploye,9,new QTableWidgetItem(newMail));
-            ui->tableWidget_employes->setItem(rowEmploye,10,new QTableWidgetItem(newTel));
-
-            ui->statusBar->showMessage("Les données de l'employé "+newLogin+" ont été modifié avec succès !");
-
-            //on clear les inputs
-            clearEmployesInputs();
+            ui->statusBar->showMessage("Erreur lors de la modification de l'employé !",5000);
         }
-    } else {
-        ui->statusBar->showMessage("Erreur lors de la modification de l'employé !");
     }
 }
 
@@ -391,12 +402,30 @@ void MainWindow::on_pushButton_supprimerEmploye_clicked()
                 nbLigneSuppr++;
                 supprOk = true;
             } else {
-                ui->statusBar->showMessage("Erreur lors de la suppression !");
+                ui->statusBar->showMessage("Erreur lors de la suppression !",5000);
                 break;
             }
         }
     }
     if(supprOk){
-        ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" ligne(s) !");
+        ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" ligne(s) !",5000);
     }
+}
+
+/**
+ * @brief MainWindow::verifEmployesMail
+ * Méthode private de la classe MainWindow qui vérifie le champ Mail du tab Employés
+ * @return bool
+ */
+bool MainWindow::verifEmployesMail()
+{
+    qDebug()<<"bool MainWindow::verifEmployesMail()";
+    bool resultat = ui->lineEdit_employesMail->hasAcceptableInput();
+    //si le mail correspond
+    if(resultat){
+        ui->lineEdit_employesMail->setStyleSheet("color: darkgreen;");
+    } else {
+        ui->lineEdit_employesMail->setStyleSheet("color: darkred;");
+    }
+    return resultat;
 }

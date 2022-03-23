@@ -81,6 +81,7 @@ private:
     /* employes.cpp */
     void getEmployesInputs();
     void clearEmployesInputs();
+    bool verifEmployesMail();
 
     /* profil.cpp */
     QString verifChangePassword();
