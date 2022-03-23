@@ -65,6 +65,8 @@ private slots:
     void on_pushButton_modifierEmploye_clicked();
     void on_pushButton_supprimerEmploye_clicked();
 
+    void on_pushButton_producteursEnAttenteValider_clicked();
+
 private:
     Ui::MainWindow *ui;
 

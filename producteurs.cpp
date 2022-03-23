@@ -20,6 +20,7 @@ void MainWindow::initProducteurs()
 
 /**
  * @brief MainWindow::afficherTableProducteurEnAttente
+ * Méthode public de la classe MainWindow qui affiche dans un tableau les producteurs en attente de validation
  */
 void MainWindow::afficherTableProducteurEnAttente()
 {
@@ -51,5 +52,38 @@ void MainWindow::afficherTableProducteurEnAttente()
         }
     }else {
         ui->statusBar->showMessage("Erreur lors de l'affichage des employés !",2000);
+    }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_producteursEnAttenteValider_clicked
+ * Méthode private slots de la classe MainWindow qui valide un producteur
+ */
+void MainWindow::on_pushButton_producteursEnAttenteValider_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_producteursEnAttenteValider_clicked()";
+    //si une ligne est sélectionnée
+    if (!ui->tableWidget_producteursEnAttente->selectedItems().isEmpty()){
+        QString nomPrenomProducteur = ui->tableWidget_producteursEnAttente->selectedItems()[1]->text()+" "+ui->tableWidget_producteursEnAttente->selectedItems()[2]->text();
+        //on demande une confirmation
+        if(QMessageBox::warning(this,this->windowTitle()+" - Valider un producteur",
+                                "Êtes-vous sûr de vouloir valider le producteur : "+nomPrenomProducteur,
+                                QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
+            //mise à jour dans la base de données
+            QString reqUpdateProducteurValidation = "UPDATE Producteur SET validationProducteur = TRUE "
+                                                    "WHERE numeroProducteur = "+ui->tableWidget_producteursEnAttente->selectedItems()[0]->text();
+            qDebug()<<reqUpdateProducteurValidation;
+            QSqlQuery resultUpdateProducteurValidation(reqUpdateProducteurValidation);
+            qDebug()<<resultUpdateProducteurValidation.numRowsAffected();
+            //si l'update a fonctionné
+            if(resultUpdateProducteurValidation.numRowsAffected() != -1){
+                //on supprime la ligne du tableau des producteurs en attente
+                ui->tableWidget_producteursEnAttente->removeRow(ui->tableWidget_producteursEnAttente->currentRow());
+                //on affiche un message de réussite
+                ui->statusBar->showMessage("Le producteur "+nomPrenomProducteur+" ont été validé avec succès !",5000);
+            } else {
+                ui->statusBar->showMessage("Erreur lors de la validation du producteur !",5000);
+            }
+        }
     }
 }
