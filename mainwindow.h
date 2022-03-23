@@ -36,6 +36,7 @@ public:
     /* producteurs.cpp */
     void initProducteurs();
     void afficherTableProducteurEnAttente();
+    void afficherTableProducteurValides();
 
     /* profil.cpp */
     void setTab_profil();

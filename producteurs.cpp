@@ -16,6 +16,7 @@ void MainWindow::initProducteurs()
 
     //on affiche le contenu des tableaux
     afficherTableProducteurEnAttente();
+    afficherTableProducteurValides();
 }
 
 /**
@@ -51,10 +52,46 @@ void MainWindow::afficherTableProducteurEnAttente()
             ui->tableWidget_producteursEnAttente->setItem(row,8,new QTableWidgetItem(resultProducteursEnAttente.value("dateInscriptionProducteur").toString()));
         }
     }else {
-        ui->statusBar->showMessage("Erreur lors de l'affichage des employés !",2000);
+        ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs en attente !",2000);
     }
 }
 
+/**
+ * @brief MainWindow::afficherTableProducteurValides
+ * Méthode public de la classe MainWindow qui affiche dans un tableau les producteurs validés
+ */
+void MainWindow::afficherTableProducteurValides()
+{
+    qDebug()<<"void MainWindow::afficherTableProducteurValides()";
+    //requête qui récupère les données des producteurs validés
+    QString reqProducteursValides = "SELECT p.numeroProducteur, p.nomProducteur, p.prenomProducteur, "
+                                      "p.adresseProducteur, p.codePostalProducteur, p.villeProducteur, "
+                                      "p.mailProducteur, p.telProducteur, p.dateInscriptionProducteur FROM Producteur p "
+                                      "WHERE p.validationProducteur = 1";
+    qDebug()<<reqProducteursValides;
+    QSqlQuery resultProducteursValides(reqProducteursValides);
+    //si la requête a fonctionné
+    if(resultProducteursValides.numRowsAffected() != -1){
+        //on affiche chaque ligne
+        while(resultProducteursValides.next()){
+            //on ajoute une ligne au tableau
+            int row = ui->tableWidget_producteursValides->rowCount();
+            ui->tableWidget_producteursValides->setRowCount(row+1);
+            //on insère le contenu de chaque cellule
+            ui->tableWidget_producteursValides->setItem(row,0,new QTableWidgetItem(resultProducteursValides.value("numeroProducteur").toString()));
+            ui->tableWidget_producteursValides->setItem(row,1,new QTableWidgetItem(resultProducteursValides.value("nomProducteur").toString()));
+            ui->tableWidget_producteursValides->setItem(row,2,new QTableWidgetItem(resultProducteursValides.value("prenomProducteur").toString()));
+            ui->tableWidget_producteursValides->setItem(row,3,new QTableWidgetItem(resultProducteursValides.value("adresseProducteur").toString()));
+            ui->tableWidget_producteursValides->setItem(row,4,new QTableWidgetItem(resultProducteursValides.value("codePostalProducteur").toString()));
+            ui->tableWidget_producteursValides->setItem(row,5,new QTableWidgetItem(resultProducteursValides.value("villeProducteur").toString()));
+            ui->tableWidget_producteursValides->setItem(row,6,new QTableWidgetItem(resultProducteursValides.value("mailProducteur").toString()));
+            ui->tableWidget_producteursValides->setItem(row,7,new QTableWidgetItem(resultProducteursValides.value("telProducteur").toString()));
+            ui->tableWidget_producteursValides->setItem(row,8,new QTableWidgetItem(resultProducteursValides.value("dateInscriptionProducteur").toString()));
+        }
+    }else {
+        ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs validés !",2000);
+    }
+}
 /**
  * @brief MainWindow::on_pushButton_producteursEnAttenteValider_clicked
  * Méthode private slots de la classe MainWindow qui valide un producteur
