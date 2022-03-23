@@ -378,17 +378,155 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_producteurs">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_producteursEnAttente">
+           <attribute name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/images/images/timer-sand.png</normaloff>:/images/images/timer-sand.png</iconset>
+           </attribute>
            <attribute name="title">
             <string>&amp;En attente</string>
            </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QTableWidget" name="tableWidget_producteursEnAttente"/>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <spacer name="horizontalSpacer_13">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_producteursEnAttenteValider">
+                <property name="text">
+                 <string>&amp;Valider le producteur</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/check-circle.png</normaloff>:/images/images/check-circle.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_14">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_producteursEnAttenteInvalider">
+                <property name="text">
+                 <string>&amp;Invalider le producteur</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/minus-circle.png</normaloff>:/images/images/minus-circle.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_15">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="tab_producteursValides">
+           <attribute name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/images/images/check-circle.png</normaloff>:/images/images/check-circle.png</iconset>
+           </attribute>
            <attribute name="title">
             <string>&amp;Validés</string>
            </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QTableWidget" name="tableWidget_producteursValides"/>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <spacer name="horizontalSpacer_16">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_producteursValidesDesactiver">
+                <property name="text">
+                 <string>&amp;Désactiver le producteur</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/cancel.png</normaloff>:/images/images/cancel.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_17">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_producteursInvalides">
+           <attribute name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/images/images/minus-circle.png</normaloff>:/images/images/minus-circle.png</iconset>
+           </attribute>
+           <attribute name="title">
+            <string>&amp;Invalidés</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QTableWidget" name="tableWidget_producteursInvalides"/>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
