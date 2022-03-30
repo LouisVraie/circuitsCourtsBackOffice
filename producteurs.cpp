@@ -92,9 +92,9 @@ void MainWindow::afficherTableProducteurValides()
             ui->tableWidget_producteursValides->setItem(row,9,new QTableWidgetItem());
             //si l'utilisateur est activé
             if (resultProducteursValides.value("activationProducteur").toBool()){
-                ui->tableWidget_producteursValides->item(row,9)->setBackgroundColor("green");
+                setTableProducteurValidesActivationColor(row,"green");
             } else {
-                ui->tableWidget_producteursValides->item(row,9)->setBackgroundColor("red");
+                setTableProducteurValidesActivationColor(row,"red");
             }
         }
     }else {
@@ -139,6 +139,18 @@ void MainWindow::afficherTableProducteurInvalides()
     }else {
         ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs invalidés !",5000);
     }
+}
+
+/**
+ * @brief MainWindow::setTableProducteurValidesActivationColor
+ * Méthode publique de la classe MainWindow qui change la couleur du QTableWidgetItem de la colonne Activation de tableWidget_producteursValides
+ * @param row: int La ligne du tableau
+ * @param backgroundColor: QString La couleur de fond
+ */
+void MainWindow::setTableProducteurValidesActivationColor(int row, QString backgroundColor)
+{
+    qDebug()<<"void MainWindow::setTableProducteurValidesActivationColor(int row, QString backgroundColor)";
+    ui->tableWidget_producteursValides->item(row,9)->setBackgroundColor(backgroundColor);
 }
 
 /**

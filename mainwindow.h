@@ -39,6 +39,7 @@ public:
     void afficherTableProducteurEnAttente();
     void afficherTableProducteurValides();
     void afficherTableProducteurInvalides();
+    void setTableProducteurValidesActivationColor(int row, QString backgroundColor);
 
     /* profil.cpp */
     void setTab_profil();
