@@ -378,7 +378,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_producteurs">
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab_producteursEnAttente">
            <attribute name="icon">
@@ -542,7 +542,7 @@
               </attribute>
               <column>
                <property name="text">
-                <string>N° Producteur</string>
+                <string>N°</string>
                </property>
               </column>
               <column>
@@ -577,12 +577,17 @@
               </column>
               <column>
                <property name="text">
-                <string>Tel</string>
+                <string>Tél</string>
                </property>
               </column>
               <column>
                <property name="text">
                 <string>Date Inscription</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Activation</string>
                </property>
               </column>
              </widget>
@@ -603,13 +608,37 @@
                </spacer>
               </item>
               <item>
+               <widget class="QPushButton" name="pushButton_producteursValidesActiver">
+                <property name="text">
+                 <string>&amp;Activer le producteur</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/account-check.png</normaloff>:/images/images/account-check.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_18">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QPushButton" name="pushButton_producteursValidesDesactiver">
                 <property name="text">
                  <string>&amp;Désactiver le producteur</string>
                 </property>
                 <property name="icon">
                  <iconset resource="resources.qrc">
-                  <normaloff>:/images/images/cancel.png</normaloff>:/images/images/cancel.png</iconset>
+                  <normaloff>:/images/images/account-off.png</normaloff>:/images/images/account-off.png</iconset>
                 </property>
                </widget>
               </item>
@@ -650,9 +679,62 @@
               <property name="selectionBehavior">
                <enum>QAbstractItemView::SelectRows</enum>
               </property>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
               <attribute name="verticalHeaderVisible">
                <bool>false</bool>
               </attribute>
+              <column>
+               <property name="text">
+                <string>N°</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Nom</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Prénom</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Adresse</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Code Postal</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Ville</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Mail</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Tél</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Date Inscription</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Raison Invalidation</string>
+               </property>
+              </column>
              </widget>
             </item>
            </layout>

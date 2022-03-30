@@ -37,6 +37,7 @@ public:
     void initProducteurs();
     void afficherTableProducteurEnAttente();
     void afficherTableProducteurValides();
+    void afficherTableProducteurInvalides();
 
     /* profil.cpp */
     void setTab_profil();
