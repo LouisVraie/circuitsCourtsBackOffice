@@ -22,7 +22,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab_tableauDeBord">
        <attribute name="icon">
@@ -743,13 +743,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_rayonsProduits">
+      <widget class="QWidget" name="tab_gestionProduits">
        <attribute name="icon">
         <iconset resource="resources.qrc">
          <normaloff>:/images/images/format-list-text.png</normaloff>:/images/images/format-list-text.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>&amp;Rayons / Produits</string>
+        <string>&amp;Gestion Produits</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="tab_profil">
