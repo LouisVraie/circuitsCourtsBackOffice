@@ -378,7 +378,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_producteurs">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_producteursEnAttente">
            <attribute name="icon">
@@ -540,6 +540,51 @@
               <attribute name="verticalHeaderVisible">
                <bool>false</bool>
               </attribute>
+              <column>
+               <property name="text">
+                <string>N° Producteur</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Nom</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Prénom</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Adresse</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Code Postal</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Ville</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Mail</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Tel</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Date Inscription</string>
+               </property>
+              </column>
              </widget>
             </item>
             <item>
