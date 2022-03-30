@@ -35,6 +35,9 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     /* producteurs.cpp */
     initProducteurs();
 
+    /* gestionProduits.cpp */
+    initGestionProduits();
+
     /* profil.cpp */
     setTab_profil();
 }

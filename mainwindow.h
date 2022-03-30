@@ -41,6 +41,10 @@ public:
     void afficherTableProducteurInvalides();
     void setTableProducteurValidesActivationColor(int row, QString backgroundColor);
 
+    /* gestionProduits.cpp */
+    void initGestionProduits();
+    void afficherTableGestionProduitsRayons();
+
     /* profil.cpp */
     void setTab_profil();
 
@@ -70,12 +74,11 @@ private slots:
     void on_pushButton_supprimerEmploye_clicked();
 
     void on_pushButton_producteursEnAttenteValider_clicked();
-
     void on_pushButton_producteursEnAttenteInvalider_clicked();
-
     void on_pushButton_producteursValidesDesactiver_clicked();
-
     void on_pushButton_producteursValidesActiver_clicked();
+
+    /* gestionProduits.cpp */
 
 private:
     Ui::MainWindow *ui;
