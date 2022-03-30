@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
     employes.cpp \
+    gestionProduits.cpp \
         main.cpp \
         mainwindow.cpp \
     dialogconnexion.cpp \

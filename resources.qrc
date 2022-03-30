@@ -23,5 +23,8 @@
         <file>images/account-remove.png</file>
         <file>images/account-off.png</file>
         <file>images/account-check.png</file>
+        <file>images/inbox-multiple.png</file>
+        <file>images/fruit-grapes.png</file>
+        <file>images/basket.png</file>
     </qresource>
 </RCC>

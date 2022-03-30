@@ -378,7 +378,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_producteurs">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_producteursEnAttente">
            <attribute name="icon">
@@ -751,6 +751,176 @@
        <attribute name="title">
         <string>&amp;Gestion Produits</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QTabWidget" name="tabWidget_gestionProduits">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tab_gestionProduitsRayons">
+           <attribute name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/images/images/inbox-multiple.png</normaloff>:/images/images/inbox-multiple.png</iconset>
+           </attribute>
+           <attribute name="title">
+            <string>&amp;Rayons</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+            <item>
+             <widget class="QTableWidget" name="tableWidget_gestionProduitsRayons">
+              <column>
+               <property name="text">
+                <string>N°</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Libellé</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Image</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Date Inscription</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="gridLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_gestionProduitsRayonsLibelle">
+                <property name="text">
+                 <string>Libellé :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="lineEdit_gestionProduitsRayonsLibelle"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_gestionProduitsRayonsImage">
+                <property name="text">
+                 <string>Image :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="lineEdit_gestionProduitsRayonsImage"/>
+              </item>
+              <item row="1" column="2">
+               <widget class="QPushButton" name="pushButton_gestionProduitsRayonsImage">
+                <property name="text">
+                 <string>&amp;Chercher</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <item>
+               <spacer name="horizontalSpacer_19">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_gestionProduitsRayonsAjouter">
+                <property name="text">
+                 <string>&amp;Ajouter</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_20">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_gestionProduitsRayonsModifier">
+                <property name="text">
+                 <string>&amp;Modifier</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_21">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_gestionProduitsRayonsSupprimer">
+                <property name="text">
+                 <string>&amp;Supprimer</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_22">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_gestionProduitsProduits">
+           <attribute name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/images/images/basket.png</normaloff>:/images/images/basket.png</iconset>
+           </attribute>
+           <attribute name="title">
+            <string>&amp;Produits</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tab_gestionProduitsVarietes">
+           <attribute name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/images/images/fruit-grapes.png</normaloff>:/images/images/fruit-grapes.png</iconset>
+           </attribute>
+           <attribute name="title">
+            <string>&amp;Variétés</string>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_profil">
        <attribute name="icon">
