@@ -8,6 +8,7 @@
 #include <QCloseEvent>
 #include <QCheckBox>
 #include <QTableWidgetItem>
+#include <QInputDialog>
 
 namespace Ui {
 class MainWindow;
@@ -68,6 +69,8 @@ private slots:
     void on_pushButton_supprimerEmploye_clicked();
 
     void on_pushButton_producteursEnAttenteValider_clicked();
+
+    void on_pushButton_producteursEnAttenteInvalider_clicked();
 
 private:
     Ui::MainWindow *ui;

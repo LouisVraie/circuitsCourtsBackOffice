@@ -53,7 +53,7 @@ void MainWindow::afficherTableProducteurEnAttente()
             ui->tableWidget_producteursEnAttente->setItem(row,8,new QTableWidgetItem(resultProducteursEnAttente.value("dateInscriptionProducteur").toString()));
         }
     }else {
-        ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs en attente !",2000);
+        ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs en attente !",5000);
     }
 }
 
@@ -98,7 +98,7 @@ void MainWindow::afficherTableProducteurValides()
             }
         }
     }else {
-        ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs validés !",2000);
+        ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs validés !",5000);
     }
 }
 
@@ -137,7 +137,7 @@ void MainWindow::afficherTableProducteurInvalides()
             ui->tableWidget_producteursInvalides->setItem(row,9,new QTableWidgetItem(resultProducteursInvalides.value("raisonInvalidationProducteur").toString()));
         }
     }else {
-        ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs invalidés !",2000);
+        ui->statusBar->showMessage("Erreur lors de l'affichage des producteurs invalidés !",5000);
     }
 }
 
@@ -165,11 +165,60 @@ void MainWindow::on_pushButton_producteursEnAttenteValider_clicked()
             if(resultUpdateProducteurValidation.numRowsAffected() != -1){
                 //on supprime la ligne du tableau des producteurs en attente
                 ui->tableWidget_producteursEnAttente->removeRow(ui->tableWidget_producteursEnAttente->currentRow());
+                //on actualise le tableau des producteurs validés
+                afficherTableProducteurValides();
                 //on affiche un message de réussite
                 ui->statusBar->showMessage("Le producteur "+nomPrenomProducteur+" ont été validé avec succès !",5000);
             } else {
-                ui->statusBar->showMessage("Erreur lors de la validation du producteur !",5000);
+                ui->statusBar->showMessage("Erreur lors de la validation du producteur "+nomPrenomProducteur+" !",5000);
             }
         }
     }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_producteursEnAttenteInvalider_clicked
+ * Méthode private slots de la classe MainWindow qui invalide un producteur
+ */
+void MainWindow::on_pushButton_producteursEnAttenteInvalider_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_producteursEnAttenteInvalider_clicked()";
+    //si une ligne est sélectionnée
+    if (!ui->tableWidget_producteursEnAttente->selectedItems().isEmpty()){
+        QString nomPrenomProducteur = ui->tableWidget_producteursEnAttente->selectedItems()[1]->text()+" "+ui->tableWidget_producteursEnAttente->selectedItems()[2]->text();
+        //on demande une confirmation
+        if(QMessageBox::warning(this,this->windowTitle()+" - Invalider un producteur",
+                                "Êtes-vous sûr de vouloir invalider le producteur : "+nomPrenomProducteur,
+                                QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
+            //On demande d'écrire la raison
+            bool okRaison;
+            QString raisonInvalidation;
+            do{
+                raisonInvalidation = escapeString(QInputDialog::getText(this, this->windowTitle()+" - Invalider un producteur",
+                                                           tr("Raison d'invalidation :"), QLineEdit::Normal,
+                                                           "", &okRaison));
+            }while(!okRaison || raisonInvalidation.size() < 5);
+
+            //mise à jour dans la base de données
+            QString reqUpdateProducteurInvalidation = "UPDATE Producteur SET validationProducteur = FALSE, "
+                                                      "raisonInvalidationProducteur = '"+raisonInvalidation+"' "
+                                                      "WHERE numeroProducteur = "+ui->tableWidget_producteursEnAttente->selectedItems()[0]->text();
+            qDebug()<<reqUpdateProducteurInvalidation;
+            QSqlQuery resultUpdateProducteurInvalidation(reqUpdateProducteurInvalidation);
+            qDebug()<<resultUpdateProducteurInvalidation.numRowsAffected();
+            //si l'update a fonctionné
+            if(resultUpdateProducteurInvalidation.numRowsAffected() != -1){
+                //on supprime la ligne du tableau des producteurs en attente
+                ui->tableWidget_producteursEnAttente->removeRow(ui->tableWidget_producteursEnAttente->currentRow());
+                //on actualise le tableau des producteurs invalidés
+                afficherTableProducteurInvalides();
+
+                //on affiche un message de réussite
+                ui->statusBar->showMessage("Le producteur "+nomPrenomProducteur+" ont été invalidé avec succès !",5000);
+            } else {
+                ui->statusBar->showMessage("Erreur lors de l'invalidation du producteur "+nomPrenomProducteur+" !",5000);
+            }
+        }
+    }
+
 }
