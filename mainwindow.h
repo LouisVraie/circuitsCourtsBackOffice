@@ -73,6 +73,10 @@ private slots:
 
     void on_pushButton_producteursEnAttenteInvalider_clicked();
 
+    void on_pushButton_producteursValidesDesactiver_clicked();
+
+    void on_pushButton_producteursValidesActiver_clicked();
+
 private:
     Ui::MainWindow *ui;
 

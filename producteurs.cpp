@@ -172,13 +172,14 @@ void MainWindow::on_pushButton_producteursEnAttenteValider_clicked()
                                                     "WHERE numeroProducteur = "+ui->tableWidget_producteursEnAttente->selectedItems()[0]->text();
             qDebug()<<reqUpdateProducteurValidation;
             QSqlQuery resultUpdateProducteurValidation(reqUpdateProducteurValidation);
-            qDebug()<<resultUpdateProducteurValidation.numRowsAffected();
             //si l'update a fonctionné
             if(resultUpdateProducteurValidation.numRowsAffected() != -1){
                 //on supprime la ligne du tableau des producteurs en attente
                 ui->tableWidget_producteursEnAttente->removeRow(ui->tableWidget_producteursEnAttente->currentRow());
                 //on actualise le tableau des producteurs validés
                 afficherTableProducteurValides();
+                //on vide la sélection
+                ui->tableWidget_producteursEnAttente->clearSelection();
                 //on affiche un message de réussite
                 ui->statusBar->showMessage("Le producteur "+nomPrenomProducteur+" ont été validé avec succès !",5000);
             } else {
@@ -217,7 +218,6 @@ void MainWindow::on_pushButton_producteursEnAttenteInvalider_clicked()
                                                       "WHERE numeroProducteur = "+ui->tableWidget_producteursEnAttente->selectedItems()[0]->text();
             qDebug()<<reqUpdateProducteurInvalidation;
             QSqlQuery resultUpdateProducteurInvalidation(reqUpdateProducteurInvalidation);
-            qDebug()<<resultUpdateProducteurInvalidation.numRowsAffected();
             //si l'update a fonctionné
             if(resultUpdateProducteurInvalidation.numRowsAffected() != -1){
                 //on supprime la ligne du tableau des producteurs en attente
@@ -225,6 +225,8 @@ void MainWindow::on_pushButton_producteursEnAttenteInvalider_clicked()
                 //on actualise le tableau des producteurs invalidés
                 afficherTableProducteurInvalides();
 
+                //on vide la sélection
+                ui->tableWidget_producteursEnAttente->clearSelection();
                 //on affiche un message de réussite
                 ui->statusBar->showMessage("Le producteur "+nomPrenomProducteur+" ont été invalidé avec succès !",5000);
             } else {
@@ -232,5 +234,58 @@ void MainWindow::on_pushButton_producteursEnAttenteInvalider_clicked()
             }
         }
     }
+}
 
+/**
+ * @brief MainWindow::on_pushButton_producteursValidesDesactiver_clicked
+ * Méthode private slots de la classe MainWindow qui désactive un producteur validé
+ */
+void MainWindow::on_pushButton_producteursValidesDesactiver_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_producteursValidesDesactiver_clicked()";
+    //si une ligne est sélectionnée
+    if (!ui->tableWidget_producteursValides->selectedItems().isEmpty()){
+        //mise à jour dans la base de données
+        QString reqUpdateProducteurValideDesactive = "UPDATE Producteur SET activationProducteur = FALSE "
+                                                     "WHERE numeroProducteur = "+ui->tableWidget_producteursValides->selectedItems()[0]->text();
+        qDebug()<<reqUpdateProducteurValideDesactive;
+        QSqlQuery resultUpdateProducteurValideDesactive(reqUpdateProducteurValideDesactive);
+        //si l'update a fonctionné
+        if(resultUpdateProducteurValideDesactive.numRowsAffected() != -1){
+            //on change la couleur de fond dans le tableau de la cellule
+            setTableProducteurValidesActivationColor(ui->tableWidget_producteursValides->currentRow(),"red");
+            //on vide la sélection
+            ui->tableWidget_producteursValides->clearSelection();
+            ui->statusBar->showMessage("Le producteur a bien été désactivé !",5000);
+        } else {
+            ui->statusBar->showMessage("Erreur lors de la désactivation du producteur !",5000);
+        }
+    }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_producteursValidesActiver_clicked
+ * Méthode private slots de la classe MainWindow qui active un producteur validé
+ */
+void MainWindow::on_pushButton_producteursValidesActiver_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_producteursValidesActiver_clicked()";
+    //si une ligne est sélectionnée
+    if (!ui->tableWidget_producteursValides->selectedItems().isEmpty()){
+        //mise à jour dans la base de données
+        QString reqUpdateProducteurValideActive = "UPDATE Producteur SET activationProducteur = TRUE "
+                                                     "WHERE numeroProducteur = "+ui->tableWidget_producteursValides->selectedItems()[0]->text();
+        qDebug()<<reqUpdateProducteurValideActive;
+        QSqlQuery resultUpdateProducteurValideActive(reqUpdateProducteurValideActive);
+        //si l'update a fonctionné
+        if(resultUpdateProducteurValideActive.numRowsAffected() != -1){
+            //on change la couleur de fond dans le tableau de la cellule
+            setTableProducteurValidesActivationColor(ui->tableWidget_producteursValides->currentRow(),"green");
+            //on vide la sélection
+            ui->tableWidget_producteursValides->clearSelection();
+            ui->statusBar->showMessage("Le producteur a bien été activé !",5000);
+        } else {
+            ui->statusBar->showMessage("Erreur lors de l'activation du producteur !",5000);
+        }
+    }
 }
