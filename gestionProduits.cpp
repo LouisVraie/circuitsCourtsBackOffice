@@ -12,6 +12,7 @@ void MainWindow::initGestionProduits()
     //on stretch les tableaux
     ui->tableWidget_gestionProduitsRayons->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->tableWidget_gestionProduitsProduits->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->tableWidget_gestionProduitsProduits->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     //taille des images en pixel
     imageSize = 125;
@@ -19,6 +20,7 @@ void MainWindow::initGestionProduits()
     //on affiche le contenu des tableaux
     afficherTableGestionProduitsRayons();
     afficherTableGestionProduitsProduits();
+    afficherTableGestionProduitsVarietes();
 }
 
 /**
@@ -39,7 +41,7 @@ void MainWindow::afficherTableGestionProduitsRayons()
         ui->tableWidget_gestionProduitsRayons->setRowCount(row+1);
         //on crée une instance de QLabel qui va contenir l'image du rayon
         QLabel *labelImage= new QLabel();
-        labelImage->setPixmap(QPixmap(resultSelectRayons.value("imageRayon").toString()).scaled(imageSize,imageSize));
+        labelImage->setPixmap(QPixmap(appPath+resultSelectRayons.value("imageRayon").toString()).scaled(imageSize,imageSize));
         labelImage->setScaledContents(true);
         //inserer les valeur dans le tableau
         ui->tableWidget_gestionProduitsRayons->setCellWidget(row,0, new QCheckBox());
@@ -74,7 +76,7 @@ void MainWindow::afficherTableGestionProduitsProduits()
         ui->tableWidget_gestionProduitsProduits->setRowCount(row+1);
         //on crée une instance de QLabel qui va contenir l'image du produit
         QLabel *labelImage= new QLabel();
-        labelImage->setPixmap(QPixmap(resultSelectProduits.value("imageProduit").toString()).scaled(imageSize,imageSize));
+        labelImage->setPixmap(QPixmap(appPath+resultSelectProduits.value("imageProduit").toString()).scaled(imageSize,imageSize));
         labelImage->setScaledContents(true);
         //inserer les valeur dans le tableau
         ui->tableWidget_gestionProduitsProduits->setCellWidget(row,0, new QCheckBox());
@@ -97,8 +99,8 @@ void MainWindow::afficherTableGestionProduitsVarietes()
 {
     qDebug()<<"void MainWindow::afficherTableGestionProduitsVarietes()";
     //requête qui récupère les variétés
-    QString reqSelectVarietes = "SELECT v.numeroVariete, v.libelleVariete, v.imageVariete, v.dateInscriptionVariete, p.libelleProduit "
-                                "FROM Variete v "
+    QString reqSelectVarietes = "SELECT v.numeroVariete, v.libelleVariete, v.imageVariete, v.dateInscriptionVariete, p.libelleProduit, "
+                                "v.estValide FROM Variete v "
                                 "INNER JOIN Produit p ON p.numeroProduit = v.numeroProduit "
                                 "ORDER BY v.numeroVariete ASC";
     qDebug()<<reqSelectVarietes;
@@ -110,7 +112,7 @@ void MainWindow::afficherTableGestionProduitsVarietes()
         ui->tableWidget_gestionProduitsVarietes->setRowCount(row+1);
         //on crée une instance de QLabel qui va contenir l'image de la variété
         QLabel *labelImage= new QLabel();
-        labelImage->setPixmap(QPixmap(resultSelectVarietes.value("imageProduit").toString()).scaled(imageSize,imageSize));
+        labelImage->setPixmap(QPixmap(appPath+resultSelectVarietes.value("imageVariete").toString()).scaled(imageSize,imageSize));
         labelImage->setScaledContents(true);
         //inserer les valeur dans le tableau
         ui->tableWidget_gestionProduitsVarietes->setCellWidget(row,0, new QCheckBox());
@@ -119,8 +121,28 @@ void MainWindow::afficherTableGestionProduitsVarietes()
         ui->tableWidget_gestionProduitsVarietes->setCellWidget(row,3,labelImage);
         ui->tableWidget_gestionProduitsVarietes->setItem(row,4, new QTableWidgetItem(resultSelectVarietes.value("libelleProduit").toString()));
         ui->tableWidget_gestionProduitsVarietes->setItem(row,5, new QTableWidgetItem(resultSelectVarietes.value("libelleVariete").toString()));
+        ui->tableWidget_gestionProduitsVarietes->setItem(row,6, new QTableWidgetItem());
+        //si la variété est a
+        if(resultSelectVarietes.value("estValide").toBool()){
+            setTableGestionProduitsVarietesEstValideColor(row,"green");
+        } else {
+            setTableGestionProduitsVarietesEstValideColor(row,"red");
+        }
     }
     ui->tableWidget_gestionProduitsVarietes->resizeColumnsToContents();
     ui->tableWidget_gestionProduitsVarietes->resizeRowsToContents();
     ui->tableWidget_gestionProduitsVarietes->update();
+}
+
+/**
+ * @brief MainWindow::setTableGestionProduitsVarietesEstValideColor
+ * Méthode publique de la classe MainWindow qui change la couleur du QTableWidgetItem de la colonne EstActive de tableWidget_gestionProduitsVarietes
+ * @param row: int La ligne du tableau
+ * @param backgroundColor: QString La couleur de fond
+ */
+void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString backgroundColor)
+{
+    qDebug()<<"void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString backgroundColor)";
+    qDebug()<<row<<backgroundColor;
+    ui->tableWidget_gestionProduitsVarietes->item(row,6)->setBackgroundColor(backgroundColor);
 }

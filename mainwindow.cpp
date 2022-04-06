@@ -12,6 +12,7 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
 {
     ui->setupUi(this);
     //initialisation des propriétés
+    appPath="/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/";
     this->numeroEmploye = numeroEmploye;
     this->loginMinimumSize = 4;
     nomPrenomMinimumSize = 3;

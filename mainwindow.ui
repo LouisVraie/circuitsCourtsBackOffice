@@ -837,6 +837,10 @@
                 <property name="text">
                  <string>&amp;Chercher</string>
                 </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/file-image.png</normaloff>:/images/images/file-image.png</iconset>
+                </property>
                </widget>
               </item>
              </layout>
@@ -1014,6 +1018,10 @@
                 <property name="text">
                  <string>&amp;Chercher</string>
                 </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/file-image.png</normaloff>:/images/images/file-image.png</iconset>
+                </property>
                </widget>
               </item>
               <item row="2" column="1">
@@ -1133,6 +1141,21 @@
            <layout class="QVBoxLayout" name="verticalLayout_13">
             <item>
              <widget class="QTableWidget" name="tableWidget_gestionProduitsVarietes">
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::SingleSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="verticalHeaderVisible">
+               <bool>false</bool>
+              </attribute>
               <column>
                <property name="text">
                 <string>Sélection</string>
@@ -1206,6 +1229,10 @@
                <widget class="QPushButton" name="pushButton_gestionProduitsVarietesImage">
                 <property name="text">
                  <string>&amp;Chercher</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/file-image.png</normaloff>:/images/images/file-image.png</iconset>
                 </property>
                </widget>
               </item>

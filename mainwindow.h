@@ -46,6 +46,7 @@ public:
     void afficherTableGestionProduitsRayons();
     void afficherTableGestionProduitsProduits();
     void afficherTableGestionProduitsVarietes();
+    void setTableGestionProduitsVarietesEstValideColor(int row, QString backgroundColor);
 
     /* profil.cpp */
     void setTab_profil();
@@ -86,6 +87,7 @@ private:
     Ui::MainWindow *ui;
 
     //Propriétés
+    QString appPath;
     QString numeroEmploye, libelleTypeEmploye, numeroTypeEmploye;
     QString login, nom, prenom;
     QString adresse, codePostal, ville;
