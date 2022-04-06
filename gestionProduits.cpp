@@ -121,8 +121,7 @@ void MainWindow::afficherTableGestionProduitsVarietes()
         ui->tableWidget_gestionProduitsVarietes->setCellWidget(row,3,labelImage);
         ui->tableWidget_gestionProduitsVarietes->setItem(row,4, new QTableWidgetItem(resultSelectVarietes.value("libelleProduit").toString()));
         ui->tableWidget_gestionProduitsVarietes->setItem(row,5, new QTableWidgetItem(resultSelectVarietes.value("libelleVariete").toString()));
-        ui->tableWidget_gestionProduitsVarietes->setItem(row,6, new QTableWidgetItem());
-        //si la variété est a
+        //si la variété est validée
         if(resultSelectVarietes.value("estValide").toBool()){
             setTableGestionProduitsVarietesEstValideColor(row,"green");
         } else {
@@ -144,5 +143,5 @@ void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString 
 {
     qDebug()<<"void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString backgroundColor)";
     qDebug()<<row<<backgroundColor;
-    ui->tableWidget_gestionProduitsVarietes->item(row,6)->setBackgroundColor(backgroundColor);
+    ui->tableWidget_gestionProduitsVarietes->item(row,1)->setBackgroundColor(backgroundColor);
 }

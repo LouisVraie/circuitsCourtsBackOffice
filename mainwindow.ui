@@ -1186,11 +1186,6 @@
                 <string>Libellé Variété</string>
                </property>
               </column>
-              <column>
-               <property name="text">
-                <string>EstValide</string>
-               </property>
-              </column>
              </widget>
             </item>
             <item>
