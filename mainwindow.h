@@ -45,6 +45,7 @@ public:
     void initGestionProduits();
     void afficherTableGestionProduitsRayons();
     void afficherTableGestionProduitsProduits();
+    void afficherTableGestionProduitsVarietes();
 
     /* profil.cpp */
     void setTab_profil();
