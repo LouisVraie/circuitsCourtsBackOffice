@@ -96,6 +96,9 @@ private:
     int rowEmploye;
     QString newTypeEmploye, newNom, newPrenom, newLogin, newMdp, newCMdp, newAdresse, newCodePostal, newVille, newMail, newTel;
 
+    /* gestionProduits.cpp */
+    int imageSize;
+
     //Méthodes
     /* employes.cpp */
     void getEmployesInputs();
