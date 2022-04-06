@@ -61,7 +61,9 @@ void MainWindow::afficherTableGestionProduitsProduits()
 {
     qDebug()<<"void MainWindow::afficherTableGestionProduitsProduits()";
     //requête qui récupère les produits
-    QString reqSelectProduits = "SELECT p.numeroProduit, p.libelleProduit, p.imageProduit, p.dateInscriptionProduit FROM Produit p";
+    QString reqSelectProduits = "SELECT p.numeroProduit, p.libelleProduit, p.imageProduit, p.dateInscriptionProduit, r.libelleRayon "
+                                "FROM Produit p "
+                                "INNER JOIN Rayon r ON r.numeroRayon = p.numeroRayon";
     qDebug()<<reqSelectProduits;
     QSqlQuery resultSelectProduits(reqSelectProduits);
 
@@ -74,11 +76,12 @@ void MainWindow::afficherTableGestionProduitsProduits()
         labelimage->setPixmap(QPixmap(resultSelectProduits.value("imageProduit").toString()).scaled(imageSize,imageSize));
         labelimage->setScaledContents(true);
         //inserer les valeur dans le tableau
-        ui->tableWidget_gestionProduitsRayons->setCellWidget(row,0, new QCheckBox());
+        ui->tableWidget_gestionProduitsProduits->setCellWidget(row,0, new QCheckBox());
         ui->tableWidget_gestionProduitsProduits->setItem(row,1, new QTableWidgetItem(resultSelectProduits.value("numeroProduit").toString()));
         ui->tableWidget_gestionProduitsProduits->setItem(row,2, new QTableWidgetItem(resultSelectProduits.value("dateInscriptionProduit").toString()));
         ui->tableWidget_gestionProduitsProduits->setCellWidget(row,3,labelimage);
-        ui->tableWidget_gestionProduitsProduits->setItem(row,4, new QTableWidgetItem(resultSelectProduits.value("libelleProduit").toString()));
+        ui->tableWidget_gestionProduitsProduits->setItem(row,4, new QTableWidgetItem(resultSelectProduits.value("libelleRayon").toString()));
+        ui->tableWidget_gestionProduitsProduits->setItem(row,5, new QTableWidgetItem(resultSelectProduits.value("libelleProduit").toString()));
     }
     ui->tableWidget_gestionProduitsProduits->resizeColumnsToContents();
     ui->tableWidget_gestionProduitsProduits->resizeRowsToContents();
