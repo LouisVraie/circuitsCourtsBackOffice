@@ -145,3 +145,23 @@ void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString 
     qDebug()<<row<<backgroundColor;
     ui->tableWidget_gestionProduitsVarietes->item(row,1)->setBackgroundColor(backgroundColor);
 }
+
+/**
+ * @brief MainWindow::clearGestionProduitsRayonInputs
+ * Méthode publique de la classe MainWindow qui efface tous les inputs de l'onglet 'Rayons' de 'GestionProduits'
+ */
+void MainWindow::clearGestionProduitsRayonInputs()
+{
+    qDebug()<<"void MainWindow::clearGestionProduitsRayonInputs()";
+    ui->lineEdit_gestionProduitsRayonsImage->clear();
+    ui->lineEdit_gestionProduitsProduitsLibelle->clear();
+}
+
+/**
+ * @brief MainWindow::uploadImageRayonsGestionProduits
+ * Méthode publique de la classe MainWindow qui upload une image dans l'onglet 'Rayons' de 'GestionProduits'
+ */
+void MainWindow::uploadImageRayonsGestionProduits()
+{
+    qDebug()<<"void MainWindow::uploadImageRayonsGestionProduits()";
+}

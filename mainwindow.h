@@ -43,8 +43,13 @@ public:
 
     /* gestionProduits.cpp */
     void initGestionProduits();
+    //rayons
     void afficherTableGestionProduitsRayons();
+    void clearGestionProduitsRayonInputs();
+    void uploadImageRayonsGestionProduits();
+    //produits
     void afficherTableGestionProduitsProduits();
+    //varietes
     void afficherTableGestionProduitsVarietes();
     void setTableGestionProduitsVarietesEstValideColor(int row, QString backgroundColor);
 
