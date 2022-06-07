@@ -65,6 +65,7 @@ public:
     static QString escapeString(QString myQString);
     bool verifMdp(QString newMdp, QString newCMdp);
 
+    QString setNextId(QString idColumn, QString table, int increment = 1, int baseId = 1);
 private slots:
     void on_action_Quitter_triggered();
 
@@ -90,6 +91,8 @@ private slots:
     /* gestionProduits.cpp */
     void on_pushButton_gestionProduitsRayonsImage_clicked();
     void on_allLineEditGestionProduitsRayons_textChanged();
+
+    void on_pushButton_gestionProduitsRayonsAjouter_clicked();
 
 private:
     Ui::MainWindow *ui;

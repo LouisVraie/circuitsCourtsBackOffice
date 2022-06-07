@@ -180,7 +180,7 @@ void MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()
 
 /**
  * @brief MainWindow::on_allLineEditGestionProduitsRayons_textChanged
- * Méthode private slots qui active ou non les boutons de l'onglet Rayons de l'onglet GestionProduits
+ * Méthode private slots de la classe MainWindow qui active ou non les boutons de l'onglet Rayons de l'onglet GestionProduits
  */
 void MainWindow::on_allLineEditGestionProduitsRayons_textChanged()
 {
@@ -207,4 +207,14 @@ void MainWindow::on_allLineEditGestionProduitsRayons_textChanged()
             ui->pushButton_gestionProduitsRayonsModifier->setEnabled(false);
         }
     }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked
+ * Méthode private slots de la classe MainWindow qui ajoute un rayon dans l'onglet Rayons de l'onglet GestionProduits
+ */
+void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()";
+
 }
