@@ -179,7 +179,7 @@ void MainWindow::on_pushButton_ajouterEmploye_clicked()
  */
 void MainWindow::on_allLineEditEmploye_textChanged()
 {
-    qDebug()<<"bool MainWindow::on_allLineEditEmploye_textChanged()";
+    qDebug()<<"void MainWindow::on_allLineEditEmploye_textChanged()";
     //on récupère le texte des lineEdits des informations personnelles
     getEmployesInputs();
     bool newTypeEmploye, newNom, newPrenom, newLogin, newMdp, newCMdp, newAdresse, newCodePostal, newVille, newMail, newTel;

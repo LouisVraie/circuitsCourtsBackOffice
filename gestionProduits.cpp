@@ -17,6 +17,15 @@ void MainWindow::initGestionProduits()
     //taille des images en pixel
     imageSize = 125;
 
+    //on clear les inputs
+    clearGestionProduitsRayonInputs();
+
+    //on désactive les boutons et on crée des connect
+    ui->pushButton_gestionProduitsRayonsAjouter->setDisabled(true);
+    ui->pushButton_gestionProduitsRayonsModifier->setDisabled(true);
+    connect(ui->lineEdit_gestionProduitsRayonsLibelle,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsRayons_textChanged()));
+    connect(ui->lineEdit_gestionProduitsRayonsImage,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsRayons_textChanged()));
+
     //on affiche le contenu des tableaux
     afficherTableGestionProduitsRayons();
     afficherTableGestionProduitsProduits();
@@ -158,10 +167,44 @@ void MainWindow::clearGestionProduitsRayonInputs()
 }
 
 /**
- * @brief MainWindow::uploadImageRayonsGestionProduits
- * Méthode publique de la classe MainWindow qui upload une image dans l'onglet 'Rayons' de 'GestionProduits'
+ * @brief MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()
+ * Méthode private slots de la classe MainWindow qui upload une image dans l'onglet 'Rayons' de 'GestionProduits'
  */
-void MainWindow::uploadImageRayonsGestionProduits()
+void MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()
 {
     qDebug()<<"void MainWindow::uploadImageRayonsGestionProduits()";
+    QFileDialog filename;
+    filename.setFileMode(QFileDialog::ExistingFile);
+    ui->lineEdit_gestionProduitsRayonsImage->setText(filename.getOpenFileName(this,tr("Choisir une image"), "", tr("Image (*.png *.jpg *.jpeg)")));
+}
+
+/**
+ * @brief MainWindow::on_allLineEditGestionProduitsRayons_textChanged
+ * Méthode private slots qui active ou non les boutons de l'onglet Rayons de l'onglet GestionProduits
+ */
+void MainWindow::on_allLineEditGestionProduitsRayons_textChanged()
+{
+    qDebug()<<"void MainWindow::on_allLineEditGestionProduitsRayons_textChanged()";
+    bool libelleRayon, imageRayon;
+    libelleRayon = ui->lineEdit_gestionProduitsRayonsLibelle->text().size() >= libelleMinimumSize;
+    imageRayon = ui->lineEdit_gestionProduitsRayonsImage->text().size() >= imagePathMinimumSize;
+    //si les champs sont remplis
+    if(libelleRayon && imageRayon){
+        //on active le bouton ajouter
+        ui->pushButton_gestionProduitsRayonsAjouter->setEnabled(true);
+    }else {
+        //on désactive le bouton ajouter
+        ui->pushButton_gestionProduitsRayonsAjouter->setEnabled(false);
+    }
+
+    //si une ligne est sélectionnée
+    if(!ui->tableWidget_gestionProduitsRayons->selectedItems().empty()){
+        if(libelleRayon && imageRayon){
+            //on active le bouton modifier
+            ui->pushButton_gestionProduitsRayonsModifier->setEnabled(true);
+        }else {
+            //on désactive le bouton modifier
+            ui->pushButton_gestionProduitsRayonsModifier->setEnabled(false);
+        }
+    }
 }

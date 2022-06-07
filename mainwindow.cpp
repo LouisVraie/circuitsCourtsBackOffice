@@ -22,7 +22,8 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     villeMinimumSize = 2;
     mailMinimumSize = 5;
     telMinimumSize = 10;
-
+    libelleMinimumSize = 3;
+    imagePathMinimumSize = 6;
     //initialisation des éléments de l'UI
     setWindowTitle("CircuitsCourts - BackOffice");
 
@@ -183,6 +184,7 @@ bool MainWindow::verifMdp(QString newMdp, QString newCMdp)
     }
     return false;
 }
+
 
 
 

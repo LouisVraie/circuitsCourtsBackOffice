@@ -9,6 +9,7 @@
 #include <QCheckBox>
 #include <QTableWidgetItem>
 #include <QInputDialog>
+#include <QFileDialog>
 
 namespace Ui {
 class MainWindow;
@@ -87,6 +88,8 @@ private slots:
     void on_pushButton_producteursValidesActiver_clicked();
 
     /* gestionProduits.cpp */
+    void on_pushButton_gestionProduitsRayonsImage_clicked();
+    void on_allLineEditGestionProduitsRayons_textChanged();
 
 private:
     Ui::MainWindow *ui;
@@ -100,6 +103,7 @@ private:
 
     int loginMinimumSize, nomPrenomMinimumSize, mdpMinimumSize;
     int adresseMinimumSize, codePostalMinimumSize, villeMinimumSize, mailMinimumSize, telMinimumSize;
+    int libelleMinimumSize, imagePathMinimumSize;
 
     /* employes.cpp */
     int rowEmploye;
