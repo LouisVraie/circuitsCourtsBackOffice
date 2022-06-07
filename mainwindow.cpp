@@ -185,6 +185,15 @@ bool MainWindow::verifMdp(QString newMdp, QString newCMdp)
     return false;
 }
 
+/**
+ * @brief MainWindow::setNextId
+ * Méthode publique de la classe MainWindow qui retourne l'id du prochain enregistrement à insérer
+ * @param idColumn: QString Nom de la colonne qui comporte les id
+ * @param table: QString Nom de la table
+ * @param increment: int Numéro d'incrémentation entre chaque enregistrement. Défaut 1
+ * @param baseId: int Numéro par défaut si il n'y a pas d'enregistrements. Défaut 1
+ * @return QString
+ */
 QString MainWindow::setNextId(QString idColumn, QString table, int increment, int baseId){
     qDebug()<<"QString MainWindow::setNextId(QString idColumn, QString table, int increment, int baseId)";
     QString reqNextId = "SELECT IFNULL(MAX("+idColumn+")+"+QString::number(increment)+","+QString::number(baseId)+") FROM "+table;
