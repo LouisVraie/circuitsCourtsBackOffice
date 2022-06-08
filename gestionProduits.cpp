@@ -416,3 +416,35 @@ void MainWindow::on_allLineEditGestionProduitsProduits_textChanged()
         }
     }
 }
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsProduitsAjouter_clicked
+ * Méthode private slots de la classe MainWindow qui ajoute un produit dans l'onglet Produits de l'onglet Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsProduitsAjouter_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsProduitsAjouter_clicked()";
+    QString numeroProduit, libelleProduit, imageProduit, dateProduit, numeroRayon;
+    numeroProduit = setNextId("numeroProduit","Produit");
+    libelleProduit = escapeString(ui->lineEdit_gestionProduitsProduitsLibelle->text());
+    imageProduit = escapeString(ui->lineEdit_gestionProduitsProduitsImage->text());
+    dateProduit = QDate::currentDate().toString("yyyy-MM-dd");
+    numeroRayon = ui->comboBox_gestionProduitsProduitsRayon->currentData().toString();
+    //si le libelle n'existe pas
+    if(verifDoublon("Produit","libelleProduit",libelleProduit) == 0){
+        QString reqInsertProduit = "INSERT INTO Produit (numeroProduit,libelleProduit,imageProduit,dateInscriptionProduit,numeroRayon) VALUES "
+                                 "("+numeroProduit+",'"+libelleProduit+"','"+imageProduit+"','"+dateProduit+"',"+numeroRayon+")";
+        qDebug()<<reqInsertProduit;
+        QSqlQuery resultInsertProduit(reqInsertProduit);
+        //si l'inserion a fonctionné
+        if(resultInsertProduit.numRowsAffected() != -1){
+            ui->statusBar->showMessage(libelleProduit+" a été ajouté à la liste des produits !",5000);
+            afficherTableGestionProduitsProduits();
+            clearGestionProduitsProduitsInputs();
+        }else{
+            ui->statusBar->showMessage("Erreur lors de l'insertion du produit : "+libelleProduit+" !",5000);
+        }
+    }else{
+        ui->statusBar->showMessage("Erreur, le produit : "+libelleProduit+" existe déjà !",5000);
+    }
+}

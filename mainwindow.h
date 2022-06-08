@@ -107,6 +107,8 @@ private slots:
     void on_pushButton_gestionProduitsProduitsImage_clicked();
     void on_allLineEditGestionProduitsProduits_textChanged();
 
+    void on_pushButton_gestionProduitsProduitsAjouter_clicked();
+
 private:
     Ui::MainWindow *ui;
 
