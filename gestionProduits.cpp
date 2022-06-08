@@ -39,6 +39,7 @@ void MainWindow::initGestionProduits()
 void MainWindow::afficherTableGestionProduitsRayons()
 {
     qDebug()<<"void MainWindow::afficherTableGestionProduitsRayons()";
+    ui->tableWidget_gestionProduitsRayons->setRowCount(0);
     //requête qui récupère les rayons
     QString reqSelectRayons = "SELECT r.numeroRayon, r.libelleRayon, r.imageRayon, r.dateInscriptionRayon FROM Rayon r";
     qDebug()<<reqSelectRayons;
@@ -50,7 +51,7 @@ void MainWindow::afficherTableGestionProduitsRayons()
         ui->tableWidget_gestionProduitsRayons->setRowCount(row+1);
         //on crée une instance de QLabel qui va contenir l'image du rayon
         QLabel *labelImage= new QLabel();
-        labelImage->setPixmap(QPixmap(appPath+resultSelectRayons.value("imageRayon").toString()).scaled(imageSize,imageSize));
+        labelImage->setPixmap(QPixmap(resultSelectRayons.value("imageRayon").toString()).scaled(imageSize,imageSize));
         labelImage->setScaledContents(true);
         //inserer les valeur dans le tableau
         ui->tableWidget_gestionProduitsRayons->setCellWidget(row,0, new QCheckBox());
@@ -71,6 +72,7 @@ void MainWindow::afficherTableGestionProduitsRayons()
 void MainWindow::afficherTableGestionProduitsProduits()
 {
     qDebug()<<"void MainWindow::afficherTableGestionProduitsProduits()";
+    ui->tableWidget_gestionProduitsProduits->setRowCount(0);
     //requête qui récupère les produits
     QString reqSelectProduits = "SELECT p.numeroProduit, p.libelleProduit, p.imageProduit, p.dateInscriptionProduit, r.libelleRayon "
                                 "FROM Produit p "
@@ -85,7 +87,7 @@ void MainWindow::afficherTableGestionProduitsProduits()
         ui->tableWidget_gestionProduitsProduits->setRowCount(row+1);
         //on crée une instance de QLabel qui va contenir l'image du produit
         QLabel *labelImage= new QLabel();
-        labelImage->setPixmap(QPixmap(appPath+resultSelectProduits.value("imageProduit").toString()).scaled(imageSize,imageSize));
+        labelImage->setPixmap(QPixmap(resultSelectProduits.value("imageProduit").toString()).scaled(imageSize,imageSize));
         labelImage->setScaledContents(true);
         //inserer les valeur dans le tableau
         ui->tableWidget_gestionProduitsProduits->setCellWidget(row,0, new QCheckBox());
@@ -107,6 +109,7 @@ void MainWindow::afficherTableGestionProduitsProduits()
 void MainWindow::afficherTableGestionProduitsVarietes()
 {
     qDebug()<<"void MainWindow::afficherTableGestionProduitsVarietes()";
+    ui->tableWidget_gestionProduitsVarietes->setRowCount(0);
     //requête qui récupère les variétés
     QString reqSelectVarietes = "SELECT v.numeroVariete, v.libelleVariete, v.imageVariete, v.dateInscriptionVariete, p.libelleProduit, "
                                 "v.estValide FROM Variete v "
@@ -121,7 +124,7 @@ void MainWindow::afficherTableGestionProduitsVarietes()
         ui->tableWidget_gestionProduitsVarietes->setRowCount(row+1);
         //on crée une instance de QLabel qui va contenir l'image de la variété
         QLabel *labelImage= new QLabel();
-        labelImage->setPixmap(QPixmap(appPath+resultSelectVarietes.value("imageVariete").toString()).scaled(imageSize,imageSize));
+        labelImage->setPixmap(QPixmap(resultSelectVarietes.value("imageVariete").toString()).scaled(imageSize,imageSize));
         labelImage->setScaledContents(true);
         //inserer les valeur dans le tableau
         ui->tableWidget_gestionProduitsVarietes->setCellWidget(row,0, new QCheckBox());
@@ -216,5 +219,21 @@ void MainWindow::on_allLineEditGestionProduitsRayons_textChanged()
 void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()
 {
     qDebug()<<"void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()";
-
+    QString numeroRayon, libelleRayon, imageRayon, dateRayon;
+    numeroRayon = setNextId("numeroRayon","Rayon");
+    libelleRayon = escapeString(ui->lineEdit_gestionProduitsRayonsLibelle->text());
+    imageRayon = escapeString(ui->lineEdit_gestionProduitsRayonsImage->text());
+    dateRayon = QDate::currentDate().toString("yyyy-MM-dd");
+    QString reqInsertRayon = "INSERT INTO Rayon (numeroRayon,libelleRayon,imageRayon,dateInscriptionRayon) VALUES "
+                             "("+numeroRayon+",'"+libelleRayon+"','"+imageRayon+"','"+dateRayon+"')";
+    qDebug()<<reqInsertRayon;
+    QSqlQuery resultInsertRayon(reqInsertRayon);
+    //si l'inserion a fonctionné
+    if(resultInsertRayon.numRowsAffected() != -1){
+        ui->statusBar->showMessage(libelleRayon+" a été ajouté à la liste des rayons !",5000);
+        afficherTableGestionProduitsRayons();
+        clearGestionProduitsRayonInputs();
+    }else{
+        ui->statusBar->showMessage("Erreur lors de l'insertion du rayon : "+libelleRayon+" !",5000);
+    }
 }

@@ -10,6 +10,7 @@
 #include <QTableWidgetItem>
 #include <QInputDialog>
 #include <QFileDialog>
+#include <QDate>
 
 namespace Ui {
 class MainWindow;

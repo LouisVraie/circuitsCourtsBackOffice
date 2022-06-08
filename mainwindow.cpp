@@ -196,7 +196,9 @@ bool MainWindow::verifMdp(QString newMdp, QString newCMdp)
  */
 QString MainWindow::setNextId(QString idColumn, QString table, int increment, int baseId){
     qDebug()<<"QString MainWindow::setNextId(QString idColumn, QString table, int increment, int baseId)";
-    QString reqNextId = "SELECT IFNULL(MAX("+idColumn+")+"+QString::number(increment)+","+QString::number(baseId)+") FROM "+table;
+    QString reqNextId = "SELECT IFNULL(MAX("+idColumn+")+"+QString::number(increment)+","+QString::number(baseId)+") as nextId FROM "+table;
+    qDebug()<<reqNextId;
     QSqlQuery resultNextId(reqNextId);
-    return resultNextId.value(0).toString();
+    resultNextId.next();
+    return resultNextId.value("nextId").toString();
 }
