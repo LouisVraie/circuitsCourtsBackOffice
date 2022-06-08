@@ -92,12 +92,14 @@ private slots:
     void on_pushButton_producteursValidesActiver_clicked();
 
     /* gestionProduits.cpp */
+    //rayons
     void on_pushButton_gestionProduitsRayonsImage_clicked();
     void on_allLineEditGestionProduitsRayons_textChanged();
-
     void on_pushButton_gestionProduitsRayonsAjouter_clicked();
-
     void on_tableWidget_gestionProduitsRayons_itemSelectionChanged();
+    void on_pushButton_gestionProduitsRayonsModifier_clicked();
+
+    void on_pushButton_gestionProduitsRayonsSupprimer_clicked();
 
 private:
     Ui::MainWindow *ui;

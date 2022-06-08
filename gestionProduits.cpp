@@ -163,7 +163,7 @@ void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString 
 
 /**
  * @brief MainWindow::clearGestionProduitsRayonInputs
- * Méthode publique de la classe MainWindow qui efface tous les inputs de l'onglet 'Rayons' de 'GestionProduits'
+ * Méthode publique de la classe MainWindow qui efface tous les inputs de l'onglet Rayons de GestionProduits
  */
 void MainWindow::clearGestionProduitsRayonInputs()
 {
@@ -174,7 +174,7 @@ void MainWindow::clearGestionProduitsRayonInputs()
 
 /**
  * @brief MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()
- * Méthode private slots de la classe MainWindow qui upload une image dans l'onglet 'Rayons' de 'GestionProduits'
+ * Méthode private slots de la classe MainWindow qui upload une image dans l'onglet Rayons de Gestion Produits
  */
 void MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()
 {
@@ -186,7 +186,7 @@ void MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()
 
 /**
  * @brief MainWindow::on_allLineEditGestionProduitsRayons_textChanged
- * Méthode private slots de la classe MainWindow qui active ou non les boutons de l'onglet Rayons de l'onglet GestionProduits
+ * Méthode private slots de la classe MainWindow qui active ou non les boutons de l'onglet Rayons de l'onglet Gestion Produits
  */
 void MainWindow::on_allLineEditGestionProduitsRayons_textChanged()
 {
@@ -217,7 +217,7 @@ void MainWindow::on_allLineEditGestionProduitsRayons_textChanged()
 
 /**
  * @brief MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked
- * Méthode private slots de la classe MainWindow qui ajoute un rayon dans l'onglet Rayons de l'onglet GestionProduits
+ * Méthode private slots de la classe MainWindow qui ajoute un rayon dans l'onglet Rayons de l'onglet Gestion Produits
  */
 void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()
 {
@@ -248,6 +248,8 @@ void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()
 
 /**
  * @brief MainWindow::on_tableWidget_gestionProduitsRayons_itemSelectionChanged
+ * Méthode private slots de la classe MainWindow qui transmet les informations d'un rayon dans les inputs
+ *  de l'onglet Rayons de l'onglet Gestion Produits lorsque la selection change
  */
 void MainWindow::on_tableWidget_gestionProduitsRayons_itemSelectionChanged()
 {
@@ -264,4 +266,45 @@ void MainWindow::on_tableWidget_gestionProduitsRayons_itemSelectionChanged()
         //on désactive le bouton modifier
         ui->pushButton_gestionProduitsRayonsModifier->setEnabled(false);
     }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsRayonsModifier_clicked
+ * Méthode private slots de la classe MainWindow qui modifie les informations d'un rayon dans l'onglet Rayons de l'onglet Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsRayonsModifier_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsRayonsModifier_clicked()";
+    QString numeroRayon, libelleRayon, imageRayon;
+    numeroRayon = ui->tableWidget_gestionProduitsRayons->item(rowGestionProduitsRayon,1)->text();
+    libelleRayon = escapeString(ui->lineEdit_gestionProduitsRayonsLibelle->text());
+    imageRayon = escapeString(ui->lineEdit_gestionProduitsRayonsImage->text());
+    //si le rayon n'existe pas
+    if(verifDoublon("Rayon","libelleRayon",libelleRayon) == 0 || imageRayon != ui->tableWidget_gestionProduitsRayons->item(rowGestionProduitsRayon,5)->text()){
+        //requête qui update le rayon
+        QString reqUpdateRayon = "UPDATE Rayon SET "
+                                 "libelleRayon='"+libelleRayon+"',"
+                                 "imageRayon='"+imageRayon+"' "
+                                 "WHERE numeroRayon="+numeroRayon;
+        qDebug()<<reqUpdateRayon;
+        QSqlQuery resultUpdateRayon(reqUpdateRayon);
+        //si la requête a fonctionné
+        if(resultUpdateRayon.numRowsAffected() != -1){
+            afficherTableGestionProduitsRayons();
+            clearGestionProduitsRayonInputs();
+        } else {
+            ui->statusBar->showMessage("Erreur lors de la modification du rayon : "+numeroRayon+" !",5000);
+        }
+    } else {
+        ui->statusBar->showMessage("Erreur, le rayon : "+libelleRayon+" existe déjà !",5000);
+    }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsRayonsSupprimer_clicked
+ * Méthode private slots de la classe MainWindow qui supprime les rayons sélectionnées dans l'onglet Rayons de l'onglet Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsRayonsSupprimer_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsRayonsSupprimer_clicked()";
 }
