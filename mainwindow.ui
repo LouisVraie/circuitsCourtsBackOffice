@@ -808,6 +808,11 @@
                 <string>Libellé Rayon</string>
                </property>
               </column>
+              <column>
+               <property name="text">
+                <string>Image Path</string>
+               </property>
+              </column>
              </widget>
             </item>
             <item>

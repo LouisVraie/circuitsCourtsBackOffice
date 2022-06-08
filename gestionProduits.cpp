@@ -59,7 +59,10 @@ void MainWindow::afficherTableGestionProduitsRayons()
         ui->tableWidget_gestionProduitsRayons->setItem(row,2, new QTableWidgetItem(resultSelectRayons.value("dateInscriptionRayon").toString()));
         ui->tableWidget_gestionProduitsRayons->setCellWidget(row,3,labelImage);
         ui->tableWidget_gestionProduitsRayons->setItem(row,4, new QTableWidgetItem(resultSelectRayons.value("libelleRayon").toString()));
+        ui->tableWidget_gestionProduitsRayons->setItem(row,5, new QTableWidgetItem(resultSelectRayons.value("imageRayon").toString()));
+
     }
+    ui->tableWidget_gestionProduitsRayons->hideColumn(5);
     ui->tableWidget_gestionProduitsRayons->resizeColumnsToContents();
     ui->tableWidget_gestionProduitsRayons->resizeRowsToContents();
     ui->tableWidget_gestionProduitsRayons->update();
@@ -249,5 +252,25 @@ void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()
         }
     }else{
         ui->statusBar->showMessage("Erreur, la vérification du rayon a échoué !",5000);
+    }
+}
+
+/**
+ * @brief MainWindow::on_tableWidget_gestionProduitsRayons_itemSelectionChanged
+ */
+void MainWindow::on_tableWidget_gestionProduitsRayons_itemSelectionChanged()
+{
+    qDebug()<<"void MainWindow::on_tableWidget_gestionProduitsRayons_itemSelectionChanged()";
+    if(!ui->tableWidget_gestionProduitsRayons->selectedItems().empty()){
+        //on récupère le numéro de la ligne
+        rowGestionProduitsRayon = ui->tableWidget_gestionProduitsRayons->currentRow();
+        //on active le bouton modifier
+        ui->pushButton_gestionProduitsRayonsModifier->setEnabled(true);
+        //on transmet les données du tableau dans les inputs
+        ui->lineEdit_gestionProduitsRayonsLibelle->setText(ui->tableWidget_gestionProduitsRayons->item(rowGestionProduitsRayon,4)->text());
+        ui->lineEdit_gestionProduitsRayonsImage->setText(ui->tableWidget_gestionProduitsRayons->item(rowGestionProduitsRayon,5)->text());
+    }else{
+        //on désactive le bouton modifier
+        ui->pushButton_gestionProduitsRayonsModifier->setEnabled(false);
     }
 }

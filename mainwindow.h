@@ -67,6 +67,8 @@ public:
     bool verifMdp(QString newMdp, QString newCMdp);
 
     QString setNextId(QString idColumn, QString table, int increment = 1, int baseId = 1);
+    int verifDoublon(QString table, QString columnName, QString conditionValue);
+
 private slots:
     void on_action_Quitter_triggered();
 
@@ -95,6 +97,8 @@ private slots:
 
     void on_pushButton_gestionProduitsRayonsAjouter_clicked();
 
+    void on_tableWidget_gestionProduitsRayons_itemSelectionChanged();
+
 private:
     Ui::MainWindow *ui;
 
@@ -115,6 +119,7 @@ private:
 
     /* gestionProduits.cpp */
     int imageSize;
+    int rowGestionProduitsRayon, rowGestionProduitsProduit, rowGestionProduitsVariete;
 
     //Méthodes
     /* employes.cpp */

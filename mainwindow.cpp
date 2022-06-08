@@ -202,3 +202,26 @@ QString MainWindow::setNextId(QString idColumn, QString table, int increment, in
     resultNextId.next();
     return resultNextId.value("nextId").toString();
 }
+
+/**
+ * @brief MainWindow::verifDoublon
+ * Méthode publique de la classe MainWindow qui retourne l'entier qui détermine le nombre de doublon d'une valeur donnée pour une colonne d'une table
+ * @param table: QString Nom de la table
+ * @param columnName: QString Nom de la colonne
+ * @param conditionValue: QString Valeur de la condition à comparer
+ * @return int retourne -1 si il y a une erreur
+ */
+int MainWindow::verifDoublon(QString table, QString columnName, QString conditionValue)
+{
+    //requête qui vérifie que le libellé n'existe pas
+    QString reqSelectLibelle = "SELECT COUNT(*) FROM "+table+" WHERE "+columnName+" = '"+conditionValue+"'";
+    qDebug()<<reqSelectLibelle;
+    QSqlQuery resultSelectLibelle(reqSelectLibelle);
+    if(resultSelectLibelle.numRowsAffected() != -1){
+        resultSelectLibelle.next();
+        return resultSelectLibelle.value(0).toInt();
+    }
+    ui->statusBar->showMessage("Erreur, la vérification de doublon de la table "+table+" a échoué !",5000);
+    return -1;
+}
+
