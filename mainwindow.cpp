@@ -213,6 +213,7 @@ QString MainWindow::setNextId(QString idColumn, QString table, int increment, in
  */
 int MainWindow::verifDoublon(QString table, QString columnName, QString conditionValue)
 {
+    qDebug()<<"int MainWindow::verifDoublon(QString table, QString columnName, QString conditionValue)";
     //requête qui vérifie que le libellé n'existe pas
     QString reqSelectLibelle = "SELECT COUNT(*) FROM "+table+" WHERE "+columnName+" = '"+conditionValue+"'";
     qDebug()<<reqSelectLibelle;
