@@ -12,7 +12,7 @@ void MainWindow::initGestionProduits()
     //on stretch les tableaux
     ui->tableWidget_gestionProduitsRayons->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->tableWidget_gestionProduitsProduits->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-    ui->tableWidget_gestionProduitsProduits->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->tableWidget_gestionProduitsVarietes->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     //taille des images en pixel
     imageSize = 125;
@@ -105,7 +105,9 @@ void MainWindow::afficherTableGestionProduitsProduits()
         ui->tableWidget_gestionProduitsProduits->setCellWidget(row,3,labelImage);
         ui->tableWidget_gestionProduitsProduits->setItem(row,4, new QTableWidgetItem(resultSelectProduits.value("libelleRayon").toString()));
         ui->tableWidget_gestionProduitsProduits->setItem(row,5, new QTableWidgetItem(resultSelectProduits.value("libelleProduit").toString()));
+        ui->tableWidget_gestionProduitsProduits->setItem(row,6, new QTableWidgetItem(resultSelectProduits.value("imageProduit").toString()));
     }
+    ui->tableWidget_gestionProduitsProduits->hideColumn(6);
     ui->tableWidget_gestionProduitsProduits->resizeColumnsToContents();
     ui->tableWidget_gestionProduitsProduits->resizeRowsToContents();
     ui->tableWidget_gestionProduitsProduits->update();
@@ -142,6 +144,7 @@ void MainWindow::afficherTableGestionProduitsVarietes()
         ui->tableWidget_gestionProduitsVarietes->setCellWidget(row,3,labelImage);
         ui->tableWidget_gestionProduitsVarietes->setItem(row,4, new QTableWidgetItem(resultSelectVarietes.value("libelleProduit").toString()));
         ui->tableWidget_gestionProduitsVarietes->setItem(row,5, new QTableWidgetItem(resultSelectVarietes.value("libelleVariete").toString()));
+        ui->tableWidget_gestionProduitsVarietes->setItem(row,6, new QTableWidgetItem(resultSelectVarietes.value("imageVariete").toString()));
         //si la variété est validée
         if(resultSelectVarietes.value("estValide").toBool()){
             setTableGestionProduitsVarietesEstValideColor(row,"green");
@@ -149,6 +152,7 @@ void MainWindow::afficherTableGestionProduitsVarietes()
             setTableGestionProduitsVarietesEstValideColor(row,"red");
         }
     }
+    ui->tableWidget_gestionProduitsVarietes->hideColumn(6);
     ui->tableWidget_gestionProduitsVarietes->resizeColumnsToContents();
     ui->tableWidget_gestionProduitsVarietes->resizeRowsToContents();
     ui->tableWidget_gestionProduitsVarietes->update();
