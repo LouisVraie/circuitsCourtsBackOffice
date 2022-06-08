@@ -103,6 +103,9 @@ private slots:
     void on_tableWidget_gestionProduitsRayons_itemSelectionChanged();
     void on_pushButton_gestionProduitsRayonsModifier_clicked();
     void on_pushButton_gestionProduitsRayonsSupprimer_clicked();
+    //produits
+    void on_pushButton_gestionProduitsProduitsImage_clicked();
+    void on_allLineEditGestionProduitsProduits_textChanged();
 
 private:
     Ui::MainWindow *ui;

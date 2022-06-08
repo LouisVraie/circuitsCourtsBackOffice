@@ -19,15 +19,18 @@ void MainWindow::initGestionProduits()
 
     //on clear les inputs
     clearGestionProduitsRayonInputs();
+    clearGestionProduitsProduitsInputs();
 
     //on désactive les boutons et on crée des connect
     ui->pushButton_gestionProduitsRayonsAjouter->setDisabled(true);
     ui->pushButton_gestionProduitsRayonsModifier->setDisabled(true);
     connect(ui->lineEdit_gestionProduitsRayonsLibelle,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsRayons_textChanged()));
     connect(ui->lineEdit_gestionProduitsRayonsImage,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsRayons_textChanged()));
-
-    //on update les comboBox
-    updateComboBoxGestionProduitsProduitsRayon();
+    ui->pushButton_gestionProduitsProduitsAjouter->setDisabled(true);
+    ui->pushButton_gestionProduitsProduitsModifier->setDisabled(true);
+    connect(ui->comboBox_gestionProduitsProduitsRayon,SIGNAL(currentIndexChanged(int)),this,SLOT(on_allLineEditGestionProduitsProduits_textChanged()));
+    connect(ui->lineEdit_gestionProduitsProduitsLibelle,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsProduits_textChanged()));
+    connect(ui->lineEdit_gestionProduitsProduitsImage,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsProduits_textChanged()));
 
     //on affiche le contenu des tableaux
     afficherTableGestionProduitsRayons();
@@ -184,7 +187,7 @@ void MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()
     qDebug()<<"void MainWindow::uploadImageRayonsGestionProduits()";
     QFileDialog filename;
     filename.setFileMode(QFileDialog::ExistingFile);
-    ui->lineEdit_gestionProduitsRayonsImage->setText(filename.getOpenFileName(this,tr("Choisir une image"), "", tr("Image (*.png *.jpg *.jpeg)")));
+    ui->lineEdit_gestionProduitsRayonsImage->setText(filename.getOpenFileName(this,tr("Choisir une image de rayon"), "", tr("Image (*.png *.jpg *.jpeg)")));
 }
 
 /**
@@ -368,4 +371,48 @@ void MainWindow::clearGestionProduitsProduitsInputs()
     updateComboBoxGestionProduitsProduitsRayon();
     ui->lineEdit_gestionProduitsProduitsLibelle->clear();
     ui->lineEdit_gestionProduitsProduitsImage->clear();
+}
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsProduitsImage_clicked
+ * Méthode private slots de la classe MainWindow qui upload une image dans l'onglet Produits de Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsProduitsImage_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsProduitsImage_clicked()";
+    QFileDialog filename;
+    filename.setFileMode(QFileDialog::ExistingFile);
+    ui->lineEdit_gestionProduitsProduitsImage->setText(filename.getOpenFileName(this,tr("Choisir une image de produit"), "", tr("Image (*.png *.jpg *.jpeg)")));
+}
+
+/**
+ * @brief MainWindow::on_allLineEditGestionProduitsProduits_textChanged
+ * Méthode private slots de la classe MainWindow qui active ou non les boutons de l'onglet Produits de l'onglet Gestion Produits
+ */
+void MainWindow::on_allLineEditGestionProduitsProduits_textChanged()
+{
+    qDebug()<<"void MainWindow::on_allLineEditGestionProduitsProduits_textChanged()";
+    bool numeroRayon, libelleProduit, imageProduit;
+    numeroRayon = ui->comboBox_gestionProduitsProduitsRayon->currentData().toInt() > 0;
+    libelleProduit = ui->lineEdit_gestionProduitsProduitsLibelle->text().size() >= libelleMinimumSize;
+    imageProduit = ui->lineEdit_gestionProduitsProduitsImage->text().size() >= imagePathMinimumSize;
+    //si les champs sont remplis
+    if(numeroRayon && libelleProduit && imageProduit){
+        //on active le bouton ajouter
+        ui->pushButton_gestionProduitsProduitsAjouter->setEnabled(true);
+    }else {
+        //on désactive le bouton ajouter
+        ui->pushButton_gestionProduitsProduitsAjouter->setEnabled(false);
+    }
+
+    //si une ligne est sélectionnée
+    if(!ui->tableWidget_gestionProduitsProduits->selectedItems().empty()){
+        if(numeroRayon && libelleProduit && imageProduit){
+            //on active le bouton modifier
+            ui->pushButton_gestionProduitsProduitsModifier->setEnabled(true);
+        }else {
+            //on désactive le bouton modifier
+            ui->pushButton_gestionProduitsProduitsModifier->setEnabled(false);
+        }
+    }
 }

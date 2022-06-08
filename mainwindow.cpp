@@ -231,3 +231,5 @@ int MainWindow::verifDoublon(QString table, QString columnName, QString conditio
 
 
 
+
+
