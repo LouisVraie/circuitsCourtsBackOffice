@@ -165,8 +165,8 @@ void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString 
 void MainWindow::clearGestionProduitsRayonInputs()
 {
     qDebug()<<"void MainWindow::clearGestionProduitsRayonInputs()";
+    ui->lineEdit_gestionProduitsRayonsLibelle->clear();
     ui->lineEdit_gestionProduitsRayonsImage->clear();
-    ui->lineEdit_gestionProduitsProduitsLibelle->clear();
 }
 
 /**
@@ -224,16 +224,30 @@ void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()
     libelleRayon = escapeString(ui->lineEdit_gestionProduitsRayonsLibelle->text());
     imageRayon = escapeString(ui->lineEdit_gestionProduitsRayonsImage->text());
     dateRayon = QDate::currentDate().toString("yyyy-MM-dd");
-    QString reqInsertRayon = "INSERT INTO Rayon (numeroRayon,libelleRayon,imageRayon,dateInscriptionRayon) VALUES "
-                             "("+numeroRayon+",'"+libelleRayon+"','"+imageRayon+"','"+dateRayon+"')";
-    qDebug()<<reqInsertRayon;
-    QSqlQuery resultInsertRayon(reqInsertRayon);
-    //si l'inserion a fonctionné
-    if(resultInsertRayon.numRowsAffected() != -1){
-        ui->statusBar->showMessage(libelleRayon+" a été ajouté à la liste des rayons !",5000);
-        afficherTableGestionProduitsRayons();
-        clearGestionProduitsRayonInputs();
+    //requête qui vérifie que le libellé n'existe pas
+    QString reqSelectLibelle = "SELECT COUNT(*) FROM Rayon WHERE libelleRayon = '"+libelleRayon+"'";
+    qDebug()<<reqSelectLibelle;
+    QSqlQuery resultSelectLibelle(reqSelectLibelle);
+    if(resultSelectLibelle.numRowsAffected() != -1){
+        resultSelectLibelle.next();
+        //si le libelle n'existe pas
+        if(resultSelectLibelle.value(0).toInt() == 0){
+            QString reqInsertRayon = "INSERT INTO Rayon (numeroRayon,libelleRayon,imageRayon,dateInscriptionRayon) VALUES "
+                                     "("+numeroRayon+",'"+libelleRayon+"','"+imageRayon+"','"+dateRayon+"')";
+            qDebug()<<reqInsertRayon;
+            QSqlQuery resultInsertRayon(reqInsertRayon);
+            //si l'inserion a fonctionné
+            if(resultInsertRayon.numRowsAffected() != -1){
+                ui->statusBar->showMessage(libelleRayon+" a été ajouté à la liste des rayons !",5000);
+                afficherTableGestionProduitsRayons();
+                clearGestionProduitsRayonInputs();
+            }else{
+                ui->statusBar->showMessage("Erreur lors de l'insertion du rayon : "+libelleRayon+" !",5000);
+            }
+        }else{
+            ui->statusBar->showMessage("Erreur, le rayon : "+libelleRayon+" existe déjà !",5000);
+        }
     }else{
-        ui->statusBar->showMessage("Erreur lors de l'insertion du rayon : "+libelleRayon+" !",5000);
+        ui->statusBar->showMessage("Erreur, la vérification du rayon a échoué !",5000);
     }
 }
