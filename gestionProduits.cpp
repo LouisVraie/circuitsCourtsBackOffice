@@ -26,6 +26,9 @@ void MainWindow::initGestionProduits()
     connect(ui->lineEdit_gestionProduitsRayonsLibelle,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsRayons_textChanged()));
     connect(ui->lineEdit_gestionProduitsRayonsImage,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsRayons_textChanged()));
 
+    //on update les comboBox
+    updateComboBoxGestionProduitsProduitsRayon();
+
     //on affiche le contenu des tableaux
     afficherTableGestionProduitsRayons();
     afficherTableGestionProduitsProduits();
@@ -163,7 +166,7 @@ void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString 
 
 /**
  * @brief MainWindow::clearGestionProduitsRayonInputs
- * Méthode publique de la classe MainWindow qui efface tous les inputs de l'onglet Rayons de GestionProduits
+ * Méthode publique de la classe MainWindow qui efface tous les inputs de l'onglet Rayons de Gestion Produits
  */
 void MainWindow::clearGestionProduitsRayonInputs()
 {
@@ -238,6 +241,7 @@ void MainWindow::on_pushButton_gestionProduitsRayonsAjouter_clicked()
             ui->statusBar->showMessage(libelleRayon+" a été ajouté à la liste des rayons !",5000);
             afficherTableGestionProduitsRayons();
             clearGestionProduitsRayonInputs();
+            updateComboBoxGestionProduitsProduitsRayon();
         }else{
             ui->statusBar->showMessage("Erreur lors de l'insertion du rayon : "+libelleRayon+" !",5000);
         }
@@ -292,6 +296,7 @@ void MainWindow::on_pushButton_gestionProduitsRayonsModifier_clicked()
         if(resultUpdateRayon.numRowsAffected() != -1){
             afficherTableGestionProduitsRayons();
             clearGestionProduitsRayonInputs();
+            updateComboBoxGestionProduitsProduitsRayon();
         } else {
             ui->statusBar->showMessage("Erreur lors de la modification du rayon : "+numeroRayon+" !",5000);
         }
@@ -327,7 +332,39 @@ void MainWindow::on_pushButton_gestionProduitsRayonsSupprimer_clicked()
     }
     if(supprOk){
         ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" rayons(s) !",5000);
+        updateComboBoxGestionProduitsProduitsRayon();
     }
 }
 
+/**
+ * @brief MainWindow::updateComboBoxGestionProduitsProduitsRayon
+ * Méthode publique de la classe MainWindow qui met à jour la comboBox_gestionProduitsProduitsRayon dans l'onglet Produits de Gestion Produits
+ */
+void MainWindow::updateComboBoxGestionProduitsProduitsRayon()
+{
+    qDebug()<<"void MainWindow::updateComboBoxGestionProduitsProduitsRayon()";
+    //on clear la comboBox
+    ui->comboBox_gestionProduitsProduitsRayon->clear();
+    QString reqSelectRayon = "SELECT numeroRayon,libelleRayon FROM Rayon ORDER BY libelleRayon ASC";
+    qDebug()<<reqSelectRayon;
+    QSqlQuery resultSelectRayon(reqSelectRayon);
+    //si la requête a fonctionné
+    if(resultSelectRayon.numRowsAffected() != -1){
+        while(resultSelectRayon.next()){
+            QString numeroRayon = resultSelectRayon.value("numeroRayon").toString();
+            QString libelleRayon = resultSelectRayon.value("libelleRayon").toString();
+            ui->comboBox_gestionProduitsProduitsRayon->addItem(libelleRayon,numeroRayon);
+        }
+    }
+}
 
+/**
+ * @brief MainWindow::clearGestionProduitsProduitsInputs
+ * Méthode publique de la classe MainWindow qui efface tous les inputs de l'onglet Produits de Gestion Produits
+ */
+void MainWindow::clearGestionProduitsProduitsInputs()
+{
+    qDebug()<<"void MainWindow::clearGestionProduitsProduitsInputs()";
+    ui->lineEdit_gestionProduitsProduitsLibelle->clear();
+    ui->lineEdit_gestionProduitsProduitsImage->clear();
+}

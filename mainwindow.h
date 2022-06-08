@@ -49,8 +49,12 @@ public:
     void afficherTableGestionProduitsRayons();
     void clearGestionProduitsRayonInputs();
     void uploadImageRayonsGestionProduits();
+
     //produits
     void afficherTableGestionProduitsProduits();
+    void updateComboBoxGestionProduitsProduitsRayon();
+    void clearGestionProduitsProduitsInputs();
+
     //varietes
     void afficherTableGestionProduitsVarietes();
     void setTableGestionProduitsVarietesEstValideColor(int row, QString backgroundColor);
@@ -98,7 +102,6 @@ private slots:
     void on_pushButton_gestionProduitsRayonsAjouter_clicked();
     void on_tableWidget_gestionProduitsRayons_itemSelectionChanged();
     void on_pushButton_gestionProduitsRayonsModifier_clicked();
-
     void on_pushButton_gestionProduitsRayonsSupprimer_clicked();
 
 private:
