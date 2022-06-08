@@ -307,4 +307,27 @@ void MainWindow::on_pushButton_gestionProduitsRayonsModifier_clicked()
 void MainWindow::on_pushButton_gestionProduitsRayonsSupprimer_clicked()
 {
     qDebug()<<"void MainWindow::on_pushButton_gestionProduitsRayonsSupprimer_clicked()";
+    bool supprOk = false;
+    int nbLigneSuppr = 0;
+    for (int ligne = ui->tableWidget_gestionProduitsRayons->rowCount()-1;ligne>=0;ligne--) {
+        //si la QCheckBox est cochée
+        if(((QCheckBox*)ui->tableWidget_gestionProduitsRayons->cellWidget(ligne,0))->isChecked()){
+            QString reqUpdateDeleteRayon = "DELETE FROM Rayon WHERE numeroRayon = "+ui->tableWidget_gestionProduitsRayons->item(ligne,1)->text();
+            qDebug()<<reqUpdateDeleteRayon;
+            QSqlQuery resultUpdateDeleteRayon(reqUpdateDeleteRayon);
+            if(resultUpdateDeleteRayon.numRowsAffected() != -1){
+                ui->tableWidget_gestionProduitsRayons->removeRow(ligne);
+                nbLigneSuppr++;
+                supprOk = true;
+            } else {
+                ui->statusBar->showMessage("Erreur lors de la suppression du/des rayon(s) !",5000);
+                break;
+            }
+        }
+    }
+    if(supprOk){
+        ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" rayons(s) !",5000);
+    }
 }
+
+
