@@ -365,6 +365,7 @@ void MainWindow::updateComboBoxGestionProduitsProduitsRayon()
 void MainWindow::clearGestionProduitsProduitsInputs()
 {
     qDebug()<<"void MainWindow::clearGestionProduitsProduitsInputs()";
+    updateComboBoxGestionProduitsProduitsRayon();
     ui->lineEdit_gestionProduitsProduitsLibelle->clear();
     ui->lineEdit_gestionProduitsProduitsImage->clear();
 }
