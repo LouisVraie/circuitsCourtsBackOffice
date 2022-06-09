@@ -113,6 +113,8 @@ private slots:
 
     void on_pushButton_gestionProduitsProduitsModifier_clicked();
 
+    void on_pushButton_gestionProduitsProduitsSupprimer_clicked();
+
 private:
     Ui::MainWindow *ui;
 

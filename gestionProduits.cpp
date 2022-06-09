@@ -69,7 +69,7 @@ void MainWindow::afficherTableGestionProduitsRayons()
 
     }
     ui->tableWidget_gestionProduitsRayons->hideColumn(5);
-    ui->tableWidget_gestionProduitsRayons->resizeColumnsToContents();
+    //ui->tableWidget_gestionProduitsRayons->resizeColumnsToContents();
     ui->tableWidget_gestionProduitsRayons->resizeRowsToContents();
     ui->tableWidget_gestionProduitsRayons->update();
 }
@@ -108,7 +108,7 @@ void MainWindow::afficherTableGestionProduitsProduits()
         ui->tableWidget_gestionProduitsProduits->setItem(row,6, new QTableWidgetItem(resultSelectProduits.value("imageProduit").toString()));
     }
     ui->tableWidget_gestionProduitsProduits->hideColumn(6);
-    ui->tableWidget_gestionProduitsProduits->resizeColumnsToContents();
+    //ui->tableWidget_gestionProduitsProduits->resizeColumnsToContents();
     ui->tableWidget_gestionProduitsProduits->resizeRowsToContents();
     ui->tableWidget_gestionProduitsProduits->update();
 }
@@ -153,7 +153,7 @@ void MainWindow::afficherTableGestionProduitsVarietes()
         }
     }
     ui->tableWidget_gestionProduitsVarietes->hideColumn(6);
-    ui->tableWidget_gestionProduitsVarietes->resizeColumnsToContents();
+    //ui->tableWidget_gestionProduitsVarietes->resizeColumnsToContents();
     ui->tableWidget_gestionProduitsVarietes->resizeRowsToContents();
     ui->tableWidget_gestionProduitsVarietes->update();
 }
@@ -339,6 +339,8 @@ void MainWindow::on_pushButton_gestionProduitsRayonsSupprimer_clicked()
     }
     if(supprOk){
         ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" rayons(s) !",5000);
+        ui->tableWidget_gestionProduitsRayons->clearSelection();
+        clearGestionProduitsRayonInputs();
         updateComboBoxGestionProduitsProduitsRayon();
     }
 }
@@ -517,5 +519,38 @@ void MainWindow::on_pushButton_gestionProduitsProduitsModifier_clicked()
         }
     } else {
         ui->statusBar->showMessage("Erreur, le produit : "+libelleProduit+" existe déjà !",5000);
+    }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsProduitsSupprimer_clicked
+ * Méthode private slots de la classe MainWindow qui supprime les produits sélectionnées dans l'onglet Produits de Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsProduitsSupprimer_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsProduitsSupprimer_clicked()";
+    bool supprOk = false;
+    int nbLigneSuppr = 0;
+    for (int ligne = ui->tableWidget_gestionProduitsProduits->rowCount()-1;ligne>=0;ligne--) {
+        //si la QCheckBox est cochée
+        if(((QCheckBox*)ui->tableWidget_gestionProduitsProduits->cellWidget(ligne,0))->isChecked()){
+            QString reqUpdateDeleteProduit = "DELETE FROM Produit WHERE numeroProduit = "+ui->tableWidget_gestionProduitsProduits->item(ligne,1)->text();
+            qDebug()<<reqUpdateDeleteProduit;
+            QSqlQuery resultUpdateDeleteProduit(reqUpdateDeleteProduit);
+            if(resultUpdateDeleteProduit.numRowsAffected() != -1){
+                ui->tableWidget_gestionProduitsProduits->removeRow(ligne);
+                nbLigneSuppr++;
+                supprOk = true;
+            } else {
+                ui->statusBar->showMessage("Erreur lors de la suppression du/des produit(s) !",5000);
+                break;
+            }
+        }
+    }
+    if(supprOk){
+        ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" produit(s) !",5000);
+        ui->tableWidget_gestionProduitsProduits->clearSelection();
+        clearGestionProduitsProduitsInputs();
+        //updateComboBoxGestionProduitsVarietesProduits
     }
 }
