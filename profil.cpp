@@ -18,6 +18,17 @@ void MainWindow::setTab_profil()
     ui->lineEdit_mailEmploye->setText(mail);
     ui->lineEdit_telEmploye->setText(tel);
 
+    ui->pushButton_sauvegarderInfosEmploye->setDisabled(true);
+    connect(ui->lineEdit_loginEmploye,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditProfilInformationPersonnelles_textChanged()));
+    connect(ui->lineEdit_adresseEmploye,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditProfilInformationPersonnelles_textChanged()));
+    connect(ui->lineEdit_codePostalEmploye,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditProfilInformationPersonnelles_textChanged()));
+    connect(ui->lineEdit_villeEmploye,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditProfilInformationPersonnelles_textChanged()));
+    connect(ui->lineEdit_mailEmploye,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditProfilInformationPersonnelles_textChanged()));
+    connect(ui->lineEdit_telEmploye,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditProfilInformationPersonnelles_textChanged()));
+    ui->pushButton_sauvegarderNewMotDePasseEmploye->setDisabled(true);
+    connect(ui->lineEdit_newMotDePasseEmploye,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditProfilMdp_textChanged()));
+    connect(ui->lineEdit_confirmMotDePasseEmploye,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditProfilMdp_textChanged()));
+
 }
 
 /**
@@ -172,5 +183,49 @@ void MainWindow::on_lineEdit_loginEmploye_textChanged(const QString &arg1)
         ui->pushButton_sauvegarderInfosEmploye->setDisabled(false);
     } else {
         ui->pushButton_sauvegarderInfosEmploye->setDisabled(true);
+    }
+}
+
+/**
+ * @brief MainWindow::on_allLineEditProfilInformationPersonnelles_textChanged
+ * Méthode private slots de la classe MainWindow qui active ou non le bouton Sauvegarder des informations personnelles de l'onglet Profil
+ */
+void MainWindow::on_allLineEditProfilInformationPersonnelles_textChanged()
+{
+    qDebug()<<"void MainWindow::on_allLineEditProfilInformationPersonnelles_textChanged()";
+    bool login, adresse, cp, ville, mail, tel;
+    login = ui->lineEdit_loginEmploye->text().size() >= loginMinimumSize;
+    adresse = ui->lineEdit_adresseEmploye->text().size() >= adresseMinimumSize;
+    cp = ui->lineEdit_codePostalEmploye->text().size() >= codePostalMinimumSize;
+    ville = ui->lineEdit_villeEmploye->text().size() >= villeMinimumSize;
+    mail = ui->lineEdit_mailEmploye->text().size() >= mailMinimumSize;
+    tel = ui->lineEdit_telEmploye->text().size() >= telMinimumSize;
+    //si les champs sont remplis
+    if(login && adresse && cp && ville && mail && tel){
+        //on active le bouton sauvegarder
+        ui->pushButton_sauvegarderInfosEmploye->setEnabled(true);
+    }else {
+        //on désactive le bouton sauvegarder
+        ui->pushButton_sauvegarderInfosEmploye->setEnabled(false);
+    }
+}
+
+/**
+ * @brief MainWindow::on_allLineEditProfilMdp_textChanged
+ * Méthode private slots de la classe MainWindow qui active ou non le bouton Sauvegarder d'un nouveau mot de passe de l'onglet Profil
+ */
+void MainWindow::on_allLineEditProfilMdp_textChanged()
+{
+    qDebug()<<"void MainWindow::on_allLineEditProfilMdp_textChanged()";
+    bool mdp, cmdp;
+    mdp = ui->lineEdit_newMotDePasseEmploye->text().size() >= mdpMinimumSize;
+    cmdp = ui->lineEdit_confirmMotDePasseEmploye->text().size() >= mdpMinimumSize;
+    //si les champs sont remplis
+    if(mdp && cmdp){
+        //on active le bouton sauvegarder
+        ui->pushButton_sauvegarderNewMotDePasseEmploye->setEnabled(true);
+    }else {
+        //on désactive le bouton sauvegarder
+        ui->pushButton_sauvegarderNewMotDePasseEmploye->setEnabled(false);
     }
 }

@@ -16,7 +16,7 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     this->numeroEmploye = numeroEmploye;
     this->loginMinimumSize = 4;
     nomPrenomMinimumSize = 3;
-    mdpMinimumSize = 3;
+    mdpMinimumSize = 8;
     adresseMinimumSize = 10;
     codePostalMinimumSize = 5;
     villeMinimumSize = 2;

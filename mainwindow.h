@@ -83,6 +83,8 @@ private slots:
     void on_pushButton_annulerInfosEmploye_clicked();
     void on_pushButton_effacerNewMotDePasseEmploye_clicked();
     void on_lineEdit_loginEmploye_textChanged(const QString &arg1);
+    void on_allLineEditProfilInformationPersonnelles_textChanged();
+    void on_allLineEditProfilMdp_textChanged();
 
     /* employes.cpp */
     void on_allLineEditEmploye_textChanged();

@@ -31,7 +31,8 @@ SOURCES += \
         mainwindow.cpp \
     dialogconnexion.cpp \
     producteurs.cpp \
-    profil.cpp
+    profil.cpp \
+    tableauDeBord.cpp
 
 HEADERS += \
         mainwindow.h \
