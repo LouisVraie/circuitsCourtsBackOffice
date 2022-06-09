@@ -48,7 +48,6 @@ public:
     //rayons
     void afficherTableGestionProduitsRayons();
     void clearGestionProduitsRayonInputs();
-    void uploadImageRayonsGestionProduits();
 
     //produits
     void afficherTableGestionProduitsProduits();
@@ -58,6 +57,8 @@ public:
     //varietes
     void afficherTableGestionProduitsVarietes();
     void setTableGestionProduitsVarietesEstValideColor(int row, QString backgroundColor);
+    void updateComboBoxGestionProduitsVarietesProduit();
+    void clearGestionProduitsVarietesInputs();
 
     /* profil.cpp */
     void setTab_profil();
@@ -90,6 +91,7 @@ private slots:
     void on_pushButton_modifierEmploye_clicked();
     void on_pushButton_supprimerEmploye_clicked();
 
+    /* producteurs.cpp */
     void on_pushButton_producteursEnAttenteValider_clicked();
     void on_pushButton_producteursEnAttenteInvalider_clicked();
     void on_pushButton_producteursValidesDesactiver_clicked();
@@ -106,14 +108,11 @@ private slots:
     //produits
     void on_pushButton_gestionProduitsProduitsImage_clicked();
     void on_allLineEditGestionProduitsProduits_textChanged();
-
     void on_pushButton_gestionProduitsProduitsAjouter_clicked();
-
     void on_tableWidget_gestionProduitsProduits_itemSelectionChanged();
-
     void on_pushButton_gestionProduitsProduitsModifier_clicked();
-
     void on_pushButton_gestionProduitsProduitsSupprimer_clicked();
+    //variétés
 
 private:
     Ui::MainWindow *ui;

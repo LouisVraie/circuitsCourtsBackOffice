@@ -20,6 +20,7 @@ void MainWindow::initGestionProduits()
     //on clear les inputs
     clearGestionProduitsRayonInputs();
     clearGestionProduitsProduitsInputs();
+    clearGestionProduitsVarietesInputs();
 
     //on désactive les boutons et on crée des connect
     ui->pushButton_gestionProduitsRayonsAjouter->setDisabled(true);
@@ -188,7 +189,7 @@ void MainWindow::clearGestionProduitsRayonInputs()
  */
 void MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()
 {
-    qDebug()<<"void MainWindow::uploadImageRayonsGestionProduits()";
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsRayonsImage_clicked()";
     QFileDialog filename;
     filename.setFileMode(QFileDialog::ExistingFile);
     ui->lineEdit_gestionProduitsRayonsImage->setText(filename.getOpenFileName(this,tr("Choisir une image de rayon"), "", tr("Image (*.png *.jpg *.jpeg)")));
@@ -447,6 +448,7 @@ void MainWindow::on_pushButton_gestionProduitsProduitsAjouter_clicked()
             ui->statusBar->showMessage(libelleProduit+" a été ajouté à la liste des produits !",5000);
             afficherTableGestionProduitsProduits();
             clearGestionProduitsProduitsInputs();
+            updateComboBoxGestionProduitsVarietesProduit();
         }else{
             ui->statusBar->showMessage("Erreur lors de l'insertion du produit : "+libelleProduit+" !",5000);
         }
@@ -514,6 +516,7 @@ void MainWindow::on_pushButton_gestionProduitsProduitsModifier_clicked()
         if(resultUpdateProduit.numRowsAffected() != -1){
             afficherTableGestionProduitsProduits();
             clearGestionProduitsProduitsInputs();
+            updateComboBoxGestionProduitsVarietesProduit();
         } else {
             ui->statusBar->showMessage("Erreur lors de la modification du produit : "+numeroProduit+" !",5000);
         }
@@ -551,6 +554,40 @@ void MainWindow::on_pushButton_gestionProduitsProduitsSupprimer_clicked()
         ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" produit(s) !",5000);
         ui->tableWidget_gestionProduitsProduits->clearSelection();
         clearGestionProduitsProduitsInputs();
-        //updateComboBoxGestionProduitsVarietesProduits
+        updateComboBoxGestionProduitsVarietesProduit();
     }
+}
+
+/**
+ * @brief MainWindow::updateComboBoxGestionProduitsVarietesProduit
+ * Méthode publique de la classe MainWindow qui met à jour la comboBox_gestionProduitsVarietesProduit dans l'onglet Variétés de Gestion Produits
+ */
+void MainWindow::updateComboBoxGestionProduitsVarietesProduit()
+{
+    qDebug()<<"void MainWindow::updateComboBoxGestionProduitsVarietesProduit()";
+    //on clear la comboBox
+    ui->comboBox_gestionProduitsVarietesProduit->clear();
+    QString reqSelectProduit = "SELECT numeroProduit,libelleProduit FROM Produit ORDER BY libelleProduit ASC";
+    qDebug()<<reqSelectProduit;
+    QSqlQuery resultSelectProduit(reqSelectProduit);
+    //si la requête a fonctionné
+    if(resultSelectProduit.numRowsAffected() != -1){
+        while(resultSelectProduit.next()){
+            QString numeroProduit = resultSelectProduit.value("numeroProduit").toString();
+            QString libelleProduit = resultSelectProduit.value("libelleProduit").toString();
+            ui->comboBox_gestionProduitsVarietesProduit->addItem(libelleProduit,numeroProduit);
+        }
+    }
+}
+
+/**
+ * @brief MainWindow::clearGestionProduitsVarietesInputs
+ * Méthode publique de la classe MainWindow qui efface tous les inputs de l'onglet Variétés de Gestion Produits
+ */
+void MainWindow::clearGestionProduitsVarietesInputs()
+{
+    qDebug()<<"void MainWindow::clearGestionProduitsVarietesInputs()";
+    updateComboBoxGestionProduitsVarietesProduit();
+    ui->lineEdit_gestionProduitsVarietesLibelle->clear();
+    ui->lineEdit_gestionProduitsVarietesImage->clear();
 }

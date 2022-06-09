@@ -755,7 +755,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_gestionProduits">
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab_gestionProduitsRayons">
            <attribute name="icon">
@@ -1194,6 +1194,11 @@
               <column>
                <property name="text">
                 <string>Libellé Variété</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Image Path</string>
                </property>
               </column>
              </widget>
