@@ -47,8 +47,9 @@ void DialogConnexion::on_pushButtonConnexion_clicked()
     QString mdp = ui->lineEditMotDePasse->text().replace(";","").replace("'","''");
     //on vérifie si l'utilisateur existe
     QString reqUserExists = "SELECT COUNT(*) FROM Employe "
-                           "WHERE loginEmploye = '"+login+"' "
-                           "AND motDePasseEmploye = PASSWORD('"+mdp+"')";
+                            "WHERE loginEmploye = '"+login+"' "
+                            "AND motDePasseEmploye = PASSWORD('"+mdp+"')"
+                            "AND estActif IS TRUE";
     qDebug()<<reqUserExists;
     QSqlQuery resultUserExists(reqUserExists);
     resultUserExists.next();
