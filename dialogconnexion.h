@@ -34,6 +34,7 @@ private slots:
 private:
     Ui::DialogConnexion *ui;
     QString numeroEmploye;
+    int nbTentativeConnexion;
 };
 
 #endif // DIALOGCONNEXION_H

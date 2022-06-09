@@ -14,6 +14,7 @@ DialogConnexion::DialogConnexion(QWidget *parent) :
     ui->lineEditLogin->setText("ADMIN");
     ui->lineEditMotDePasse->setText("XITgfUibs1456");
     numeroEmploye = "";
+    nbTentativeConnexion = 0;
 }
 
 /**
@@ -64,6 +65,10 @@ void DialogConnexion::on_pushButtonConnexion_clicked()
         accept();
     } else {
         ui->labelConnexionError->setText("Le login ou le mot de passe est incorrect !");
+        nbTentativeConnexion++;
+        if(nbTentativeConnexion >= 3){
+            reject();
+        }
     }
 }
 

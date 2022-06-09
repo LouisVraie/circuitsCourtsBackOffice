@@ -21,9 +21,12 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     DialogConnexion connexion;
-    if(connexion.exec() == QDialog::Accepted){
+    int connectionState = connexion.exec();
+    if(connectionState == QDialog::Accepted){
         MainWindow w(connexion.getNumeroEmploye());
         w.showMaximized();
         return a.exec();
+    } else if(connectionState == QDialog::Rejected){
+        return 0;
     }
 }
