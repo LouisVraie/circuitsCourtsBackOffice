@@ -120,6 +120,8 @@ private slots:
 
     void on_tableWidget_gestionProduitsVarietes_itemSelectionChanged();
 
+    void on_pushButton_gestionProduitsVarietesModifier_clicked();
+
 private:
     Ui::MainWindow *ui;
 

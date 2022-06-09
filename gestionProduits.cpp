@@ -708,3 +708,40 @@ void MainWindow::on_tableWidget_gestionProduitsVarietes_itemSelectionChanged()
         ui->pushButton_gestionProduitsVarietesModifier->setEnabled(false);
     }
 }
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsVarietesModifier_clicked
+ * Méthode private slots de la classe MainWindow qui modifie les informations d'une variété dans l'onglet Variétés de Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsVarietesModifier_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsVarietesModifier_clicked()";
+    QString numeroVariete, numeroProduit, libelleVariete, libelleProduit, imageVariete;
+    numeroVariete = ui->tableWidget_gestionProduitsVarietes->item(rowGestionProduitsVariete,1)->text();
+    numeroProduit = ui->comboBox_gestionProduitsVarietesProduit->currentData().toString();
+    libelleProduit = ui->comboBox_gestionProduitsVarietesProduit->currentText();
+    libelleVariete = escapeString(ui->lineEdit_gestionProduitsVarietesLibelle->text());
+    imageVariete = escapeString(ui->lineEdit_gestionProduitsVarietesImage->text());
+    //si la variété n'existe pas
+    if(verifDoublon("Variete","libelleVariete",libelleVariete) == 0
+       || imageVariete != ui->tableWidget_gestionProduitsVarietes->item(rowGestionProduitsVariete,6)->text()
+       || libelleProduit != ui->tableWidget_gestionProduitsVarietes->item(rowGestionProduitsVariete,4)->text()){
+        //requête qui update la variété
+        QString reqUpdateVariete = "UPDATE Variete SET "
+                                 "libelleVariete='"+libelleVariete+"',"
+                                 "imageVariete='"+imageVariete+"', "
+                                 "numeroProduit="+numeroProduit+" "
+                                 "WHERE numeroVariete="+numeroVariete;
+        qDebug()<<reqUpdateVariete;
+        QSqlQuery resultUpdateVariete(reqUpdateVariete);
+        //si la requête a fonctionné
+        if(resultUpdateVariete.numRowsAffected() != -1){
+            afficherTableGestionProduitsVarietes();
+            clearGestionProduitsVarietesInputs();
+        } else {
+            ui->statusBar->showMessage("Erreur lors de la modification de la variété : "+numeroVariete+" !",5000);
+        }
+    } else {
+        ui->statusBar->showMessage("Erreur, la variété : "+libelleVariete+" existe déjà !",5000);
+    }
+}
