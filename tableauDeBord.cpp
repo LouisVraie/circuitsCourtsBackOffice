@@ -31,3 +31,13 @@ void MainWindow::nbNewVarietes()
         ui->statusBar->showMessage("Erreur lors de l'affichage du nombre de variété !");
     }
 }
+
+/**
+ * @brief MainWindow::afficherNbVarietesParRayon
+ * Méthode publique de la classe MainWindow qui affiche le nombre de variétés par rayons dans un QTableWidget du tab Tableau de bord
+ */
+void MainWindow::afficherNbVarietesParRayon()
+{
+    qDebug()<<"void MainWindow::afficherNbVarietesParRayon()";
+
+}

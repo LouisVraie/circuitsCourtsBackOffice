@@ -34,6 +34,7 @@ public:
     /* tableauDeBord.cpp */
     void initTableauDeBord();
     void nbNewVarietes();
+    void afficherNbVarietesParRayon();
 
     /* employes.cpp */
     void initEmployes();
