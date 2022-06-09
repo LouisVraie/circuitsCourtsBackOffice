@@ -31,6 +31,10 @@ public:
     void getInfosEmploye();
     void hideTabs();
 
+    /* tableauDeBord.cpp */
+    void initTableauDeBord();
+    void nbNewVarietes();
+
     /* employes.cpp */
     void initEmployes();
     void afficherTableEmployes();
@@ -137,6 +141,9 @@ private:
     int loginMinimumSize, nomPrenomMinimumSize, mdpMinimumSize;
     int adresseMinimumSize, codePostalMinimumSize, villeMinimumSize, mailMinimumSize, telMinimumSize;
     int libelleMinimumSize, imagePathMinimumSize;
+
+    /* tableauDeBord.cpp */
+    QString nbJourTableauDeBord;
 
     /* employes.cpp */
     int rowEmploye;
