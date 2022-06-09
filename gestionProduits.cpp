@@ -452,3 +452,70 @@ void MainWindow::on_pushButton_gestionProduitsProduitsAjouter_clicked()
         ui->statusBar->showMessage("Erreur, le produit : "+libelleProduit+" existe déjà !",5000);
     }
 }
+
+/**
+ * @brief MainWindow::on_tableWidget_gestionProduitsProduits_itemSelectionChanged
+ * Méthode private slots de la classe MainWindow qui transmet les informations d'un produit dans les inputs
+ *  de l'onglet Produits de l'onglet Gestion Produits lorsque la selection change
+ */
+void MainWindow::on_tableWidget_gestionProduitsProduits_itemSelectionChanged()
+{
+    qDebug()<<"void MainWindow::on_tableWidget_gestionProduitsProduits_itemSelectionChanged()";
+    if(!ui->tableWidget_gestionProduitsProduits->selectedItems().empty()){
+        //on récupère le numéro de la ligne
+        rowGestionProduitsProduit = ui->tableWidget_gestionProduitsProduits->currentRow();
+        //on active le bouton modifier
+        ui->pushButton_gestionProduitsProduitsModifier->setEnabled(true);
+        //on transmet les données du tableau dans les inputs
+        for (int i=0;i<ui->comboBox_gestionProduitsProduitsRayon->count();i++) {
+            //si le rayon de la comboBox est le même que celui du tableau
+            if(ui->comboBox_gestionProduitsProduitsRayon->itemText(i) == ui->tableWidget_gestionProduitsProduits->item(rowGestionProduitsProduit,4)->text()){
+                //on sélectionne l'item correspodant dans la comboBox
+                ui->comboBox_gestionProduitsProduitsRayon->setCurrentIndex(i);
+                break;
+            }
+        }
+        ui->lineEdit_gestionProduitsProduitsLibelle->setText(ui->tableWidget_gestionProduitsProduits->item(rowGestionProduitsProduit,5)->text());
+        ui->lineEdit_gestionProduitsProduitsImage->setText(ui->tableWidget_gestionProduitsProduits->item(rowGestionProduitsProduit,6)->text());
+    }else{
+        //on désactive le bouton modifier
+        ui->pushButton_gestionProduitsProduitsModifier->setEnabled(false);
+    }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsProduitsModifier_clicked
+ * Méthode private slots de la classe MainWindow qui modifie les informations d'un produit dans l'onglet Produits de Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsProduitsModifier_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsProduitsModifier_clicked()";
+    QString numeroProduit, numeroRayon, libelleRayon, libelleProduit, imageProduit;
+    numeroProduit = ui->tableWidget_gestionProduitsProduits->item(rowGestionProduitsProduit,1)->text();
+    numeroRayon = ui->comboBox_gestionProduitsProduitsRayon->currentData().toString();
+    libelleRayon = ui->comboBox_gestionProduitsProduitsRayon->currentText();
+    libelleProduit = escapeString(ui->lineEdit_gestionProduitsProduitsLibelle->text());
+    imageProduit = escapeString(ui->lineEdit_gestionProduitsProduitsImage->text());
+    //si le produit n'existe pas
+    if(verifDoublon("Produit","libelleProduit",libelleProduit) == 0
+       || imageProduit != ui->tableWidget_gestionProduitsProduits->item(rowGestionProduitsProduit,6)->text()
+       || libelleRayon != ui->tableWidget_gestionProduitsProduits->item(rowGestionProduitsProduit,4)->text()){
+        //requête qui update le produit
+        QString reqUpdateProduit = "UPDATE Produit SET "
+                                 "libelleProduit='"+libelleProduit+"',"
+                                 "imageProduit='"+imageProduit+"', "
+                                 "numeroRayon="+numeroRayon+" "
+                                 "WHERE numeroProduit="+numeroProduit;
+        qDebug()<<reqUpdateProduit;
+        QSqlQuery resultUpdateProduit(reqUpdateProduit);
+        //si la requête a fonctionné
+        if(resultUpdateProduit.numRowsAffected() != -1){
+            afficherTableGestionProduitsProduits();
+            clearGestionProduitsProduitsInputs();
+        } else {
+            ui->statusBar->showMessage("Erreur lors de la modification du produit : "+numeroProduit+" !",5000);
+        }
+    } else {
+        ui->statusBar->showMessage("Erreur, le produit : "+libelleProduit+" existe déjà !",5000);
+    }
+}

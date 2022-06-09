@@ -109,6 +109,10 @@ private slots:
 
     void on_pushButton_gestionProduitsProduitsAjouter_clicked();
 
+    void on_tableWidget_gestionProduitsProduits_itemSelectionChanged();
+
+    void on_pushButton_gestionProduitsProduitsModifier_clicked();
+
 private:
     Ui::MainWindow *ui;
 
