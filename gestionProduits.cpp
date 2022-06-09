@@ -186,6 +186,7 @@ void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString 
 void MainWindow::clearGestionProduitsRayonInputs()
 {
     qDebug()<<"void MainWindow::clearGestionProduitsRayonInputs()";
+    ui->tableWidget_gestionProduitsRayons->clearSelection();
     ui->lineEdit_gestionProduitsRayonsLibelle->clear();
     ui->lineEdit_gestionProduitsRayonsImage->clear();
 }
@@ -347,7 +348,6 @@ void MainWindow::on_pushButton_gestionProduitsRayonsSupprimer_clicked()
     }
     if(supprOk){
         ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" rayons(s) !",5000);
-        ui->tableWidget_gestionProduitsRayons->clearSelection();
         clearGestionProduitsRayonInputs();
         updateComboBoxGestionProduitsProduitsRayon();
     }
@@ -383,6 +383,7 @@ void MainWindow::clearGestionProduitsProduitsInputs()
 {
     qDebug()<<"void MainWindow::clearGestionProduitsProduitsInputs()";
     updateComboBoxGestionProduitsProduitsRayon();
+    ui->tableWidget_gestionProduitsProduits->clearSelection();
     ui->lineEdit_gestionProduitsProduitsLibelle->clear();
     ui->lineEdit_gestionProduitsProduitsImage->clear();
 }
@@ -559,7 +560,6 @@ void MainWindow::on_pushButton_gestionProduitsProduitsSupprimer_clicked()
     }
     if(supprOk){
         ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" produit(s) !",5000);
-        ui->tableWidget_gestionProduitsProduits->clearSelection();
         clearGestionProduitsProduitsInputs();
         updateComboBoxGestionProduitsVarietesProduit();
     }
@@ -595,6 +595,7 @@ void MainWindow::clearGestionProduitsVarietesInputs()
 {
     qDebug()<<"void MainWindow::clearGestionProduitsVarietesInputs()";
     updateComboBoxGestionProduitsVarietesProduit();
+    ui->tableWidget_gestionProduitsVarietes->clearSelection();
     ui->lineEdit_gestionProduitsVarietesLibelle->clear();
     ui->lineEdit_gestionProduitsVarietesImage->clear();
 }
@@ -773,7 +774,6 @@ void MainWindow::on_pushButton_gestionProduitsVarietesSupprimer_clicked()
     }
     if(supprOk){
         ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" variété(s) !",5000);
-        ui->tableWidget_gestionProduitsVarietes->clearSelection();
         clearGestionProduitsVarietesInputs();
     }
 }
@@ -793,7 +793,7 @@ void MainWindow::on_pushButton_gestionProduitsVarietesValider_clicked()
     if(resultValiderVariete.numRowsAffected() != -1){
         //on change la couleur de validité
         setTableGestionProduitsVarietesEstValideColor(rowGestionProduitsVariete,"green");
-        ui->tableWidget_gestionProduitsVarietes->clearSelection();
+        clearGestionProduitsVarietesInputs();
         ui->statusBar->showMessage("La variété n°"+numeroVariete+" a été validé !",5000);
     } else {
         ui->statusBar->showMessage("Erreur lors de la validation de la variété n°"+numeroVariete+" !",5000);
