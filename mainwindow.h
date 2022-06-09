@@ -118,6 +118,8 @@ private slots:
 
     void on_pushButton_gestionProduitsVarietesAjouter_clicked();
 
+    void on_tableWidget_gestionProduitsVarietes_itemSelectionChanged();
+
 private:
     Ui::MainWindow *ui;
 

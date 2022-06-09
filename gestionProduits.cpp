@@ -676,3 +676,35 @@ void MainWindow::on_pushButton_gestionProduitsVarietesAjouter_clicked()
         ui->statusBar->showMessage("Erreur, la variété : "+libelleVariete+" existe déjà !",5000);
     }
 }
+
+/**
+ * @brief MainWindow::on_tableWidget_gestionProduitsVarietes_itemSelectionChanged
+ * Méthode private slots de la classe MainWindow qui transmet les informations d'une variété dans les inputs
+ *  de l'onglet Variétés de Gestion Produits lorsque la selection change
+ */
+void MainWindow::on_tableWidget_gestionProduitsVarietes_itemSelectionChanged()
+{
+    qDebug()<<"void MainWindow::on_tableWidget_gestionProduitsVarietes_itemSelectionChanged()";
+    if(!ui->tableWidget_gestionProduitsVarietes->selectedItems().empty()){
+        //on récupère le numéro de la ligne
+        rowGestionProduitsVariete = ui->tableWidget_gestionProduitsVarietes->currentRow();
+        //on active les boutons valider et modifier
+        ui->pushButton_gestionProduitsVarietesValider->setEnabled(true);
+        ui->pushButton_gestionProduitsVarietesModifier->setEnabled(true);
+        //on transmet les données du tableau dans les inputs
+        for (int i=0;i<ui->comboBox_gestionProduitsVarietesProduit->count();i++) {
+            //si le produit de la comboBox est le même que celui du tableau
+            if(ui->comboBox_gestionProduitsVarietesProduit->itemText(i) == ui->tableWidget_gestionProduitsVarietes->item(rowGestionProduitsVariete,4)->text()){
+                //on sélectionne l'item correspodant dans la comboBox
+                ui->comboBox_gestionProduitsVarietesProduit->setCurrentIndex(i);
+                break;
+            }
+        }
+        ui->lineEdit_gestionProduitsVarietesLibelle->setText(ui->tableWidget_gestionProduitsVarietes->item(rowGestionProduitsVariete,5)->text());
+        ui->lineEdit_gestionProduitsVarietesImage->setText(ui->tableWidget_gestionProduitsVarietes->item(rowGestionProduitsVariete,6)->text());
+    }else{
+        //on désactive les boutons valider et modifier
+        ui->pushButton_gestionProduitsVarietesValider->setEnabled(false);
+        ui->pushButton_gestionProduitsVarietesModifier->setEnabled(false);
+    }
+}
