@@ -777,3 +777,25 @@ void MainWindow::on_pushButton_gestionProduitsVarietesSupprimer_clicked()
         clearGestionProduitsVarietesInputs();
     }
 }
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsVarietesValider_clicked
+ * Méthode private slots de la classe MainWindow qui permet de valider les variétés lorsqu'on clic sur le bouton Valider de l'onglet Variétés de Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsVarietesValider_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsVarietesValider_clicked()";
+    QString numeroVariete = ui->tableWidget_gestionProduitsVarietes->item(rowGestionProduitsVariete,1)->text();
+    QString reqValiderVariete = "UPDATE Variete SET estValide = TRUE WHERE numeroVariete ="+numeroVariete;
+    qDebug()<<reqValiderVariete;
+    QSqlQuery resultValiderVariete(reqValiderVariete);
+    //si la requête a fonctionné
+    if(resultValiderVariete.numRowsAffected() != -1){
+        //on change la couleur de validité
+        setTableGestionProduitsVarietesEstValideColor(rowGestionProduitsVariete,"green");
+        ui->tableWidget_gestionProduitsVarietes->clearSelection();
+        ui->statusBar->showMessage("La variété n°"+numeroVariete+" a été validé !",5000);
+    } else {
+        ui->statusBar->showMessage("Erreur lors de la validation de la variété n°"+numeroVariete+" !",5000);
+    }
+}

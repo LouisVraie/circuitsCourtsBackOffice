@@ -115,14 +115,12 @@ private slots:
     //variétés
     void on_pushButton_gestionProduitsVarietesImage_clicked();
     void on_allLineEditGestionProduitsVarietes_textChanged();
-
     void on_pushButton_gestionProduitsVarietesAjouter_clicked();
-
     void on_tableWidget_gestionProduitsVarietes_itemSelectionChanged();
-
     void on_pushButton_gestionProduitsVarietesModifier_clicked();
-
     void on_pushButton_gestionProduitsVarietesSupprimer_clicked();
+
+    void on_pushButton_gestionProduitsVarietesValider_clicked();
 
 private:
     Ui::MainWindow *ui;
