@@ -745,3 +745,35 @@ void MainWindow::on_pushButton_gestionProduitsVarietesModifier_clicked()
         ui->statusBar->showMessage("Erreur, la variété : "+libelleVariete+" existe déjà !",5000);
     }
 }
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsVarietesSupprimer_clicked
+ * Méthode private slots de la classe MainWindow qui supprime les variétés sélectionnées dans l'onglet Variétés de Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsVarietesSupprimer_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsVarietesSupprimer_clicked()";
+    bool supprOk = false;
+    int nbLigneSuppr = 0;
+    for (int ligne = ui->tableWidget_gestionProduitsVarietes->rowCount()-1;ligne>=0;ligne--) {
+        //si la QCheckBox est cochée
+        if(((QCheckBox*)ui->tableWidget_gestionProduitsVarietes->cellWidget(ligne,0))->isChecked()){
+            QString reqUpdateDeleteVariete = "DELETE FROM Variete WHERE numeroVariete = "+ui->tableWidget_gestionProduitsVarietes->item(ligne,1)->text();
+            qDebug()<<reqUpdateDeleteVariete;
+            QSqlQuery resultUpdateDeleteVariete(reqUpdateDeleteVariete);
+            if(resultUpdateDeleteVariete.numRowsAffected() != -1){
+                ui->tableWidget_gestionProduitsVarietes->removeRow(ligne);
+                nbLigneSuppr++;
+                supprOk = true;
+            } else {
+                ui->statusBar->showMessage("Erreur lors de la suppression de la/des variété(s) !",5000);
+                break;
+            }
+        }
+    }
+    if(supprOk){
+        ui->statusBar->showMessage("Suppression de "+QString::number(nbLigneSuppr)+" variété(s) !",5000);
+        ui->tableWidget_gestionProduitsVarietes->clearSelection();
+        clearGestionProduitsVarietesInputs();
+    }
+}
