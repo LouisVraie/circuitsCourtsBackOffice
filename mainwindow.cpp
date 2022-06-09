@@ -225,3 +225,5 @@ int MainWindow::verifDoublon(QString table, QString columnName, QString conditio
     ui->statusBar->showMessage("Erreur, la vérification de doublon de la table "+table+" a échoué !",5000);
     return -1;
 }
+
+

@@ -32,6 +32,13 @@ void MainWindow::initGestionProduits()
     connect(ui->comboBox_gestionProduitsProduitsRayon,SIGNAL(currentIndexChanged(int)),this,SLOT(on_allLineEditGestionProduitsProduits_textChanged()));
     connect(ui->lineEdit_gestionProduitsProduitsLibelle,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsProduits_textChanged()));
     connect(ui->lineEdit_gestionProduitsProduitsImage,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsProduits_textChanged()));
+    ui->pushButton_gestionProduitsVarietesAjouter->setDisabled(true);
+    ui->pushButton_gestionProduitsVarietesValider->setDisabled(true);
+    ui->pushButton_gestionProduitsVarietesModifier->setDisabled(true);
+    connect(ui->comboBox_gestionProduitsVarietesProduit,SIGNAL(currentIndexChanged(int)),this,SLOT(on_allLineEditGestionProduitsVarietes_textChanged()));
+    connect(ui->lineEdit_gestionProduitsVarietesLibelle,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsVarietes_textChanged()));
+    connect(ui->lineEdit_gestionProduitsVarietesImage,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditGestionProduitsVarietes_textChanged()));
+
 
     //on affiche le contenu des tableaux
     afficherTableGestionProduitsRayons();
@@ -590,4 +597,82 @@ void MainWindow::clearGestionProduitsVarietesInputs()
     updateComboBoxGestionProduitsVarietesProduit();
     ui->lineEdit_gestionProduitsVarietesLibelle->clear();
     ui->lineEdit_gestionProduitsVarietesImage->clear();
+}
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsVarietesImage_clicked
+ * Méthode private slots de la classe MainWindow qui upload une image dans l'onglet Variétés de Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsVarietesImage_clicked()
+{
+        qDebug()<<"void MainWindow::on_pushButton_gestionProduitsVarietesImage_clicked()";
+        QFileDialog filename;
+        filename.setFileMode(QFileDialog::ExistingFile);
+        ui->lineEdit_gestionProduitsVarietesImage->setText(filename.getOpenFileName(this,tr("Choisir une image d'une variété"), "", tr("Image (*.png *.jpg *.jpeg)")));
+}
+
+/**
+ * @brief MainWindow::on_allLineEditGestionProduitsProduits_textChanged
+ * Méthode private slots de la classe MainWindow qui active ou non les boutons de l'onglet Variétés de Gestion Produits
+ */
+void MainWindow::on_allLineEditGestionProduitsVarietes_textChanged()
+{
+    qDebug()<<"void MainWindow::on_allLineEditGestionProduitsVarietes_textChanged()";
+    bool numeroProduit, libelleVariete, imageVariete;
+    numeroProduit = ui->comboBox_gestionProduitsVarietesProduit->currentData().toInt() > 0;
+    libelleVariete = ui->lineEdit_gestionProduitsVarietesLibelle->text().size() >= libelleMinimumSize;
+    imageVariete = ui->lineEdit_gestionProduitsVarietesImage->text().size() >= imagePathMinimumSize;
+    //si les champs sont remplis
+    if(numeroProduit && libelleVariete && imageVariete){
+        //on active le bouton ajouter
+        ui->pushButton_gestionProduitsVarietesAjouter->setEnabled(true);
+    }else {
+        //on désactive le bouton ajouter
+        ui->pushButton_gestionProduitsVarietesAjouter->setEnabled(false);
+    }
+
+    //si une ligne est sélectionnée
+    if(!ui->tableWidget_gestionProduitsVarietes->selectedItems().empty()){
+        if(numeroProduit && libelleVariete && imageVariete){
+            //on active les boutons valider et modifier
+            ui->pushButton_gestionProduitsVarietesValider->setEnabled(true);
+            ui->pushButton_gestionProduitsVarietesModifier->setEnabled(true);
+        }else {
+            //on désactive les boutons valider et modifier
+            ui->pushButton_gestionProduitsVarietesValider->setEnabled(false);
+            ui->pushButton_gestionProduitsVarietesModifier->setEnabled(false);
+        }
+    }
+}
+
+/**
+ * @brief MainWindow::on_pushButton_gestionProduitsVarietesAjouter_clicked
+ * Méthode private slots de la classe MainWindow qui ajoute une variété dans l'onglet Variétés de Gestion Produits
+ */
+void MainWindow::on_pushButton_gestionProduitsVarietesAjouter_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_gestionProduitsVarietesAjouter_clicked()";
+    QString numeroVariete, libelleVariete, imageVariete, dateVariete, numeroProduit;
+    numeroVariete = setNextId("numeroVariete","Variete");
+    libelleVariete = escapeString(ui->lineEdit_gestionProduitsVarietesLibelle->text());
+    imageVariete = escapeString(ui->lineEdit_gestionProduitsVarietesImage->text());
+    dateVariete = QDate::currentDate().toString("yyyy-MM-dd");
+    numeroProduit = ui->comboBox_gestionProduitsVarietesProduit->currentData().toString();
+    //si le libelle n'existe pas
+    if(verifDoublon("Variete","libelleVariete",libelleVariete) == 0){
+        QString reqInsertVariete = "INSERT INTO Variete (numeroVariete,libelleVariete,imageVariete,dateInscriptionVariete,numeroProduit) VALUES "
+                                 "("+numeroVariete+",'"+libelleVariete+"','"+imageVariete+"','"+dateVariete+"',"+numeroProduit+")";
+        qDebug()<<reqInsertVariete;
+        QSqlQuery resultInsertVariete(reqInsertVariete);
+        //si l'inserion a fonctionné
+        if(resultInsertVariete.numRowsAffected() != -1){
+            ui->statusBar->showMessage(libelleVariete+" a été ajouté à la liste des variétés !",5000);
+            afficherTableGestionProduitsVarietes();
+            clearGestionProduitsVarietesInputs();
+        }else{
+            ui->statusBar->showMessage("Erreur lors de l'insertion de la variété : "+libelleVariete+" !",5000);
+        }
+    }else{
+        ui->statusBar->showMessage("Erreur, la variété : "+libelleVariete+" existe déjà !",5000);
+    }
 }

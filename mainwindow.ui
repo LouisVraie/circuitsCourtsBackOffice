@@ -1264,13 +1264,13 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_gestionProduitsVarietesValider">
+               <widget class="QPushButton" name="pushButton_gestionProduitsVarietesAjouter">
                 <property name="text">
-                 <string>&amp;Valider</string>
+                 <string>&amp;Ajouter</string>
                 </property>
                 <property name="icon">
                  <iconset resource="resources.qrc">
-                  <normaloff>:/images/images/check-circle.png</normaloff>:/images/images/check-circle.png</iconset>
+                  <normaloff>:/images/images/plus.png</normaloff>:/images/images/plus.png</iconset>
                 </property>
                </widget>
               </item>
@@ -1334,6 +1334,21 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_11">
+              <item>
+               <widget class="QPushButton" name="pushButton_gestionProduitsVarietesValider">
+                <property name="text">
+                 <string>&amp;Valider</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/images/images/check-circle.png</normaloff>:/images/images/check-circle.png</iconset>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
