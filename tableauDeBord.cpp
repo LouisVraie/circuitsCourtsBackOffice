@@ -20,7 +20,7 @@ void MainWindow::nbNewVarietes()
 {
     qDebug()<<"void MainWindow::nbNewVarietes()";
     QString reqNbNewVarietes = "SELECT COUNT(*) FROM Variete "
-                               "WHERE DATEDIFF(dateInscriptionVariete,NOW()) BETWEEN 0 AND "+nbJourTableauDeBord;
+                               "WHERE DATEDIFF(NOW(),dateInscriptionVariete) BETWEEN 0 AND "+nbJourTableauDeBord;
     qDebug()<<reqNbNewVarietes;
     QSqlQuery resultNbNewVarietes(reqNbNewVarietes);
     //si la requête a fonctionné
