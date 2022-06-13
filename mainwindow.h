@@ -37,6 +37,7 @@ public:
     void nbNewVarietes();
     void afficherNbVarietesParRayon();
     void nbNewLotsDeProductions();
+    void nbChiffreDAffairesAbonnements();
 
     /* employes.cpp */
     void initEmployes();
@@ -149,6 +150,7 @@ private:
 
     /* tableauDeBord.cpp */
     QString nbJourTableauDeBord;
+    double chiffresDAffaires;
 
     /* employes.cpp */
     int rowEmploye;

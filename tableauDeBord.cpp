@@ -8,6 +8,8 @@
 void MainWindow::initTableauDeBord()
 {
     qDebug()<<"void MainWindow::initTableauDeBord()";
+    chiffresDAffaires = 0;
+
     //on stretch les tableaux
     ui->tableWidget_tdbVarietesParRayon->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -15,6 +17,7 @@ void MainWindow::initTableauDeBord()
     nbNewVarietes();
     afficherNbVarietesParRayon();
     nbNewLotsDeProductions();
+    nbChiffreDAffairesAbonnements();
 }
 
 /**
@@ -120,5 +123,27 @@ void MainWindow::nbNewLotsDeProductions()
         ui->spinBox_tdbNbLotsDeProductions->setValue(resultNbNewLotsDeProductions.value(0).toInt());
     } else {
         ui->statusBar->showMessage("Erreur lors de l'affichage du nombre de nouveaux lots de productions !");
+    }
+}
+
+/**
+ * @brief MainWindow::nbChiffreDAffairesAbonnements
+ * Méthode publique de la classe MainWindow qui affiche le chiffre d'affaires des abonnements dans le tableau de bord
+ */
+void MainWindow::nbChiffreDAffairesAbonnements()
+{
+    qDebug()<<"void MainWindow::nbChiffreDAffairesAbonnements()";
+    QString reqChiffreDAffairesAbonnements = "SELECT SUM(ta.prixTypeAbonnement) FROM TypeAbonnement ta "
+                                             "INNER JOIN Abonnement a ON a.numeroTypeAbonnement = ta.numeroTypeAbonnement "
+                                             "WHERE DATEDIFF(NOW(),a.dateDebAbonnement) BETWEEN 0 AND "+nbJourTableauDeBord;
+    qDebug()<<reqChiffreDAffairesAbonnements;
+    QSqlQuery resultChiffreDAffairesAbonnements(reqChiffreDAffairesAbonnements);
+    //si la requête a fonctionné
+    if(resultChiffreDAffairesAbonnements.numRowsAffected() != -1){
+        resultChiffreDAffairesAbonnements.next();
+        chiffresDAffaires = resultChiffreDAffairesAbonnements.value(0).toInt();
+        ui->doubleSpinBox_tdbNbCAAbonnements->setValue(chiffresDAffaires);
+    } else {
+        ui->statusBar->showMessage("Erreur lors de l'affichage du nombre du chiffre d'affaires des abonnements !");
     }
 }
