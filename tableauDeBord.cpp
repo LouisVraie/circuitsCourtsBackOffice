@@ -10,8 +10,30 @@ void MainWindow::initTableauDeBord()
     qDebug()<<"void MainWindow::initTableauDeBord()";
     //on stretch les tableaux
     ui->tableWidget_tdbVarietesParRayon->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    nbNewProducteurs();
     nbNewVarietes();
     afficherNbVarietesParRayon();
+}
+
+/**
+ * @brief MainWindow::nbNewProducteurs
+ * Méthode publique de la classe MainWindow qui affiche le nombre de nouveaux producteurs dans le tableau de bord
+ */
+void MainWindow::nbNewProducteurs()
+{
+    qDebug()<<"void MainWindow::nbNewProducteurs()";
+    QString reqNbNewProducteurs = "SELECT COUNT(*) FROM Producteur "
+                               "WHERE DATEDIFF(NOW(),dateInscriptionProducteur) BETWEEN 0 AND "+nbJourTableauDeBord;
+    qDebug()<<reqNbNewProducteurs;
+    QSqlQuery reqsultNbNewProducteurs(reqNbNewProducteurs);
+    //si la requête a fonctionné
+    if(reqsultNbNewProducteurs.numRowsAffected() != -1){
+        reqsultNbNewProducteurs.next();
+        ui->spinBox_tdbNbNewProducteurs->setValue(reqsultNbNewProducteurs.value(0).toInt());
+    } else {
+        ui->statusBar->showMessage("Erreur lors de l'affichage du nombre de nouveaux producteurs !");
+    }
 }
 
 /**
@@ -30,7 +52,7 @@ void MainWindow::nbNewVarietes()
         resultNbNewVarietes.next();
         ui->spinBox_tdbNbNewVarietes->setValue(resultNbNewVarietes.value(0).toInt());
     } else {
-        ui->statusBar->showMessage("Erreur lors de l'affichage du nombre de variété !");
+        ui->statusBar->showMessage("Erreur lors de l'affichage du nombre de nouvelles variétés !");
     }
 }
 

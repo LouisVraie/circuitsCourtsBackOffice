@@ -33,6 +33,7 @@ public:
 
     /* tableauDeBord.cpp */
     void initTableauDeBord();
+    void nbNewProducteurs();
     void nbNewVarietes();
     void afficherNbVarietesParRayon();
 
@@ -126,9 +127,9 @@ private slots:
     void on_tableWidget_gestionProduitsVarietes_itemSelectionChanged();
     void on_pushButton_gestionProduitsVarietesModifier_clicked();
     void on_pushButton_gestionProduitsVarietesSupprimer_clicked();
-
     void on_pushButton_gestionProduitsVarietesValider_clicked();
 
+    /* tableauDeBord.cpp */
     void on_pushButton_tdbActualiser_clicked();
 
 private:
