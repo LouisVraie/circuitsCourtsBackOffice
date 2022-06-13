@@ -16,6 +16,17 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Create Database
+--
+CREATE DATABASE dbCircuitsCourts;
+USE dbCircuitsCourts;
+
+--
+-- Database user
+--
+GRANT ALL PRIVILEGES ON dbCircuitsCourts.* TO userCircuitsCourts@localhost IDENTIFIED BY '57-Ze!_eR';
+
+--
 -- Table structure for table `Abonnement`
 --
 
