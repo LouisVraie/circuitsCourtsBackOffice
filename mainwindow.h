@@ -129,6 +129,8 @@ private slots:
 
     void on_pushButton_gestionProduitsVarietesValider_clicked();
 
+    void on_pushButton_tdbActualiser_clicked();
+
 private:
     Ui::MainWindow *ui;
 

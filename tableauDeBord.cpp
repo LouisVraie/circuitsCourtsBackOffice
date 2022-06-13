@@ -8,8 +8,10 @@
 void MainWindow::initTableauDeBord()
 {
     qDebug()<<"void MainWindow::initTableauDeBord()";
-
+    //on stretch les tableaux
+    ui->tableWidget_tdbVarietesParRayon->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     nbNewVarietes();
+    afficherNbVarietesParRayon();
 }
 
 /**
@@ -39,5 +41,41 @@ void MainWindow::nbNewVarietes()
 void MainWindow::afficherNbVarietesParRayon()
 {
     qDebug()<<"void MainWindow::afficherNbVarietesParRayon()";
+    //on initialise le tableau
+    ui->tableWidget_tdbVarietesParRayon->clearContents();
+    ui->tableWidget_tdbVarietesParRayon->setRowCount(0);
+    //requête qui récupère le nombre de variétés par rayons
+    QString reqVarietesParRayon = "SELECT r.libelleRayon, COUNT(v.numeroVariete) as nbVariete FROM Rayon r "
+                                  "INNER JOIN Produit p ON p.numeroRayon = r.numeroRayon "
+                                  "LEFT OUTER JOIN Variete v ON v.numeroProduit = p.numeroProduit "
+                                  "WHERE DATEDIFF(NOW(),v.dateInscriptionVariete) BETWEEN 0 AND "+nbJourTableauDeBord+" "
+                                  "GROUP BY r.libelleRayon "
+                                  "ORDER BY r.libelleRayon ASC ";
+    qDebug()<<reqVarietesParRayon;
+    QSqlQuery resultVarietesParRayon(reqVarietesParRayon);
+    //si la requête a fonctionné
+    if(resultVarietesParRayon.numRowsAffected() != -1){
+        //on affiche chaque ligne
+        while(resultVarietesParRayon.next()){
+            //on ajoute une ligne au tableau
+            int row = ui->tableWidget_tdbVarietesParRayon->rowCount();
+            ui->tableWidget_tdbVarietesParRayon->setRowCount(row+1);
+            //on insère le contenu de chaque cellule
+            ui->tableWidget_tdbVarietesParRayon->setItem(row,0,new QTableWidgetItem(resultVarietesParRayon.value("libelleRayon").toString()));
+            ui->tableWidget_tdbVarietesParRayon->setItem(row,1,new QTableWidgetItem(resultVarietesParRayon.value("nbVariete").toString()));
+        }
+    }else {
+        ui->statusBar->showMessage("Erreur lors de l'affichage des variétés par rayon !",5000);
+    }
 
+}
+
+/**
+ * @brief MainWindow::on_pushButton_tdbActualiser_clicked
+ * Méthode private slots de la classe MainWindow qui lorsque le bouton Actualiser de l'onglet Tableau de bord est cliqué actualise les données de l'onglet
+ */
+void MainWindow::on_pushButton_tdbActualiser_clicked()
+{
+    qDebug()<<"void MainWindow::on_pushButton_tdbActualiser_clicked()";
+    initTableauDeBord();
 }
