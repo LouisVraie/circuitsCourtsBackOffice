@@ -42,8 +42,32 @@ CREATE TABLE `Abonnement` (
 
 LOCK TABLES `Abonnement` WRITE;
 /*!40000 ALTER TABLE `Abonnement` DISABLE KEYS */;
-INSERT INTO `Abonnement` VALUES (1,'2021-09-09','2022-09-09',100,2);
+INSERT INTO `Abonnement` VALUES (1,'2022-03-23','2023-03-23',100,2);
 /*!40000 ALTER TABLE `Abonnement` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Activite`
+--
+
+DROP TABLE IF EXISTS `Activite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Activite` (
+  `numeroActivite` varchar(5) NOT NULL,
+  `libelleActivite` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`numeroActivite`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Activite`
+--
+
+LOCK TABLES `Activite` WRITE;
+/*!40000 ALTER TABLE `Activite` DISABLE KEYS */;
+INSERT INTO `Activite` VALUES ('0111Z','Culture de céréales (à l\'exception du riz), de légumineuses et de graines oléagineuses'),('0112Z','Culture du riz'),('0113Z','Culture de légumes, de melons, de racines et de tubercules'),('0114Z','Culture de la canne à sucre'),('0115Z','Culture du tabac'),('0116Z','Culture de plantes à fibres'),('0119Z','Autres cultures non permanentes'),('0121Z','Culture de la vigne'),('0122Z','Culture de fruits tropicaux et subtropicaux'),('0123Z','Culture d\'agrumes'),('0124Z','Culture de fruits à pépins et à noyau'),('0125Z','Culture d\'autres fruits d\'arbres ou d\'arbustes et de fruits à coque'),('0126Z','Culture de fruits oléagineux'),('0127Z','Culture de plantes à boissons'),('0128Z','Culture de plantes à épices, aromatiques, médicinales et pharmaceutiques'),('0129Z','Autres cultures permanentes'),('0130Z','Reproduction de plantes'),('0141Z','Élevage de vaches laitières'),('0142Z','Élevage d\'autres bovins et de buffles'),('0143Z','Élevage de chevaux et d\'autres équidés'),('0144Z','Élevage de chameaux et d\'autres camélidés'),('0145Z','Élevage d\'ovins et de caprins'),('0146Z','Élevage de porcins'),('0147Z','Élevage de volailles'),('0149Z','Élevage d\'autres animaux'),('0150Z','Culture et élevage associés'),('0170Z','Chasse, piégeage et services annexes'),('0230Z','Récolte de produits forestiers non ligneux poussant à l\'état sauvage'),('0311Z','Pêche en mer'),('0312Z','Pêche en eau douce'),('0321Z','Aquaculture en mer'),('0322Z','Aquaculture en eau douce'),('0893Z','Production de sel'),('1011Z','Transformation et conservation de la viande de boucherie'),('1012Z','Transformation et conservation de la viande de volaille'),('1013B','Charcuterie'),('1020Z','Transformation et conservation de poisson, de crustacés et de mollusques'),('1031Z','Transformation et conservation de pommes de terre'),('1032Z','Préparation de jus de fruits et légumes'),('1039A','Autre transformation et conservation de légumes'),('1039B','Transformation et conservation de fruits'),('1041A','Fabrication d\'huiles et graisses brutes'),('1041B','Fabrication d\'huiles et graisses raffinées'),('1042Z','Fabrication de margarine et graisses comestibles similaires'),('1051A','Fabrication de lait liquide et de produits frais'),('1051B','Fabrication de beurre'),('1051C','Fabrication de fromage'),('1051D','Fabrication d\'autres produits laitiers'),('1052Z','Fabrication de glaces et sorbets'),('1061A','Meunerie'),('1061B','Autres activités du travail des grains'),('1062Z','Fabrication de produits amylacés'),('1071C','Boulangerie et boulangerie-pâtisserie'),('1071D','Pâtisserie'),('1072Z','Fabrication de biscuits, biscottes et pâtisseries de conservation'),('1073Z','Fabrication de pâtes alimentaires'),('1081Z','Fabrication de sucre'),('1082Z','Fabrication de cacao, chocolat et de produits de confiserie'),('1083Z','Transformation du thé et du café'),('1084Z','Fabrication de condiments et assaisonnements'),('1085Z','Fabrication de plats préparés'),('1086Z','Fabrication d\'aliments homogénéisés et diététiques'),('1089Z','Fabrication d\'autres produits alimentaires n.c.a.'),('1101Z','Production de boissons alcooliques distillées'),('1102A','Fabrication de vins effervescents'),('1102B','Vinification'),('1103Z','Fabrication de cidre et de vins de fruits'),('1104Z','Production d\'autres boissons fermentées non distillées'),('1105Z','Fabrication de bière'),('1106Z','Fabrication de malt'),('1107B','Production de boissons rafraîchissantes');
+/*!40000 ALTER TABLE `Activite` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -103,7 +127,7 @@ CREATE TABLE `Commande` (
 
 LOCK TABLES `Commande` WRITE;
 /*!40000 ALTER TABLE `Commande` DISABLE KEYS */;
-INSERT INTO `Commande` VALUES (100000,6.2,'2021-11-25',1000,1);
+INSERT INTO `Commande` VALUES (100000,6.2,'2022-06-10',1000,1);
 /*!40000 ALTER TABLE `Commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +191,7 @@ CREATE TABLE `Employe` (
 
 LOCK TABLES `Employe` WRITE;
 /*!40000 ALTER TABLE `Employe` DISABLE KEYS */;
-INSERT INTO `Employe` VALUES (1,'ADMIN',NULL,NULL,'22 Rue de la Bastille','05070','Gap','super.admin@gmail.com','06 08 54 59 45','*2D1058E7C081583392B50D63C68CB22293A789E3',1,1),(2,'jdupond','Dupond','Jean','5 Boulevard Henri IV','06000','Nice','jean.dupont@gmail.com','06 58 49 87 78','*22B8C4410798DA75DD3200A96972A79AFC20CAC9',2,1),(3,'ldumas','Dumas','Lisa','78 Avenue LouisXIV','84000','Avignon','lisa.dumas@gmail.com','07 05 46 78 95','*22B8C4410798DA75DD3200A96972A79AFC20CAC9',3,1);
+INSERT INTO `Employe` VALUES (1,'ADMIN',NULL,NULL,'22 Rue de la Bastille','05070','Gap','super.admin@gmail.com','06 08 54 59 45','*2D1058E7C081583392B50D63C68CB22293A789E3',1,1),(2,'jdupond','Dupond','Jean','5 Boulevard Henri IV','06000','Nice','jean.dupont@gmail.com','06 58 49 87 78','*22B8C4410798DA75DD3200A96972A79AFC20CAC9',2,1),(3,'ldumas','Dumas','Lisa','78 Avenue Louis XIV','84000','Avignon','lisa.dumas@gmail.com','07 05 46 78 95','*22B8C4410798DA75DD3200A96972A79AFC20CAC9',3,1),(4,'jdubois','Dubois','Jeannette','45 Rue du Mazelle','05000','Gap','jeanne.dubois@gmail.com','06 85 47 78 98','*22B8C4410798DA75DD3200A96972A79AFC20CAC9',3,1),(5,'hlopez','Lopez','Henri','62 Lotissement des Papillons','05230','La Bâtie Neuve','henri.lopez@gmail.com','06 74 35 97 25','*22B8C4410798DA75DD3200A96972A79AFC20CAC9',2,1),(6,'jdupond2','Dupond','Jean','5 Boulevard Henri IV','06000','Nice','jean.dupont2@gmail.com','06 58 49 87 79','*22B8C4410798DA75DD3200A96972A79AFC20CAC9',2,0),(7,'jdupond500','Dupond','Jean','5 Boulevard Henri IV','06000','Nice','jean.dupont21@gmail.com','06 58 49 87 21','*2DF3063C523DF16DEFB8A454F9DA045D92D509BA',2,0);
 /*!40000 ALTER TABLE `Employe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +204,7 @@ DROP TABLE IF EXISTS `ImageProducteur`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ImageProducteur` (
   `numeroImageProducteur` int(11) NOT NULL,
-  `cheminImageProducteur` varchar(75) DEFAULT NULL,
+  `cheminImageProducteur` varchar(256) DEFAULT NULL,
   `numeroProducteur` int(11) NOT NULL,
   `numeroVariete` int(11) NOT NULL,
   `numeroSemaine` int(11) NOT NULL,
@@ -200,7 +224,7 @@ CREATE TABLE `ImageProducteur` (
 
 LOCK TABLES `ImageProducteur` WRITE;
 /*!40000 ALTER TABLE `ImageProducteur` DISABLE KEYS */;
-INSERT INTO `ImageProducteur` VALUES (1,'images/imageProducteur/100scarole.png',100,10000,1);
+INSERT INTO `ImageProducteur` VALUES (1,'/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/imageProducteur/100scarole.png',100,10000,1);
 /*!40000 ALTER TABLE `ImageProducteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,8 +264,8 @@ DROP TABLE IF EXISTS `Producteur`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Producteur` (
   `numeroProducteur` int(11) NOT NULL,
-  `nomProducteur` varchar(25) DEFAULT NULL,
-  `prenomProducteur` varchar(25) DEFAULT NULL,
+  `nomProducteur` varchar(30) DEFAULT NULL,
+  `prenomProducteur` varchar(30) DEFAULT NULL,
   `adresseProducteur` varchar(50) DEFAULT NULL,
   `villeProducteur` varchar(30) DEFAULT NULL,
   `codePostalProducteur` varchar(5) DEFAULT NULL,
@@ -249,9 +273,14 @@ CREATE TABLE `Producteur` (
   `telProducteur` varchar(14) DEFAULT NULL,
   `mdpProducteur` varchar(30) DEFAULT NULL,
   `dateInscriptionProducteur` date DEFAULT NULL,
-  `validationProducteur` tinyint(1) DEFAULT 0,
+  `validationProducteur` tinyint(1) DEFAULT NULL,
   `raisonInvalidationProducteur` varchar(300) DEFAULT NULL,
-  `activationProducteur` tinyint(1) DEFAULT 1,
+  `activationProducteur` tinyint(1) NOT NULL DEFAULT 1,
+  `numeroSirenProducteur` int(9) NOT NULL,
+  `confirmationMailProducteur` tinyint(1) NOT NULL DEFAULT 0,
+  `codeConfirmationMailProducteur` varchar(40) DEFAULT NULL,
+  `latitudeProducteur` double(10,7) DEFAULT NULL,
+  `longitudeProducteur` double(10,7) DEFAULT NULL,
   PRIMARY KEY (`numeroProducteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -262,7 +291,7 @@ CREATE TABLE `Producteur` (
 
 LOCK TABLES `Producteur` WRITE;
 /*!40000 ALTER TABLE `Producteur` DISABLE KEYS */;
-INSERT INTO `Producteur` VALUES (100,'Dupont','Jean','La Renardière, Route d\'Avançon','Valserres','05130','jean.dupont@gmail.com','06 45 24 03 27',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `Producteur` VALUES (100,'Dupont','Jean','La Renardière, Route d\'Avançon','Valserres','05130','jean.dupont@gmail.com','06 45 24 03 27',NULL,'2022-03-23',1,NULL,1,589712421,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `Producteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +305,7 @@ DROP TABLE IF EXISTS `Produit`;
 CREATE TABLE `Produit` (
   `numeroProduit` int(11) NOT NULL,
   `libelleProduit` varchar(25) DEFAULT NULL,
-  `imageProduit` varchar(75) DEFAULT NULL,
+  `imageProduit` varchar(256) DEFAULT NULL,
   `numeroRayon` int(11) NOT NULL,
   `dateInscriptionProduit` date DEFAULT NULL,
   PRIMARY KEY (`numeroProduit`),
@@ -291,7 +320,7 @@ CREATE TABLE `Produit` (
 
 LOCK TABLES `Produit` WRITE;
 /*!40000 ALTER TABLE `Produit` DISABLE KEYS */;
-INSERT INTO `Produit` VALUES (1000,'Salade','images/produit/salade.png',4,NULL),(1001,'Carotte','images/produit/carotte.png',4,NULL),(1002,'Porc','images/produit/porc.png',2,NULL);
+INSERT INTO `Produit` VALUES (1000,'Salade','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/produit/salade.png',4,'2022-04-12'),(1001,'Carotte','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/produit/carotte.png',4,'2022-04-12'),(1002,'Porc','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/produit/porc.png',2,'2022-04-12'),(1003,'Poire','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/produit/poire.png',3,'2022-06-09');
 /*!40000 ALTER TABLE `Produit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,7 +361,7 @@ CREATE TABLE `ProduitProducteur` (
 
 LOCK TABLES `ProduitProducteur` WRITE;
 /*!40000 ALTER TABLE `ProduitProducteur` DISABLE KEYS */;
-INSERT INTO `ProduitProducteur` VALUES (1,35.3,1.2,'2021-11-23',100,1,1,10000,1),(2,20.5,4,'2021-11-23',100,1,1,10003,NULL);
+INSERT INTO `ProduitProducteur` VALUES (1,35.3,1.2,'2022-06-07',100,1,1,10000,1),(2,20.5,4,'2022-06-07',100,1,1,10003,NULL);
 /*!40000 ALTER TABLE `ProduitProducteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,7 +402,7 @@ DROP TABLE IF EXISTS `Rayon`;
 CREATE TABLE `Rayon` (
   `numeroRayon` int(11) NOT NULL,
   `libelleRayon` varchar(25) DEFAULT NULL,
-  `imageRayon` varchar(75) DEFAULT NULL,
+  `imageRayon` varchar(256) DEFAULT NULL,
   `dateInscriptionRayon` date DEFAULT NULL,
   PRIMARY KEY (`numeroRayon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -385,7 +414,7 @@ CREATE TABLE `Rayon` (
 
 LOCK TABLES `Rayon` WRITE;
 /*!40000 ALTER TABLE `Rayon` DISABLE KEYS */;
-INSERT INTO `Rayon` VALUES (1,'Volaille, oeuf','images/rayon/volailleOeuf.png',NULL),(2,'Boucherie','images/rayon/boucherie.png',NULL),(3,'Fruit','images/rayon/fruit.png',NULL),(4,'Légume','images/rayon/legume.png',NULL);
+INSERT INTO `Rayon` VALUES (1,'Volaille, oeuf','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/rayon/volailleOeuf.png','2022-04-12'),(2,'Boucherie','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/rayon/boucherie.png','2022-04-12'),(3,'Fruit','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/rayon/fruit.png','2022-04-12'),(4,'Légume','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/rayon/legume.png','2022-04-12');
 /*!40000 ALTER TABLE `Rayon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -410,7 +439,7 @@ CREATE TABLE `Semaine` (
 
 LOCK TABLES `Semaine` WRITE;
 /*!40000 ALTER TABLE `Semaine` DISABLE KEYS */;
-INSERT INTO `Semaine` VALUES (1,'2021-11-22','2021-11-28');
+INSERT INTO `Semaine` VALUES (1,'2022-06-06','2022-06-12');
 /*!40000 ALTER TABLE `Semaine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,7 +498,7 @@ CREATE TABLE `TypeAbonnement` (
 
 LOCK TABLES `TypeAbonnement` WRITE;
 /*!40000 ALTER TABLE `TypeAbonnement` DISABLE KEYS */;
-INSERT INTO `TypeAbonnement` VALUES (1,'Mensuel',20,1),(2,'Annuel',100,12);
+INSERT INTO `TypeAbonnement` VALUES (1,'Mensuel',20,1),(2,'Annuel',100,12),(3,'Semestriel',70,6);
 /*!40000 ALTER TABLE `TypeAbonnement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -517,7 +546,7 @@ CREATE TABLE `TypeProducteur` (
 
 LOCK TABLES `TypeProducteur` WRITE;
 /*!40000 ALTER TABLE `TypeProducteur` DISABLE KEYS */;
-INSERT INTO `TypeProducteur` VALUES (1,'Maraicher'),(2,'Boucher');
+INSERT INTO `TypeProducteur` VALUES (1,'Maraîcher'),(2,'Boucher'),(3,'Charcutier'),(4,'Arboriculteur'),(5,'Éleveur');
 /*!40000 ALTER TABLE `TypeProducteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -555,9 +584,10 @@ DROP TABLE IF EXISTS `Variete`;
 CREATE TABLE `Variete` (
   `numeroVariete` int(11) NOT NULL,
   `libelleVariete` varchar(25) DEFAULT NULL,
-  `imageVariete` varchar(75) DEFAULT NULL,
+  `imageVariete` varchar(256) DEFAULT NULL,
   `numeroProduit` int(11) NOT NULL,
   `dateInscriptionVariete` date DEFAULT NULL,
+  `estValide` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`numeroVariete`),
   KEY `numeroProduit` (`numeroProduit`),
   CONSTRAINT `Variete_ibfk_1` FOREIGN KEY (`numeroProduit`) REFERENCES `Produit` (`numeroProduit`)
@@ -570,7 +600,7 @@ CREATE TABLE `Variete` (
 
 LOCK TABLES `Variete` WRITE;
 /*!40000 ALTER TABLE `Variete` DISABLE KEYS */;
-INSERT INTO `Variete` VALUES (10000,'Scarole','images/variete/scarole.png',1000,NULL),(10001,'Frisée','images/variete/frisee.png',1000,NULL),(10002,'Mâche','images/variete/mache.png',1000,NULL),(10003,'Mesclun','images/variete/mesclun.png',1000,NULL);
+INSERT INTO `Variete` VALUES (10000,'Scarole','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/scarole.png',1000,'2022-04-12',1),(10001,'Frisée','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/frisee.png',1000,'2022-04-12',0),(10002,'Mâche','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/mache.png',1000,'2022-04-12',1),(10003,'Mesclun','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/mesclun.png',1000,'2022-04-12',0),(10004,'William','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/william.png',1003,'2022-06-09',0),(10005,'Général Leclerc','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/general-leclerc.png',1003,'2022-06-09',0);
 /*!40000 ALTER TABLE `Variete` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -583,4 +613,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-16 16:43:07
+-- Dump completed on 2022-06-13  8:43:59
