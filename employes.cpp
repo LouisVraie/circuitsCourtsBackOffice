@@ -30,8 +30,8 @@ void MainWindow::initEmployes()
     connect(ui->lineEdit_employesTel,SIGNAL(textChanged(QString)),this,SLOT(on_allLineEditEmploye_textChanged()));
 
     //on définit les verifications de saisies
-    QRegExp regexVerifEmail("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}");
-    ui->lineEdit_employesMail->setValidator(new QRegExpValidator(regexVerifEmail));
+    QRegularExpression regexVerifEmail("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}");
+    ui->lineEdit_employesMail->setValidator(new QRegularExpressionValidator(regexVerifEmail));
 
     //on désactive le bouton modifier par défaut
     ui->pushButton_modifierEmploye->setEnabled(false);

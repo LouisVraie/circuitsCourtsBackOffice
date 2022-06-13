@@ -176,7 +176,7 @@ void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString 
 {
     qDebug()<<"void MainWindow::setTableGestionProduitsVarietesEstValideColor(int row, QString backgroundColor)";
     qDebug()<<row<<backgroundColor;
-    ui->tableWidget_gestionProduitsVarietes->item(row,1)->setBackgroundColor(backgroundColor);
+    ui->tableWidget_gestionProduitsVarietes->item(row,1)->setBackground(QBrush(QColor(backgroundColor)));
 }
 
 /**

@@ -150,7 +150,7 @@ void MainWindow::afficherTableProducteurInvalides()
 void MainWindow::setTableProducteurValidesActivationColor(int row, QString backgroundColor)
 {
     qDebug()<<"void MainWindow::setTableProducteurValidesActivationColor(int row, QString backgroundColor)";
-    ui->tableWidget_producteursValides->item(row,9)->setBackgroundColor(backgroundColor);
+    ui->tableWidget_producteursValides->item(row,9)->setBackground(QBrush(QColor(backgroundColor)));
 }
 
 /**
