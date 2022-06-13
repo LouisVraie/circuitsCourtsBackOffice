@@ -24,7 +24,7 @@ MainWindow::MainWindow(QString numeroEmploye,QWidget *parent) :
     telMinimumSize = 10;
     libelleMinimumSize = 3;
     imagePathMinimumSize = 6;
-    nbJourTableauDeBord = "56";
+
     //initialisation des éléments de l'UI
     setWindowTitle("CircuitsCourts - BackOffice");
 

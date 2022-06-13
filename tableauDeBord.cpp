@@ -8,7 +8,7 @@
 void MainWindow::initTableauDeBord()
 {
     qDebug()<<"void MainWindow::initTableauDeBord()";
-    //nbJourTableauDeBord = QString::number(ui->spinBox_tdbNbJours->value());
+    nbJourTableauDeBord = QString::number(ui->spinBox_tdbNbJours->value());
     ui->label_tdbTitre->setText("Résumé des "+nbJourTableauDeBord+" derniers jours");
     chiffresDAffaires = 0;
 
