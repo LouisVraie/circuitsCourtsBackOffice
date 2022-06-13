@@ -42,7 +42,7 @@ CREATE TABLE `Abonnement` (
 
 LOCK TABLES `Abonnement` WRITE;
 /*!40000 ALTER TABLE `Abonnement` DISABLE KEYS */;
-INSERT INTO `Abonnement` VALUES (1,'2022-03-23','2023-03-23',100,2);
+INSERT INTO `Abonnement` VALUES (1,'2022-03-23','2023-03-23',100,2),(2,'2022-05-26','2023-05-26',101,2),(3,'2022-06-03','2022-12-03',102,3);
 /*!40000 ALTER TABLE `Abonnement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `Client` (
 
 LOCK TABLES `Client` WRITE;
 /*!40000 ALTER TABLE `Client` DISABLE KEYS */;
-INSERT INTO `Client` VALUES (1000,NULL,NULL,'olivier.martin@gmail.com',NULL,NULL,NULL,NULL);
+INSERT INTO `Client` VALUES (1000,'Martin','Olivier','olivier.martin@gmail.com','06 74 45 38 78','31 Boulevard de la Libération','Gap','05000'),(1001,'Dotri','Fanny','fanny.dotri@gmail.com','06 15 61 35 36','89 Route de Tokoro','Gap','05000'),(1002,'Pemmari','Louis','louis.pemmari@gmail.com','07 15 78 39 36','Chemin des Abeilles','Chorges','05230'),(1003,'Oblir','Sabrina','sabrina.oblir@gmail.com','06 75 24 30 61','64 Avenue Commandant Dumond','Gap','05000'),(1004,'Kebir','Marc','marc.kebir@gmail.com','07 64 31 08 20','12 Route de Neffes','Gap','05000');
 /*!40000 ALTER TABLE `Client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +127,7 @@ CREATE TABLE `Commande` (
 
 LOCK TABLES `Commande` WRITE;
 /*!40000 ALTER TABLE `Commande` DISABLE KEYS */;
-INSERT INTO `Commande` VALUES (100000,6.2,'2022-06-10',1000,1);
+INSERT INTO `Commande` VALUES (100000,6.2,'2022-06-10',1000,1),(100001,12.5,'2022-06-11',1001,1),(100002,21.04,'2022-06-11',1002,1),(100003,23.86,'2022-06-13',1004,2),(100004,38.44,'2022-06-13',1001,2);
 /*!40000 ALTER TABLE `Commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +155,7 @@ CREATE TABLE `Contient` (
 
 LOCK TABLES `Contient` WRITE;
 /*!40000 ALTER TABLE `Contient` DISABLE KEYS */;
-INSERT INTO `Contient` VALUES (2,100000,1),(1,100000,2);
+INSERT INTO `Contient` VALUES (2,100000,1),(1,100000,2),(1,100001,3),(2,100002,4),(1,100003,5),(1,100004,6),(1,100004,7);
 /*!40000 ALTER TABLE `Contient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,7 +251,7 @@ CREATE TABLE `Possede` (
 
 LOCK TABLES `Possede` WRITE;
 /*!40000 ALTER TABLE `Possede` DISABLE KEYS */;
-INSERT INTO `Possede` VALUES (1000,100);
+INSERT INTO `Possede` VALUES (1000,100),(1001,101),(1001,102),(1002,102),(1003,100),(1003,102),(1004,101);
 /*!40000 ALTER TABLE `Possede` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,7 +291,7 @@ CREATE TABLE `Producteur` (
 
 LOCK TABLES `Producteur` WRITE;
 /*!40000 ALTER TABLE `Producteur` DISABLE KEYS */;
-INSERT INTO `Producteur` VALUES (100,'Dupont','Jean','La Renardière, Route d\'Avançon','Valserres','05130','jean.dupont@gmail.com','06 45 24 03 27',NULL,'2022-03-23',1,NULL,1,589712421,0,NULL,NULL,NULL);
+INSERT INTO `Producteur` VALUES (100,'Dupont','Jean','La Renardière, Route d\'Avançon','Valserres','05130','jean.dupont@gmail.com','06 45 24 03 27',NULL,'2022-03-23',1,NULL,1,589712421,0,NULL,NULL,NULL),(101,'Larade','Henri','466 Route des Papillons','La Bâtie-Neuve','05230','henri.larade@gmail.com','06 78 65 35 78',NULL,'2022-05-26',1,NULL,1,154229635,1,NULL,6.2078140,44.5676680),(102,'Gature','Emma','5 Chemin des Oliviers','Veynes','05400','emma.gature@gmail.com','07 29 35 54 35',NULL,'2022-06-03',1,NULL,1,207891568,1,NULL,5.8004170,44.5265800),(103,'Jezi','Antoine','Route de Côme','Toulon','83000','antoine.jezi@gmail.com','07 89 15 24 54',NULL,'2022-06-05',0,'Zone géographique incorrecte',0,300489261,1,NULL,NULL,NULL),(104,'Plomeri','Lara','Chemin du Moulin','Romette','05000','lara.plomeri@gmail.com','06 48 62 34 65',NULL,'2022-06-05',NULL,NULL,1,780064541,1,NULL,6.1113720,44.5804750);
 /*!40000 ALTER TABLE `Producteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,7 +361,7 @@ CREATE TABLE `ProduitProducteur` (
 
 LOCK TABLES `ProduitProducteur` WRITE;
 /*!40000 ALTER TABLE `ProduitProducteur` DISABLE KEYS */;
-INSERT INTO `ProduitProducteur` VALUES (1,35.3,1.2,'2022-06-07',100,1,1,10000,1),(2,20.5,4,'2022-06-07',100,1,1,10003,NULL);
+INSERT INTO `ProduitProducteur` VALUES (1,35.3,1.2,'2022-06-07',100,1,1,10000,1),(2,20.5,4,'2022-06-07',100,1,1,10003,NULL),(3,6,12.5,'2022-06-09',102,1,2,10004,NULL),(4,4,10.52,'2022-06-09',102,1,2,10005,NULL),(5,5.76,23.86,'2022-06-13',101,2,1,10008,NULL),(6,4.6,18.99,'2022-06-13',101,2,1,10006,NULL),(7,3.25,19.45,'2022-06-13',101,2,1,10007,NULL);
 /*!40000 ALTER TABLE `ProduitProducteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,7 +388,7 @@ CREATE TABLE `Profession` (
 
 LOCK TABLES `Profession` WRITE;
 /*!40000 ALTER TABLE `Profession` DISABLE KEYS */;
-INSERT INTO `Profession` VALUES (100,1);
+INSERT INTO `Profession` VALUES (100,1),(101,2),(101,3),(102,4),(103,2),(104,1),(104,4);
 /*!40000 ALTER TABLE `Profession` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -439,7 +439,7 @@ CREATE TABLE `Semaine` (
 
 LOCK TABLES `Semaine` WRITE;
 /*!40000 ALTER TABLE `Semaine` DISABLE KEYS */;
-INSERT INTO `Semaine` VALUES (1,'2022-06-06','2022-06-12');
+INSERT INTO `Semaine` VALUES (1,'2022-06-06','2022-06-12'),(2,'2022-06-13','2022-06-19');
 /*!40000 ALTER TABLE `Semaine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -472,7 +472,7 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (1,'348e88567bdce2f8ac47cd3c9121950f',1,100,1000);
+INSERT INTO `Ticket` VALUES (1,'348e88567bdce2f8ac47cd3c9121950f',1,100,1000),(2,'890e5c57afcea4d5293f246b90bf689b',1,102,1001),(3,'4397626badee48658e2f86945fed80df',1,102,1002),(4,'657eef5ca28b6f457752c34e56d74424',2,101,1001),(5,'b5eb852aac5044b151d398b51ef92f72',2,101,1004);
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -600,7 +600,7 @@ CREATE TABLE `Variete` (
 
 LOCK TABLES `Variete` WRITE;
 /*!40000 ALTER TABLE `Variete` DISABLE KEYS */;
-INSERT INTO `Variete` VALUES (10000,'Scarole','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/scarole.png',1000,'2022-04-12',1),(10001,'Frisée','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/frisee.png',1000,'2022-04-12',0),(10002,'Mâche','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/mache.png',1000,'2022-04-12',1),(10003,'Mesclun','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/mesclun.png',1000,'2022-04-12',0),(10004,'William','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/william.png',1003,'2022-06-09',0),(10005,'Général Leclerc','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/general-leclerc.png',1003,'2022-06-09',0);
+INSERT INTO `Variete` VALUES (10000,'Scarole','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/scarole.png',1000,'2022-04-12',1),(10001,'Frisée','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/frisee.png',1000,'2022-04-12',0),(10002,'Mâche','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/mache.png',1000,'2022-04-12',1),(10003,'Mesclun','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/mesclun.png',1000,'2022-04-12',1),(10004,'William','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/william.png',1003,'2022-06-09',1),(10005,'Général Leclerc','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/general-leclerc.png',1003,'2022-06-09',1),(10006,'Saucisses aux herbes','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/saucisses-aux-herbes.png',1002,'2022-06-13',1),(10007,'Merguez','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/merguez.png',1002,'2022-06-13',1),(10008,'Rôti dans l\'échine','/home/lvraie/sio2/GitHub/circuitsCourtsBackOffice/images/variete/roti-echine-de-porc.png',1002,'2022-06-13',1);
 /*!40000 ALTER TABLE `Variete` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -613,4 +613,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-13  8:43:59
+-- Dump completed on 2022-06-13 10:39:39
