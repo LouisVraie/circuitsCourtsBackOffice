@@ -11,8 +11,8 @@ DialogConnexion::DialogConnexion(QWidget *parent) :
     ui(new Ui::DialogConnexion)
 {
     ui->setupUi(this);
-    ui->lineEditLogin->setText("ADMIN");
-    ui->lineEditMotDePasse->setText("XITgfUibs1456");
+    ui->lineEditLogin->setText("");
+    ui->lineEditMotDePasse->setText("");
     numeroEmploye = "";
     nbTentativeConnexion = 0;
 }
