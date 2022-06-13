@@ -36,6 +36,7 @@ public:
     void nbNewProducteurs();
     void nbNewVarietes();
     void afficherNbVarietesParRayon();
+    void nbNewLotsDeProductions();
 
     /* employes.cpp */
     void initEmployes();

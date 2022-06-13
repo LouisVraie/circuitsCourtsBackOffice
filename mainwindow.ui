@@ -183,29 +183,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_tdbEvolutionCA">
-            <property name="text">
-             <string>Évolution du CA depuis le mois dernier :</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox_tdbNbLotsDeProductions">
-            <property name="wrapping">
-             <bool>false</bool>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-            <property name="maximum">
-             <number>999999999</number>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="1">
            <widget class="QDoubleSpinBox" name="doubleSpinBox_tdbNbCAAbonnements">
             <property name="wrapping">
@@ -222,6 +199,13 @@
             </property>
             <property name="maximum">
              <double>1000000000000000078291540404596243842305360299886116864.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_tdbEvolutionCA">
+            <property name="text">
+             <string>Évolution du CA depuis le mois dernier :</string>
             </property>
            </widget>
           </item>
@@ -244,6 +228,22 @@
             </property>
             <property name="maximum">
              <double>1000000000000000078291540404596243842305360299886116864.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="spinBox_tdbNbLotsDeProductions">
+            <property name="wrapping">
+             <bool>false</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="maximum">
+             <number>999999999</number>
             </property>
            </widget>
           </item>

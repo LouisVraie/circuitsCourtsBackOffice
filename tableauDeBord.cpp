@@ -14,6 +14,7 @@ void MainWindow::initTableauDeBord()
     nbNewProducteurs();
     nbNewVarietes();
     afficherNbVarietesParRayon();
+    nbNewLotsDeProductions();
 }
 
 /**
@@ -100,4 +101,24 @@ void MainWindow::on_pushButton_tdbActualiser_clicked()
 {
     qDebug()<<"void MainWindow::on_pushButton_tdbActualiser_clicked()";
     initTableauDeBord();
+}
+
+/**
+ * @brief MainWindow::nbNewLotsDeProductions
+ * Méthode publique de la classe MainWindow qui affiche le nombre de nouveaux lots de productions dans le tableau de bord
+ */
+void MainWindow::nbNewLotsDeProductions()
+{
+    qDebug()<<"void MainWindow::nbNewLotsDeProductions()";
+    QString reqNbNewLotsDeProductions = "SELECT COUNT(*) FROM ProduitProducteur "
+                               "WHERE DATEDIFF(NOW(),dateAjoutProduitProducteur) BETWEEN 0 AND "+nbJourTableauDeBord;
+    qDebug()<<reqNbNewLotsDeProductions;
+    QSqlQuery resultNbNewLotsDeProductions(reqNbNewLotsDeProductions);
+    //si la requête a fonctionné
+    if(resultNbNewLotsDeProductions.numRowsAffected() != -1){
+        resultNbNewLotsDeProductions.next();
+        ui->spinBox_tdbNbLotsDeProductions->setValue(resultNbNewLotsDeProductions.value(0).toInt());
+    } else {
+        ui->statusBar->showMessage("Erreur lors de l'affichage du nombre de nouveaux lots de productions !");
+    }
 }
