@@ -8,16 +8,20 @@
 void MainWindow::initTableauDeBord()
 {
     qDebug()<<"void MainWindow::initTableauDeBord()";
+    //nbJourTableauDeBord = QString::number(ui->spinBox_tdbNbJours->value());
+    ui->label_tdbTitre->setText("Résumé des "+nbJourTableauDeBord+" derniers jours");
     chiffresDAffaires = 0;
 
     //on stretch les tableaux
     ui->tableWidget_tdbVarietesParRayon->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
 
     nbNewProducteurs();
     nbNewVarietes();
     afficherNbVarietesParRayon();
     nbNewLotsDeProductions();
     nbChiffreDAffairesAbonnements();
+    evolutionChiffreDAffaires();
 }
 
 /**
@@ -144,6 +148,35 @@ void MainWindow::nbChiffreDAffairesAbonnements()
         chiffresDAffaires = resultChiffreDAffairesAbonnements.value(0).toInt();
         ui->doubleSpinBox_tdbNbCAAbonnements->setValue(chiffresDAffaires);
     } else {
-        ui->statusBar->showMessage("Erreur lors de l'affichage du nombre du chiffre d'affaires des abonnements !");
+        ui->statusBar->showMessage("Erreur lors de l'affichage du chiffre d'affaires des abonnements !");
+    }
+}
+
+/**
+ * @brief MainWindow::evolutionChiffreDAffaires
+ * Méthode publique de la classe MainWindow qui affiche l'évolution du chiffre d'affaires des abonnements par rapport à la précédente période dans le tableau de bord
+ */
+void MainWindow::evolutionChiffreDAffaires()
+{
+    qDebug()<<"void MainWindow::evolutionChiffreDAffaires()";
+    QString minBetween = QString::number(nbJourTableauDeBord.toInt()+1);
+    QString maxBetween = QString::number(nbJourTableauDeBord.toInt()*2+1);
+    QString reqChiffreDAffairesAbonnementsPrecedent = "SELECT IFNULL(SUM(ta.prixTypeAbonnement),0) FROM TypeAbonnement ta "
+                                             "INNER JOIN Abonnement a ON a.numeroTypeAbonnement = ta.numeroTypeAbonnement "
+                                             "WHERE DATEDIFF(NOW(),a.dateDebAbonnement) BETWEEN "+minBetween+" AND "+maxBetween;
+    qDebug()<<reqChiffreDAffairesAbonnementsPrecedent;
+    QSqlQuery resultChiffreDAffairesAbonnementsPrecedent(reqChiffreDAffairesAbonnementsPrecedent);
+    //si la requête a fonctionné
+    if(resultChiffreDAffairesAbonnementsPrecedent.numRowsAffected() != -1){
+        resultChiffreDAffairesAbonnementsPrecedent.next();
+        double chiffresDAffairesPrecedent = resultChiffreDAffairesAbonnementsPrecedent.value(0).toInt();
+        double evolutionCA = chiffresDAffaires;
+        //si chiffresDAffairesPrecedent vaut 0
+        if(chiffresDAffairesPrecedent != 0){
+            evolutionCA = ((chiffresDAffaires-chiffresDAffairesPrecedent)/chiffresDAffairesPrecedent)*100;
+        }
+        ui->doubleSpinBox_tdbNbEvolutionCA->setValue(evolutionCA);
+    } else {
+        ui->statusBar->showMessage("Erreur lors de l'affichage de l'évolution du chiffre d'affaires des abonnements !");
     }
 }

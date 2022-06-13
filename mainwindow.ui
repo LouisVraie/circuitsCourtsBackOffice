@@ -69,9 +69,32 @@
            </spacer>
           </item>
           <item>
+           <widget class="QSpinBox" name="spinBox_tdbNbJours">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string> jours</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>365</number>
+            </property>
+            <property name="value">
+             <number>28</number>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton_tdbActualiser">
             <property name="text">
              <string>&amp;Actualiser</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/images/images/refresh.png</normaloff>:/images/images/refresh.png</iconset>
             </property>
            </widget>
           </item>
@@ -205,7 +228,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="label_tdbEvolutionCA">
             <property name="text">
-             <string>Évolution du CA depuis le mois dernier :</string>
+             <string>Évolution du CA depuis la dernière période :</string>
             </property>
            </widget>
           </item>

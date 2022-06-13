@@ -38,6 +38,7 @@ public:
     void afficherNbVarietesParRayon();
     void nbNewLotsDeProductions();
     void nbChiffreDAffairesAbonnements();
+    void evolutionChiffreDAffaires();
 
     /* employes.cpp */
     void initEmployes();

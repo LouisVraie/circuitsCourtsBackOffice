@@ -30,6 +30,6 @@
         <file>images/pencil.png</file>
         <file>images/close.png</file>
         <file>images/file-image.png</file>
+        <file>images/refresh.png</file>
     </qresource>
-    <qresource prefix="/"/>
 </RCC>
